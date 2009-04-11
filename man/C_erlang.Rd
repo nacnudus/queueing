@@ -6,7 +6,7 @@
   Returns the probability to wait in queue bacause all servers are busy
 }
 \usage{
-  C_erlang(c, r)
+  C_erlang(c=1, r=0)
 }
 \arguments{
   \item{c}{numbers of servers}

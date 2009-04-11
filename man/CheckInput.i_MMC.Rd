@@ -29,7 +29,7 @@ Editorial Centro de Estudios Ramon Areces.
 \examples{
 ## See example 10.9 in reference [Sixto2004] for more details.
 ## create input parameters
-i_mmc <- NewInput.MMC(lambda=5, mu=10, c=2, n=0)
+i_mmc <- NewInput.MMC(lambda=5, mu=10, c=2, n=0, method=0)
 
 ## check the parameters
 CheckInput(i_mmc)

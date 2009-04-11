@@ -9,20 +9,26 @@
   Li(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_OJN}
+  \item{x}{a object of class o_OJN, o_MCON}
   \item{\dots}{aditional arguments}
 }
 
 \details{Returns the vector with the mean number of clients in each node (server) of a queueing network}
 
 \references{
- [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
+
+[Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
 \emph{Investigacion Operativa. Modelos deterministicos y estocasticos}.\cr
-Editorial Centro de Estudios Ramon Areces.
+Editorial Centro de Estudios Ramon Areces.\cr
+\cr
+  [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr
+\emph{Quantitative System Performance: Computer System Analysis Using Queueing Network Models}.\cr
+Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
-  \code{\link{Li.o_OJN}}
+  \code{\link{Li.o_OJN}}\cr
+  \code{\link{Li.o_MCON}}
 }
 
 

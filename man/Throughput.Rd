@@ -9,7 +9,7 @@
  Throughput(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInf, o_OJN}
+  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf, o_OJN, o_MCON}
   \item{\dots}{aditional arguments}
 }
 
@@ -18,7 +18,11 @@
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
 \emph{Investigacion Operativa. Modelos deterministicos y estocasticos}.\cr
-Editorial Centro de Estudios Ramon Areces.
+Editorial Centro de Estudios Ramon Areces.\cr
+\cr
+  [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr
+\emph{Quantitative System Performance: Computer System Analysis Using Queueing Network Models}.\cr
+Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
@@ -30,8 +34,10 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{Throughput.o_MMCKK}}\cr
   \code{\link{Throughput.o_MMCC}}\cr
   \code{\link{Throughput.o_MMCKM}}\cr
+  \code{\link{Throughput.o_MMInfKK}}\cr
   \code{\link{Throughput.o_MMInf}}\cr
-  \code{\link{Throughput.o_OJN}}
+  \code{\link{Throughput.o_OJN}}\cr
+  \code{\link{Throughput.o_MCON}}
 }
 
 

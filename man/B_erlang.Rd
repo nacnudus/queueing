@@ -6,7 +6,7 @@
   Returns the probability that all servers are busy
 }
 \usage{
-  B_erlang(c, u)
+  B_erlang(c=1, u=0)
 }
 \arguments{
   \item{c}{numbers of servers}

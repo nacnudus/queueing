@@ -9,7 +9,7 @@
   CheckInput(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class i_MM1, i_MMC, i_MM1K, i_MMCK, i_MM1KK, i_MMCKK, i_MMCC, i_MMCKM, i_MMInf, i_OJN}
+  \item{x}{a object of class i_MM1, i_MMC, i_MM1K, i_MMCK, i_MM1KK, i_MMCKK, i_MMCC, i_MMCKM, i_MMInfKK, i_MMInf, i_OJN}
   \item{\dots}{aditional arguments}
 }
 
@@ -19,6 +19,11 @@
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
 \emph{Investigacion Operativa. Modelos deterministicos y estocasticos}.\cr
 Editorial Centro de Estudios Ramon Areces.
+\cr\cr
+[Kleinrock1975] Leonard Kleinrock (1975).\cr
+\emph{Queueing Systems Vol 1: Theory}.\cr
+John Wiley & Sons.
+
 }
 
 \seealso{
@@ -30,6 +35,7 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{CheckInput.i_MMCKK}}\cr
   \code{\link{CheckInput.i_MMCC}}\cr
   \code{\link{CheckInput.i_MMCKM}}\cr
+  \code{\link{CheckInput.i_MMInfKK}}\cr
   \code{\link{CheckInput.i_MMInf}}\cr
   \code{\link{CheckInput.i_OJN}}
 }

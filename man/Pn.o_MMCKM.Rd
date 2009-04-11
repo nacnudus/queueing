@@ -27,7 +27,7 @@ Editorial Centro de Estudios Ramon Areces.
 
 \examples{
 ## create input parameters
-i_mmckm <- NewInput.MMCKM(lambda=0.25, mu=4, c=2, k=4, m=8)
+i_mmckm <- NewInput.MMCKM(lambda=0.25, mu=4, c=2, k=4, m=8, method=0)
 
 ## Build the model
 o_mmckm <- QueueingModel(i_mmckm)

@@ -42,7 +42,7 @@ i_ojn1 <- NewInput.OJN(prob, n1, n2, n3, n4)
 # Build the model
 o_ojn1 <- QueueingModel(i_ojn1)
 
-W(o_ojn1)
+Inputs(o_ojn1)
 
 }
 

@@ -9,7 +9,7 @@
   LLq(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MM1, o_MMInf}
+  \item{x}{a object of class o_MM1, o_MMInfKK, o_MMInf}
   \item{\dots}{aditional arguments}
 }
 
@@ -23,6 +23,7 @@ Editorial Centro de Estudios Ramon Areces.
 
 \seealso{
   \code{\link{LLq.o_MM1}}\cr
+  \code{\link{LLq.o_MMInfKK}}\cr
   \code{\link{LLq.o_MMInf}}
 }
 

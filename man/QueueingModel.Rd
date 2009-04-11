@@ -9,7 +9,7 @@
   QueueingModel(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class i_MM1, i_MMC, i_MM1K, i_MMCK, i_MM1KK, i_MMCKK, i_MMCC, i_MMCKM, i_MMInf, o_OJN}
+  \item{x}{a object of class i_MM1, i_MMC, i_MM1K, i_MMCK, i_MM1KK, i_MMCKK, i_MMCC, i_MMCKM, i_MMInfKK, i_MMInf, o_OJN, o_MCON}
   \item{\dots}{aditional arguments}
 }
 
@@ -30,8 +30,10 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{QueueingModel.i_MMCKK}}\cr
   \code{\link{QueueingModel.i_MMCC}}\cr
   \code{\link{QueueingModel.i_MMCKM}}\cr
+  \code{\link{QueueingModel.i_MMInfKK}}\cr
   \code{\link{QueueingModel.i_MMInf}}\cr
-  \code{\link{QueueingModel.i_OJN}}
+  \code{\link{QueueingModel.i_OJN}}\cr
+  \code{\link{QueueingModel.i_MCON}}
 }
 
 
