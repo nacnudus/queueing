@@ -1,0 +1,13 @@
+To cite package ‘queueing’ in publications use:
+
+  R original by Pedro Canadilla (2009). queueing: Markovian Queueing systems. R package
+  version 0.1.0.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {queueing: Markovian Queueing systems},
+    author = {R original by Pedro Canadilla},
+    year = {2010},
+    note = {R package version 0.1.0},
+  }
