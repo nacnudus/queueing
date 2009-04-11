@@ -1,13 +1,18 @@
-To cite package ‘queueing’ in publications use:
+citHeader("To cite package 'queueing' in publications use:")
+     
+desc <- packageDescription("queueing")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste("R package version", desc$Version)
+     
+citEntry(entry="Manual",
+  title = "queueing: Basic Markovian queueing systems.",
+  author = personList(as.person("Pedro Canadilla")),
+  year = year,
+  note = vers,
+     
+  textVersion =
+  paste("Pedro Canadilla (",
+    year,
+    "). queueing: Basic Markovian queueing systems. ",
+    vers, ".", sep=""))
 
-  R original by Pedro Canadilla (2009). queueing: Markovian Queueing systems. R package
-  version 0.1.0.
-
-A BibTeX entry for LaTeX users is
-
-  @Manual{,
-    title = {queueing: Markovian Queueing systems},
-    author = {R original by Pedro Canadilla},
-    year = {2010},
-    note = {R package version 0.1.0},
-  }

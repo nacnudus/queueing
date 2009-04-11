@@ -2057,8 +2057,8 @@ QueueingModel.i_CJN <- function(x, ...)
   W <- (x$n / throughput) - x$z
   L <- x$n - (throughput * x$z)
 
-  if (class(x$prob) != "matrix")
-    wi <- wi * x$prob
+  #if (class(x$prob) != "matrix")
+  #  wi <- wi * x$prob
 
   res <- list(Inputs=x, Lambdai = lambdai, RO=RO, L=L, W=W, Wi = wi, Li = li, Throughput = throughput)
   class(res) <- "o_CJN"
