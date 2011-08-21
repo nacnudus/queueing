@@ -1,16 +1,38 @@
+2011-09-23 Pedro Canadilla <pedro.canadilla@gmail.com>
+
+    * Introduced the Closed Multi Classes model.
+    * Nomenclature more consistent. Wi, Li, Throughputi has been substituted by Wk, Lk, Throughputk
+respectively.
+    * Several minor errors in the documentation has been fixed.
+    * Included a parameter operational in the closed jackson network model to be able to use visit ratio with a stacionary
+probability meaning or with an operational point of view.
+
+2011-08-20 Pedro Canadilla <pedro.canadilla@gmail.com>
+
+    * Fixed values for M/M/c/K/K and M/M/c/K/m models in case of RO = 1.
+    * logFact function used has been sustituted by built-in function lfactorial, more precise with small values of n.
+    * CheckInput for multiple Class Open Network has been revisited to detect saturated nodes.
+    * The variable classes has been introduced to NewInput.MCON model input. The reason is performance.
+
+
 2011-08-12 Pedro Canadilla <pedro.canadilla@gmail.com>
 
     * Fixed B-erlang and C-erlang functions to have defaults values and to check values.
 
     * Fixed extreme value of Pn in M/M/1/K/K model.
 
-    * More detailed documentation has been created for the saturation point in the M/M/1/K/K model. The optimal number of clients (or saturation) point coincides with the inverse of the serialization parameter of Amdalh's Law. That is, the value which converges the speedup function k/(1 + ser(k-1)). It makes sense, because the saturation point is the maximun value in which no syncronization happens.
+    * More detailed documentation has been created for the saturation point in the M/M/1/K/K model. The optimal number of 
+clients (or saturation) point coincides with the inverse of the serialization parameter of Amdalh's Law. That is, the value 
+which converges the speedup function k/(1 + ser(k-1)). It makes sense, because the saturation point is the maximun value in 
+which no syncronization happens.
 
     * Fixed in the M/M/1/K/K model the Pn function. It was returning RO instead of Pn.
 
     * Fixed and improved the model M/M/c. The parameter n was not working as needed.
 
-    * Included a new parameter method which controls if the probabilities are calculated exactly or if an aproximation is used in models M/M/1/K/K, M/M/C/K/K, M/M/C/K/M, M/M/C. The aprox method are useful to get the model work with higher parameter values.
+    * Included a new parameter method which controls if the probabilities are calculated exactly or if an aproximation is 
+used in models M/M/1/K/K, M/M/C/K/K, M/M/C/K/M, M/M/C. The aprox method are useful to get the model work with higher 
+parameter values.
 
     * Fixed also the parameter n in models M/M/1, M/M/C and M/M/Inf. With n=-1, no probabilities are calculated. 
 

@@ -1,21 +1,19 @@
-% File man/Throughputi.o_OJN.Rd
-\name{Throughputi.o_OJN}
-\alias{Throughputi.o_OJN}
-\title{Reports a vector with each node (server) throughput of a Open Jackson Network}
+% File man/Lk.o_OJN.Rd
+\name{Lk.o_OJN}
+\alias{Lk.o_OJN}
+\title{Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network}
 \description{
-  Reports a vector with each node (server) throughput of a Open Jackson Network
+  Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network
 }
 \usage{
-  \method{Throughputi}{o_OJN}(x, \dots)
+  \method{Lk}{o_OJN}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_OJN}
   \item{\dots}{aditional arguments}
 }
 
-\details{
-Reports a vector with each node (server) throughput of a Open Jackson Network
-}
+\details{Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -24,7 +22,7 @@ Editorial Centro de Estudios Ramon Areces.
 }
 
 \seealso{
-  \code{\link{NewInput.OJN}}, \code{\link{CheckInput.i_OJN}}, \code{\link{QueueingModel.i_OJN}}
+  \code{\link{QueueingModel.i_OJN}}.
 }
 
 
@@ -39,14 +37,13 @@ n4 <- NewInput.MM1(lambda=0, mu=7, n=0)
 # definition of the transition probabilities
 prob <- matrix(data=c(0, 0.2, 0.56, 0.24, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow=4, ncol=4, byrow=TRUE)
 
-# Deinition of the new input
 i_ojn <- NewInput.OJN(prob, n1, n2, n3, n4)
 
-# Build the models
+# Build the model
 o_ojn <- QueueingModel(i_ojn)
 
-Throughputi(o_ojn)
+Lk(o_ojn)
 
 }
-\keyword{Open Jackson Network}
 
+\keyword{Open Jackson Network}

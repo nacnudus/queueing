@@ -1,12 +1,12 @@
-% File man/RO.o_OJN.Rd
-\name{RO.o_OJN}
-\alias{RO.o_OJN}
+% File man/ROk.o_OJN.Rd
+\name{ROk.o_OJN}
+\alias{ROk.o_OJN}
 \title{Reports a vector with each node (server) use of a Open Jackson Network}
 \description{
   Reports a vector with each node (server) use of a Open Jackson Network
 }
 \usage{
-  \method{RO}{o_OJN}(x, \dots)
+  \method{ROk}{o_OJN}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_OJN}
@@ -43,7 +43,7 @@ i_ojn <- NewInput.OJN(prob, n1, n2, n3, n4)
 # Build the models
 o_ojn <- QueueingModel(i_ojn)
 
-RO(o_ojn)
+ROk(o_ojn)
 
 }
 \keyword{Open Jackson Network}

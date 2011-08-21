@@ -1,19 +1,20 @@
-% File man/Li.o_OJN.Rd
-\name{Li.o_OJN}
-\alias{Li.o_OJN}
-\title{Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network}
+% File man/Wk.o_OJN.Rd
+\name{Wk.o_OJN}
+\alias{Wk.o_OJN}
+\title{Returns the vector with the mean time spend in each node (server) of a Open Jackson Network}
 \description{
-  Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network
+  Returns the vector with the mean time spend in each node (server) of a Open Jackson Network
 }
+
 \usage{
-  \method{Li}{o_OJN}(x, \dots)
+  \method{Wk}{o_OJN}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_OJN}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients in each node (server) of a Open Jackson Network}
+\details{Returns the vector with the mean time spend in each node (server) of a Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -37,12 +38,11 @@ n4 <- NewInput.MM1(lambda=0, mu=7, n=0)
 # definition of the transition probabilities
 prob <- matrix(data=c(0, 0.2, 0.56, 0.24, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow=4, ncol=4, byrow=TRUE)
 
-i_ojn <- NewInput.OJN(prob, n1, n2, n3, n4)
+ojn1 <- NewInput.OJN(prob, n1, n2, n3, n4)
 
-# Build the model
-o_ojn <- QueueingModel(i_ojn)
+m_ojn1 <- QueueingModel(ojn1)
 
-Li(o_ojn)
+Wk(m_ojn1)
 
 }
 

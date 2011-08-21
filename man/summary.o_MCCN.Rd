@@ -1,15 +1,15 @@
-% File man/summary.o_MCON.Rd
-\name{summary.o_MCON}
-\alias{summary.o_MCON}
-\title{Reports the results of a MultiClass Open Network}
+% File man/summary.o_MCCN.Rd
+\name{summary.o_MCCN}
+\alias{summary.o_MCCN}
+\title{Reports the results of a MultiClass Closed Network}
 \description{
-  Reports the results of a MultiClass Open Network
+  Reports the results of a MultiClass Closed Network
 }
 \usage{
-  \method{summary}{o_MCON}(object, \dots)
+  \method{summary}{o_MCCN}(object, \dots)
 }
 \arguments{
-  \item{object}{a object of class o_MCON}
+  \item{object}{a object of class o_MCCN}
   \item{\dots}{aditional arguments}
 }
 
@@ -22,26 +22,27 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
-  \code{\link{QueueingModel.i_MCON}}.
+  \code{\link{QueueingModel.i_MCCN}}.
 }
 
 
 \examples{
-## See example in pag 138 in reference [Lazowska84] for more details.
+## See example in pag 142 in reference [Lazowska84] for more details.
 
 classes <- 2
-vLambda <- c(3/19, 2/19)
+vNumber <- c(1, 1)
+vThink <- c(0, 0)
 nodes <- 2
 vType <- c("Q", "Q")
 vVisit <- matrix(data=c(10, 9, 5, 4), nrow=2, ncol=2, byrow=TRUE)
 vMu <- matrix(data=c(10, 3, 5/2, 1), nrow=2, ncol=2, byrow=TRUE)
 
-i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
+i_MCCN1 <- NewInput.MCCN(classes, vNumber, vThink, nodes, vType, vVisit, vMu)
 
 # Build the model
-o_mcon1 <- QueueingModel(i_mcon1)
+o_MCCN1 <- QueueingModel(i_MCCN1)
 
-summary(o_mcon1)
+summary(o_MCCN1)
 
 }
-\keyword{MultiClass Open Network}
+\keyword{MultiClass Closed Network}

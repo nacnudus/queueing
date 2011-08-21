@@ -1,15 +1,15 @@
 % File man/RO.Rd
 \name{RO}
 \alias{RO}
-\title{Reports the server use of a queueing model (or network)}
+\title{Reports the server use of a queueing model}
 \description{
-  Reports the server use of a queueing model (or network)
+  Reports the server use of a queueing model)
 }
 \usage{
  RO(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf, o_OJN, o_MCON}
+  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf}
   \item{\dots}{aditional arguments}
 }
 
@@ -31,9 +31,7 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{RO.o_MMCC}}\cr
   \code{\link{RO.o_MMCKM}}\cr
   \code{\link{RO.o_MMInfKK}}\cr
-  \code{\link{RO.o_MMInf}}\cr
-  \code{\link{RO.o_OJN}}\cr
-  \code{\link{RO.o_MCON}}
+  \code{\link{RO.o_MMInf}}
 }
 
 
@@ -47,4 +45,5 @@ o_mm1 <- QueueingModel(i_mm1)
 ## Report the use of the server
 RO(o_mm1)
 }
+
 \keyword{Queueing Models}

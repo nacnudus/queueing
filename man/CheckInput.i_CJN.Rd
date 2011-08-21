@@ -36,10 +36,13 @@ n2 <- NewInput.MM1(lambda=0, mu=1/0.4, n=0)
 # think time = 0
 z <- 0
 
+# operational value
+operational <- FALSE
+
 # definition of the transition probabilities
 prob <- matrix(data=c(0.5, 0.5, 0.5, 0.5), nrow=2, ncol=2, byrow=TRUE)
 
-cjn1 <- NewInput.CJN(prob, n, z, n1, n2)
+cjn1 <- NewInput.CJN(prob, n, z, operational, n1, n2)
 
 CheckInput(cjn1)
 

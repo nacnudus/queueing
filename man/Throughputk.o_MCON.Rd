@@ -1,12 +1,12 @@
-% File man/Throughputi.o_MCON.Rd
-\name{Throughputi.o_MCON}
-\alias{Throughputi.o_MCON}
-\title{Reports a matrix with each node (server) throughput of a MultiClass Open Network}
+% File man/Throughputk.o_MCON.Rd
+\name{Throughputk.o_MCON}
+\alias{Throughputk.o_MCON}
+\title{Reports a vector with each node (server) throughput of a MultiClass Open Network}
 \description{
-  Reports a matrix with each node (server) throughput of a MultiClass Open Network
+  Reports a vector with each node (server) throughput of a MultiClass Open Network
 }
 \usage{
-  \method{Throughputi}{o_MCON}(x, \dots)
+  \method{Throughputk}{o_MCON}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MCON}
@@ -14,7 +14,7 @@
 }
 
 \details{
-Reports a matrix with each node (server) throughput of a MultiClass Open Network
+Reports a vector with each node (server) throughput of a MultiClass Open Network
 }
 
 \references{
@@ -35,18 +35,19 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 \examples{
 ## See example in pag 138 in reference [Lazowska84] for more details.
 
+classes <- 2
 vLambda <- c(3/19, 2/19)
 nodes <- 2
 vType <- c("Q", "Q")
 vVisit <- matrix(data=c(10, 9, 5, 4), nrow=2, ncol=2, byrow=TRUE)
 vMu <- matrix(data=c(10, 3, 5/2, 1), nrow=2, ncol=2, byrow=TRUE)
 
-i_mcon1 <- NewInput.MCON(vLambda, nodes, vType, vVisit, vMu)
+i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
 
 # Build the model
 o_mcon1 <- QueueingModel(i_mcon1)
 
-Throughputi(o_mcon1)
+Throughputk(o_mcon1)
 
 }
 \keyword{MultiClass Open Network}

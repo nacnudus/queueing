@@ -29,16 +29,16 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 
 
 \examples{
-## See example 11.11 in reference [Sixto2004] for more details.
 ## See example in pag 138 in reference [Lazowska84] for more details.
 
+classes <- 2
 vLambda <- c(3/19, 2/19)
 nodes <- 2
 vType <- c("Q", "Q")
 vVisit <- matrix(data=c(10, 9, 5, 4), nrow=2, ncol=2, byrow=TRUE)
 vMu <- matrix(data=c(10, 3, 5/2, 1), nrow=2, ncol=2, byrow=TRUE)
 
-i_mcon1 <- NewInput.MCON(vLambda, nodes, vType, vVisit, vMu)
+i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
 
 # Build the model
 o_mcon1 <- QueueingModel(i_mcon1)

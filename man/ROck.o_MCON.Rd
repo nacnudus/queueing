@@ -1,19 +1,19 @@
-% File man/CheckInput.i_MCON.Rd
-\name{CheckInput.i_MCON}
-\alias{CheckInput.i_MCON}
-\title{Check the input params of a MultiClass Open Network}
+% File man/ROck.o_MCON.Rd
+\name{ROck.o_MCON}
+\alias{ROck.o_MCON}
+\title{Reports a matrix with the use of class i in each node (server) j in a MultiClass Open Network}
 \description{
-  Check the input params of a MultiClass Open Network
+  Reports a matrix with the use of class i in each node (server) j in a MultiClass Open Network
 }
 \usage{
-  \method{CheckInput}{i_MCON}(x, \dots)
+  \method{ROck}{o_MCON}(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class i_MCON}
+  \item{x}{a object of class o_MCON}
   \item{\dots}{aditional arguments}
 }
 
-\details{Check the input params of a MultiClass Open Network. The inputs params are created calling previously the \link{NewInput.MCON}}
+\details{Reports a matrix with the use of class i in each node (server) j in a }
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr
@@ -22,7 +22,7 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
-  \code{\link{NewInput.MCON}}
+  \code{\link{QueueingModel.i_MCON}}.
 }
 
 
@@ -38,7 +38,10 @@ vMu <- matrix(data=c(10, 3, 5/2, 1), nrow=2, ncol=2, byrow=TRUE)
 
 i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
 
-CheckInput(i_mcon1)
+# Build the model
+o_mcon1 <- QueueingModel(i_mcon1)
+
+ROck(o_mcon1)
 
 }
 \keyword{MultiClass Open Network}

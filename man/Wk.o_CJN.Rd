@@ -1,13 +1,13 @@
-% File man/Wi.o_CJN.Rd
-\name{Wi.o_CJN}
-\alias{Wi.o_CJN}
+% File man/Wk.o_CJN.Rd
+\name{Wk.o_CJN}
+\alias{Wk.o_CJN}
 \title{Returns the vector with the mean time spend in each node (server) of a Closed Jackson Network}
 \description{
   Returns the vector with the mean time spend in each node (server) of a Closed Jackson Network
 }
 
 \usage{
-  \method{Wi}{o_CJN}(x, \dots)
+  \method{Wk}{o_CJN}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_CJN}
@@ -37,16 +37,19 @@ n2 <- NewInput.MM1(lambda=0, mu=1/0.4, n=0)
 # think time = 0
 z <- 0
 
+# operational value
+operational <- FALSE
+
 # definition of the transition probabilities
 prob <- matrix(data=c(0.5, 0.5, 0.5, 0.5), nrow=2, ncol=2, byrow=TRUE)
 
 # Define a new input
-cjn1 <- NewInput.CJN(prob, n, z, n1, n2)
+cjn1 <- NewInput.CJN(prob, n, z, operational, n1, n2)
 
 # Check the inputs and build the model
 m_cjn1 <- QueueingModel(cjn1)
 
-Wi(m_cjn1)
+Wk(m_cjn1)
 
 }
 

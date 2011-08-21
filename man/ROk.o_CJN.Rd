@@ -1,19 +1,19 @@
-% File man/QueueingModel.i_CJN.Rd
-\name{QueueingModel.i_CJN}
-\alias{QueueingModel.i_CJN}
-\title{Builds one class Closed Jackson Network}
+% File man/ROk.o_CJN.Rd
+\name{ROk.o_CJN}
+\alias{ROk.o_CJN}
+\title{Reports a vector with each node (server) use of a Closed Jackson Network}
 \description{
-  Builds one class Closed Jackson Network
+  Reports a vector with each node (server) use of a Closed Jackson Network
 }
 \usage{
-  \method{QueueingModel}{i_CJN}(x, \dots)
+  \method{ROk}{o_CJN}(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class i_CJN}
+  \item{x}{a object of class o_CJN}
   \item{\dots}{aditional arguments}
 }
 
-\details{Build one class Closed Jackson Network. It also checks the input params calling the \link{CheckInput.i_CJN}}
+\details{Reports a vector with each node (server) use of a Closed Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -22,7 +22,7 @@ Editorial Centro de Estudios Ramon Areces.
 }
 
 \seealso{
-  \code{\link{CheckInput.i_CJN}}
+  \code{\link{QueueingModel.i_CJN}}.
 }
 
 
@@ -48,7 +48,7 @@ cjn1 <- NewInput.CJN(prob, n, z, operational, n1, n2)
 # Check the inputs and build the model
 m_cjn1 <- QueueingModel(cjn1)
 
-m_cjn1
+ROk(m_cjn1)
 
 }
 \keyword{Closed Jackson Network}

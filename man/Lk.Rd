@@ -1,15 +1,15 @@
-% File man/Li.Rd
-\name{Li}
-\alias{Li}
+% File man/Lk.Rd
+\name{Lk}
+\alias{Lk}
 \title{Returns the vector with the mean number of clients in each node (server) of a queueing network}
 \description{
   Returns the vector with the mean number of clients in each node (server) of a queueing network
 }
 \usage{
-  Li(x, \dots)
+  Lk(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_OJN, o_MCON}
+  \item{x}{a object of class o_OJN, o_CJN, o_MCON or o_MCCN}
   \item{\dots}{aditional arguments}
 }
 
@@ -27,28 +27,29 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
-  \code{\link{Li.o_OJN}}\cr
-  \code{\link{Li.o_MCON}}
+  \code{\link{Lk.o_OJN}}\cr
+  \code{\link{Lk.o_CJN}}\cr
+  \code{\link{Lk.o_MCON}}\cr
+  \code{\link{Lk.o_MCCN}}
 }
 
 
 \examples{
-## See example 11.11 in reference [Sixto2004] for more details.
-## create the nodes
-n1 <- NewInput.MM1(lambda=8, mu=14, n=0)
-n2 <- NewInput.MM1(lambda=0, mu=8, n=0)
-n3 <- NewInput.MM1(lambda=6, mu=17, n=0)
-n4 <- NewInput.MM1(lambda=0, mu=7, n=0)
+## See example in pag 138 in reference [Lazowska84] for more details.
 
-# definition of the transition probabilities
-prob <- matrix(data=c(0, 0.2, 0.56, 0.24, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow=4, ncol=4, byrow=TRUE)
+classes <- 2
+vLambda <- c(3/19, 2/19)
+nodes <- 2
+vType <- c("Q", "Q")
+vVisit <- matrix(data=c(10, 9, 5, 4), nrow=2, ncol=2, byrow=TRUE)
+vMu <- matrix(data=c(10, 3, 5/2, 1), nrow=2, ncol=2, byrow=TRUE)
 
-i_ojn <- NewInput.OJN(prob, n1, n2, n3, n4)
+i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
 
 # Build the model
-o_ojn <- QueueingModel(i_ojn)
+o_mcon1 <- QueueingModel(i_mcon1)
 
-Li(o_ojn)
+Lk(o_mcon1)
 
 }
 

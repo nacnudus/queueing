@@ -1,28 +1,34 @@
-% File man/L.o_MCON.Rd
-\name{L.o_MCON}
-\alias{L.o_MCON}
-\title{Returns the mean number of clients of a MultiClass Open Network}
+% File man/Lc.Rd
+\name{Lc}
+\alias{Lc}
+\title{Returns the vector with the mean number of clients of each class in a multiclass queueing network}
 \description{
-  Returns the mean number of clients of a MultiClass Open Network
+  Returns the vector with the mean number of clients of each class in a multiclass queueing network
 }
 \usage{
-  \method{L}{o_MCON}(x, \dots)
+  Lc(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MCON}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a MultiClass Open Network}
+\details{Returns the vector with the mean number of clients of each class in a multiclass queueing network}
 
 \references{
+
+[Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
+\emph{Investigacion Operativa. Modelos deterministicos y estocasticos}.\cr
+Editorial Centro de Estudios Ramon Areces.\cr
+\cr
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr
 \emph{Quantitative System Performance: Computer System Analysis Using Queueing Network Models}.\cr
 Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 }
 
 \seealso{
-  \code{\link{QueueingModel.i_MCON}}.
+  \code{\link{Lc.o_MCON}}\cr
+  \code{\link{Lc.o_MCCN}}
 }
 
 
@@ -41,8 +47,8 @@ i_mcon1 <- NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vMu)
 # Build the model
 o_mcon1 <- QueueingModel(i_mcon1)
 
-L(o_mcon1)
+Lc(o_mcon1)
 
 }
 
-\keyword{MultiClass Open Network}
+\keyword{MultiClass Queueing Network}

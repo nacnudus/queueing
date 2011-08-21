@@ -14,11 +14,20 @@ WWq            <- function(x, ...) UseMethod("WWq")
 Pn             <- function(x, ...) UseMethod("Pn")
 LLq            <- function(x, ...) UseMethod("LLq")
 Throughput     <- function(x, ...) UseMethod("Throughput")
-Throughputi    <- function(x, ...) UseMethod("Throughputi")
 WWs            <- function(x, ...) UseMethod("WWs")
 SP             <- function(x, ...) UseMethod("SP")
-Li             <- function(x, ...) UseMethod("Li")
-Wi             <- function(x, ...) UseMethod("Wi")
+Throughputc    <- function(x, ...) UseMethod("Throughputc")
+Throughputk    <- function(x, ...) UseMethod("Throughputk")
+Throughputck   <- function(x, ...) UseMethod("Throughputck")
+Lc             <- function(x, ...) UseMethod("Lc")
+Lk             <- function(x, ...) UseMethod("Lk")
+Lck            <- function(x, ...) UseMethod("Lck")
+Wc             <- function(x, ...) UseMethod("Wc")
+Wk             <- function(x, ...) UseMethod("Wk")
+Wck            <- function(x, ...) UseMethod("Wck")
+ROk            <- function(x, ...) UseMethod("ROk")
+ROck           <- function(x, ...) UseMethod("ROck")
+
 
 ############################################################
 ## Auxiliary functions
@@ -73,6 +82,23 @@ nodes <- function(...)
   list(...)
 }
 
+
+checkNegative <- function(v)
+{
+  return(sum(v < 0) > 0)
+}
+
+
+checkNegativeOrZero <- function(v)
+{
+  return(sum(v <= 0) > 0)
+}
+
+
+checkAtLeastOne <- function(v)
+{
+  return(sum(v < 1) > 0)
+}
 
 C_erlang3 <- function(c, r)
 {
@@ -422,13 +448,13 @@ MMC_InitPn_Exact <- function(x)
 
 MMC_InitPn_Aprox_AuxToC <- function(n, lambda, mu, c, k, m)
 {
-  (n * log(lambda/mu)) - logFact(n)
+  (n * log(lambda/mu)) - lfactorial(n)
 }
 
 
 MMC_InitPn_Aprox_AfterC <- function(n, lambda, mu, c, k, m)
 {
-  (n * log(lambda/mu)) - logFact(c) - (n - c) * log(c)
+  (n * log(lambda/mu)) - lfactorial(c) - (n - c) * log(c)
 }
 
 
@@ -588,7 +614,7 @@ CheckInput.i_MM1KK <- function(x, ...)
 
 MM1KK_InitPn_Aprox_Aux <- function(n, lambda, mu, c, k, m)
 {
-  (logFact(k) - logFact(k-n)) + (n * log(lambda/mu))
+  (lfactorial(k) - lfactorial(k-n)) + (n * log(lambda/mu))
 }
 
 
@@ -777,14 +803,14 @@ CheckInput.i_MMCKK <- function(x, ...)
 
 MMCKK_InitPn_Aprox_AuxC <- function(n, lambda, mu, c, k, m)
 {
-  (logFact(k) - logFact(k-n) - logFact(n)) + (n * log(lambda/mu))
+  (lfactorial(k) - lfactorial(k-n) - lfactorial(n)) + (n * log(lambda/mu))
 }
 
 
 MMCKK_InitPn_Aprox_AuxK <- function(n, lambda, mu, c, k, m)
 {
   toC <- MMCKK_InitPn_Aprox_AuxC(n, lambda, mu, c, k, m)
-  toK <- logFact(n) - logFact(c) - (n - c) * log(c)
+  toK <- lfactorial(n) - lfactorial(c) - (n - c) * log(c)
   toC + toK
 }
 
@@ -978,15 +1004,23 @@ QueueingModel.i_MMCKK <- function(x, ...)
     #print(paste("sum(Pn):", sum(Pn)))
     RO <- 1
     Throughput <- (x$c * x$mu)
-    W <- (x$k - (Throughput/x$lambda))/Throughput
+    L <- (x$k - (Throughput/x$lambda))
     
-    if (W < 0)
+    if (L <= 0)
+    {
       W <- NaN
-
-    L <- Throughput * W    
-    Lq <- NaN
-    Wq <- NaN
-    WWq <- NaN
+      L <- NaN    
+      Lq <- NaN
+      Wq <- NaN
+      WWq <- NaN
+    }
+    else
+    {
+      W <- L/Throughput
+      Wq <- W - (1/x$mu)
+      Lq <- Throughput * Wq
+      WWq <- NaN
+    }  
   }
   else
   {
@@ -1180,14 +1214,14 @@ MMCKM_InitPn_Exact <- function(x)
 
 MMCKM_InitPn_Aprox_AuxC <- function(n, lambda, mu, c, k, m)
 {
-  (logFact(m) - logFact(m-n) - logFact(n)) + (n * log(lambda/mu))
+  (lfactorial(m) - lfactorial(m-n) - lfactorial(n)) + (n * log(lambda/mu))
 }
 
 
 MMCKM_InitPn_Aprox_AuxK <- function(n, lambda, mu, c, k, m)
 {
   toC <- MMCKM_InitPn_Aprox_AuxC(n, lambda, mu, c, k, m)
-  toK <- logFact(n) - logFact(c) - (n - c) * log(c)
+  toK <- lfactorial(n) - lfactorial(c) - (n - c) * log(c)
   toC + toK
 }
 
@@ -1221,15 +1255,23 @@ QueueingModel.i_MMCKM <- function(x, ...)
  {
     RO <- 1
     Throughput <- (x$c * x$mu)
-    W <- (x$k - (Throughput/x$lambda))/Throughput
+    L <- (x$k - (Throughput/x$lambda))
     
-    if (W < 0)
+    if (L <= 0)
+    {
       W <- NaN
-
-    L <- Throughput * W    
-    Lq <- NaN
-    Wq <- NaN
-    WWq <- NaN
+      L <- NaN    
+      Lq <- NaN
+      Wq <- NaN
+      WWq <- NaN
+    }
+    else
+    {
+      W <- L/Throughput
+      Wq <- W - (1/x$mu)
+      Lq <- Throughput * Wq
+      WWq <- NaN
+    }
  }
  else
  {
@@ -1327,7 +1369,7 @@ CheckInput.i_MMInfKK <- function(x, ...)
 
 MMInfKK_InitPn_Aprox_Aux <- function(n, lambda, mu, c, k, m)
 {
-  (n * (log(lambda) - log(mu))) + (logFact(k) - logFact(k-n) - logFact(n))
+  (n * (log(lambda) - log(mu))) + (lfactorial(k) - lfactorial(k-n) - lfactorial(n))
 }
 
 
@@ -2027,10 +2069,10 @@ newNodes <- function(rawNodes, arrivals)
 doModel <- function(x, newNodes, tLambda)
 {
   prob <- numeric()
-  Li <- numeric()
-  Wi <- numeric()
-  ro <- numeric()
-  Throughputi <- numeric()
+  Lk <- numeric()
+  Wk <- numeric()
+  ROk <- numeric()
+  Throughputk <- numeric()
   is_prob_a_matrix <- (class(x$prob) == "matrix")
   totalL <- 0
   
@@ -2041,25 +2083,32 @@ doModel <- function(x, newNodes, tLambda)
     prob[i] <- Pn(aux)
  
     if (is_prob_a_matrix)
-      Wi[i] <- W(aux)
+      Wk[i] <- W(aux)
     else 
-      Wi[i] <- W(aux) * x$prob[i]
+      Wk[i] <- W(aux) * x$prob[i]
 
     auxL <- L(aux)
-    Li[i] <- auxL
-    ro[i] <- RO(aux)
-    Throughputi[i] <- Throughput(aux)
+    Lk[i] <- auxL
+    ROk[i] <- RO(aux)
+    Throughputk[i] <- Throughput(aux)
     totalL <- totalL + auxL
     i <- i + 1
   }
 
-  w <- totalL/tLambda
-  throughput <- sum(tLambda)
+  W <- totalL/tLambda
+  Throughput <- sum(tLambda)
 
   res <-
     list(
-      Inputs = x, RO = ro, Pn = prob, Li = Li, L = totalL, W = w, Throughputi = Throughputi,
-      Throughput = throughput, Wi = Wi
+      Inputs = x,
+      Throughput = Throughput,
+      L = totalL,
+      W = W,
+      ROk = ROk,
+      Throughputk = Throughputk,      
+      Lk = Lk,      
+      Wk = Wk,
+      Pn = prob
     )
 
   class(res) <- "o_OJN"
@@ -2154,14 +2203,14 @@ NewInput.OJN <- function(prob=NULL, ...)
 
 
 Inputs.o_OJN <- function(x, ...) { x$Inputs }
+Throughput.o_OJN <- function(x, ...) { x$Throughput }
 L.o_OJN <- function(x, ...) { x$L }
 W.o_OJN <- function(x, ...) { x$W }
-RO.o_OJN <- function(x, ...) { x$RO }
-Li.o_OJN <- function(x, ...) { x$Li }
+ROk.o_OJN <- function(x, ...) { x$ROk }
+Throughputk.o_OJN <- function(x, ...) { x$Throughputk }
+Lk.o_OJN <- function(x, ...) { x$Lk }
+Wk.o_OJN <- function(x, ...) { x$Wk }
 Pn.o_OJN <- function(x, ...) { x$Pn }
-Throughput.o_OJN <- function(x, ...) { x$Throughput }
-Throughputi.o_OJN <- function(x, ...) { x$Throughputi }
-Wi.o_OJN <- function(x, ...) { x$Wi }
 
 
 summary.o_OJN <- function(object, ...)
@@ -2173,34 +2222,35 @@ summary.o_OJN <- function(object, ...)
   print("The outputs of the open Jackson network are:")
   print("", quote=FALSE)
 
-  print("--------- Per node ---------------------------------")
- 
-  i <- 1
-  while (i <= length(object$RO))
-  {
-    print(paste("The use of node ", i, " is: ", object$RO[i]))
-    print(paste("The mean number of clients in node ", i, " is: ", object$Li[i]))
-    print(paste("The mean time spend in node ", i, " is: ", object$Wi[i]))
-    print(paste("The probability (p0, p1, ..., pn) or visit ratio of node ", i, " is: "))
-    print(object$Pn[[i]])
-    print(paste("The throughput of node ", i, " is: ", object$Throughputi[i]))
-    i <- i + 1
-  }
-
   print("---------- Complete network -------------------------")
   print(paste("The mean number of clients in the network is: ", object$L))
   print(paste("The mean time spend in the network is: ", object$W))
   print(paste("The throughput of the network is: ", object$Throughput))
   print("", quote=FALSE)
+
+  print("--------- Per node ---------------------------------")
+ 
+  i <- 1
+  while (i <= length(object$ROk))
+  {
+    print(paste("The use of node ", i, " is: ", object$ROk[i]))
+    print(paste("The throughput of node ", i, " is: ", object$Throughputk[i]))
+    print(paste("The mean number of clients in node ", i, " is: ", object$Lk[i]))
+    print(paste("The mean time spend in node ", i, " is: ", object$Wk[i]))
+    print(paste("The probability (p0, p1, ..., pn) or visit ratio of node ", i, " is: "))
+    print(object$Pn[[i]])
+    print("", quote=FALSE)
+    i <- i + 1
+  }
 }
 
 #######################################################################################
 ## Closed Jackson Network
 #######################################################################################
 
-NewInput.CJN <- function(prob=NULL, n=0, z=0, ...)
+NewInput.CJN <- function(prob=NULL, n=0, z=0, operational=FALSE, ...)
 {
-  nds <- list(prob=prob, n=n, z=z, nodes=nodes(...))
+  nds <- list(prob=prob, n=n, z=z, operational=operational, nodes=nodes(...))
   class(nds) <- "i_CJN"
   nds
 }
@@ -2271,7 +2321,18 @@ QueueingModel.i_CJN <- function(x, ...)
     prob_est <- t(solve(t(x$prob + all1 - ident), const))
   }
   else
-    prob_est <- x$prob
+  {
+    if (x$operational) #Visit ratios as counts of repetitions has been given
+    {
+      prob_est <- rep(1, num_nodes)
+      #We have to "correct" the mu values
+      for (i in (1:num_nodes))
+        x$nodes[[i]]$mu <- x$nodes[[i]]$mu / x$prob[i]     
+    }
+    else
+      prob_est <- x$prob
+  }
+  
     
   #print(paste("prob_est: ", prob_est))
   
@@ -2287,8 +2348,8 @@ QueueingModel.i_CJN <- function(x, ...)
   }
 
   # array initialization
-  wi <- numeric()
-  li <- rep(times=num_nodes, 0)
+  Wk <- numeric()
+  Lk <- rep(times=num_nodes, 0)
 
   alfa <- function(i, c)
   {
@@ -2345,7 +2406,7 @@ QueueingModel.i_CJN <- function(x, ...)
     while (k <= num_nodes)
     {
       if (class(x$nodes[[k]]) == "i_MMInf")
-        wi[k] <-  x$nodes[[k]]$mu
+        Wk[k] <-  x$nodes[[k]]$mu
       else
       {
         if (class(x$nodes[[k]]) == "i_MM1" ||
@@ -2353,7 +2414,7 @@ QueueingModel.i_CJN <- function(x, ...)
            )
           {
             #print("entrando en node mm1")
-            wi[k] <- (1 + li[k]) / x$nodes[[k]]$mu
+            Wk[k] <- (1 + Lk[k]) / x$nodes[[k]]$mu
           }
         else
         {
@@ -2362,11 +2423,11 @@ QueueingModel.i_CJN <- function(x, ...)
           
           #calculate probabilities
           mclass[[num_mmc]] <- CalcProb(i, x$nodes[[k]]$c,
-            x$nodes[[k]]$mu, prob_est[k], throughput, mclass[[num_mmc]]
+            x$nodes[[k]]$mu, prob_est[k], Throughput, mclass[[num_mmc]]
           )
 
           aux1 <- 1/(x$nodes[[k]]$mu * x$nodes[[k]]$c)
-          sum <- 1 + li[k]
+          sum <- 1 + Lk[k]
   
           z <- 1
           while (z <= x$nodes[[k]]$c - 1)
@@ -2375,24 +2436,24 @@ QueueingModel.i_CJN <- function(x, ...)
              ( (x$nodes[[k]]$c -(z-1) -1) * (mclass[[num_mmc]][z, i]) )
             z <- z + 1
           }
-          wi[k] <- aux1 * sum
+          Wk[k] <- aux1 * sum
         }
       }
               
-      tmp <- tmp + (prob_est[k] * wi[k])
+      tmp <- tmp + (prob_est[k] * Wk[k])
       #print(paste("wi[", k, "]: ", wi[k]))
       #print(paste("tmp: ", tmp))
 
       k <- k + 1
     }
 
-    throughput <- i / tmp
+    Throughput <- i / tmp
     #print(paste("throughput: ", throughput))
 
     k <- 1
     while (k <= num_nodes)
     {
-      li[k] <- throughput * prob_est[k] * wi[k]
+      Lk[k] <- Throughput * prob_est[k] * Wk[k]
       #print(paste("li[", k, "]: ", li[k]))
       k <- k + 1
     }
@@ -2400,41 +2461,59 @@ QueueingModel.i_CJN <- function(x, ...)
     i <- i + 1
   }
 
-  lambdai <- prob_est * throughput
+  Throughputk <- prob_est * Throughput
   
-  RO <- numeric()
+  ROk <- rep(0, num_nodes)
 
   k <- 1
-  while (k<=num_nodes)
+  while (k <= num_nodes)
   {
     if (class(x$nodes[[k]]) == "i_MMInf")
-      RO[k] <- 0
+      ROk[k] <- 0
     else if (class(x$nodes[[k]]) == "i_MM1")
-      RO[k] <- lambdai[k] * (1/x$nodes[[k]]$mu)
+      ROk[k] <- Throughputk[k] * (1/x$nodes[[k]]$mu)
     else #class i_MMC  
-      RO[k] <- lambdai[k] * (1/(x$nodes[[k]]$mu * x$nodes[[k]]$c))
+      ROk[k] <- Throughputk[k] * (1/(x$nodes[[k]]$mu * x$nodes[[k]]$c))
     k <- k + 1
   }
 
-  W <- (x$n / throughput) - x$z
-  L <- x$n - (throughput * x$z)
+  W <- (x$n / Throughput) - x$z
+  L <- x$n - (Throughput * x$z)
 
-  #if (class(x$prob) != "matrix")
-  #  wi <- wi * x$prob
+  if (x$operational)
+  {
+    for (i in (1:num_nodes))
+    {
+      x$nodes[[i]]$mu <- x$nodes[[i]]$mu * x$prob[i]
+      Throughputk[i] <- Throughputk[i] * x$prob[i]
+    }
+  }
 
-  res <- list(Inputs=x, Lambdai = lambdai, RO=RO, L=L, W=W, Wi = wi, Li = li, Throughput = throughput)
+  res <-
+    list(
+      Inputs = x,
+      Throughput = Throughput,
+      L = L,
+      W = W,
+      ROk = ROk,
+      Throughputk = Throughputk,
+      Wk = Wk,
+      Lk = Lk
+    )
+  
   class(res) <- "o_CJN"
   res
 }
 
 
 Inputs.o_CJN <- function(x, ...) { x$Inputs }
+Throughput.o_CJN <- function(x, ...) { x$Throughput }
 L.o_CJN <- function(x, ...) { x$L }
 W.o_CJN <- function(x, ...) { x$W }
-RO.o_CJN <- function(x, ...) { x$RO }
-Li.o_CJN <- function(x, ...) { x$Li }
-Wi.o_CJN <- function(x, ...) { x$Wi }
-Throughput.o_CJN <- function(x, ...) { x$Throughput }
+ROk.o_CJN <- function(x, ...) { x$ROk }
+Throughputk.o_CJN <- function(x, ...) { x$Throughputk }
+Lk.o_CJN <- function(x, ...) { x$Lk }
+Wk.o_CJN <- function(x, ...) { x$Wk }
 
 
 summary.o_CJN <- function(object, ...)
@@ -2446,22 +2525,23 @@ summary.o_CJN <- function(object, ...)
   print("The outputs of the closed Jackson network are:")
   print("", quote=FALSE)
   
-  print("--------- Per node ---------------------------------")
- 
-  i <- 1
-  while (i <= length(object$RO))
-  {
-    print(paste("The use of node ", i, " is: ", object$RO[i]))
-    print(paste("The mean number of clients in node ", i, " is: ", object$Li[i]))
-    print(paste("The response time in node ", i, " is: ", object$Wi[i]))
-    print(paste("The throughput of node ", i, " is: ", object$Throughput[i]))
-    i <- i + 1
-  }
-
   print("---------- Complete network -------------------------")
   print(paste("The mean number of clients in the network is: ", object$L))
   print(paste("The mean time spend in the network is: ", object$W))  
   print("", quote=FALSE)
+
+
+  print("--------- Per node ---------------------------------")
+ 
+  i <- 1
+  while (i <= length(object$ROk))
+  {
+    print(paste("The use of node ", i, " is: ", object$ROk[i]))
+    print(paste("The mean number of clients in node ", i, " is: ", object$Lk[i]))
+    print(paste("The response time in node ", i, " is: ", object$Wk[i]))
+    print(paste("The throughput of node ", i, " is: ", object$Throughputk[i]))
+    i <- i + 1
+  }
 }
 
 
@@ -2469,23 +2549,11 @@ summary.o_CJN <- function(object, ...)
 ## MultiClass Open Network
 #######################################################################################
 
-NewInput.MCON <- function(vLambda, nodes, vType, vVisit, vMu)
+NewInput.MCON <- function(classes, vLambda, nodes, vType, vVisit, vMu)
 {
-  nds <- list(vLambda=vLambda, nodes=nodes, vType=vType, vVisit=vVisit, vMu=vMu)
+  nds <- list(classes=classes, vLambda=vLambda, nodes=nodes, vType=vType, vVisit=vVisit, vMu=vMu)
   class(nds) <- "i_MCON"
   nds
-}
-
-
-checkNegative <- function(v)
-{
-  return(sum(v < 0) > 0)
-}
-
-
-checkNegativeOrZero <- function(v)
-{
-  return(sum(v <= 0) > 0)
 }
 
 
@@ -2503,6 +2571,7 @@ CheckInput.i_MCON <- function(x, ...)
   MCON_vMu_class_matrix <- "vMu has to be of class matrix"
   MCON_dim_vVisit_nodes_vLambda <- "The dimension of the vVisit matrix doesn't coincide with the dimension of vLambda and nodes"
   MCON_vType_wrong <- "The types for the nodes has to be \"Q\" or \"D\""
+  MCON_vlambda_classes_wrong <- "The number of elements of the vector vLambda has to be equal to classes"
 
 
   if (
@@ -2524,10 +2593,16 @@ CheckInput.i_MCON <- function(x, ...)
   if (checkNegativeOrZero(x$vMu))
     stop(MCON_vMu_negatives_or_zero)
 
+  if (x$classes != length(x$vLambda)) 
+    stop(MCON_vlambda_classes_wrong)
+
   if (length(x$vType) != x$nodes)
     stop(MCON_lenght_vType_nodes)
 
-  if (sum(dim(x$vVisit) == dim(x$vMu)) != 2)
+  dimVisit <- dim(x$vVisit)
+
+
+  if (sum(dimVisit == dim(x$vMu)) != 2)
     stop(MCON_dimension_visit_mu)
 
   if (class(x$vVisit) != "matrix")
@@ -2536,7 +2611,7 @@ CheckInput.i_MCON <- function(x, ...)
   if (class(x$vMu) != "matrix")
     stop(MCON_vMu_class_matrix)
 
-  if (sum(dim(x$vVisit) == c(length(x$vLambda), x$nodes)) != 2)
+  if (sum(dimVisit == c(x$classes, x$nodes)) != 2)
     stop(MCON_dim_vVisit_nodes_vLambda)
 
   i <- 1
@@ -2544,6 +2619,11 @@ CheckInput.i_MCON <- function(x, ...)
   {
     if (x$vType[i] != "Q" && x$vType[i] != "D")
       stop(MCON_vType_wrong)
+     
+    ro_aux <- sum(x$vLambda * x$vVisit[, i] * (1/x$vMu[, i])) 
+
+    if ( ro_aux >= 1 )
+      stop(paste("The processing capacity of node ", i, " is saturated. The utilization is: ", ro_aux * 100, "%", sep=""))
 
     i <- i + 1
   }
@@ -2554,49 +2634,79 @@ QueueingModel.i_MCON <- function(x, ...)
 {
   CheckInput(x)
 
-  numClasses <- length(x$vLambda)
+  Throughputck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  ROck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Wck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Lck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Wc <- rep(0, x$classes)
+  Lc <- rep(0, x$classes)
+  Throughputc <- x$vLambda
+  Throughput <- sum(x$vLambda)
 
-  Throughputi <- matrix(data=0, nrow=x$nodes, ncol=numClasses)
-  RO <- matrix(data=0, nrow=x$nodes, ncol=numClasses)
-  Wi <- matrix(data=0, nrow=x$nodes, ncol=numClasses)
-  Li <- matrix(data=0, nrow=x$nodes, ncol=numClasses)
-  W <- rep(0, numClasses)
-  L <- rep(0, numClasses)
+  Wk <- rep(0, x$nodes)
+  Lk <- rep(0, x$nodes)
+  Throughputk <- rep(0, x$nodes)
+  ROk <- rep(0, x$nodes)
 
-  i <- 1
-  while (i <= x$nodes)
+  for (nd in (1:x$nodes))
   {
-    Si <- 1/x$vMu[, i]
-    Throughputi[i, ] <- x$vLambda * x$vVisit[, i]
-    RO[i, ] <- Throughputi[i, ] * Si
-    inf_i <- 1 - sum(RO[i, ])
+    Sk <- 1/x$vMu[, nd]
+    Throughputck[, nd] <- x$vLambda * x$vVisit[, nd]
+    ROck[, nd] <- Throughputck[, nd] * Sk
+    inf_i <- 1 - sum(ROck[, nd])
 
-    if (x$vType[i] == "Q")
+    if (x$vType[nd] == "Q")
     {
-      Wi[i, ] <- (x$vVisit[, i] * Si)/inf_i
-      Li[i, ] <- RO[i, ]/inf_i
+      Wck[, nd] <- (x$vVisit[, nd] * Sk)/inf_i
+      Lck[, nd] <- ROck[, nd]/inf_i
     }
     else
     {
-      Wi[i, ] <- (x$vVisit[, i] * Si)
-      Li[i, ] <- RO[i, ]
+      Wck[, nd] <- (x$vVisit[, nd] * Sk)
+      Lck[, nd] <- ROck[, nd]
     }
-
-    i <- i + 1
   }
 
-  j <- 1
-  while (j <= numClasses)
+  # values for class
+  W <- 0
+  for (cla in (1:x$classes))
   {
-    W[j] <- sum(Wi[, j])
-    L[j] <- sum(Li[, j])
-    j <- j + 1
+    Wc[cla] <- sum(Wck[cla, ])
+    Lc[cla] <- sum(Lck[cla, ])
+    W <- W + (Wc[cla] * Throughputc[cla])
+  }
+
+  W <- W / Throughput
+
+  for (nd in (1:x$nodes))
+  {
+    Lk[nd] <- sum(Lck[, nd])
+    Throughputk[nd] <- sum(Throughputck[, nd])
+    ROk[nd] <- sum(ROck[, nd])
+    Wk[nd] <- sum(Wck[, nd] * Throughputc)
   }
   
+  Wk <- Wk / Throughput
+
+  L <- sum(Lc)
+
   res <-
     list(
-      Inputs = x, RO = RO, Li = Li, L = L, W = W, Throughputi = Throughputi,
-      Throughput = x$vLambda, Wi = Wi
+      Inputs=x,
+      W=W,
+      Throughput=Throughput,
+      L=L,
+      Wc=Wc,
+      Throughputc=Throughputc,      
+      Lc=Lc,
+      ROk=ROk,
+      Wk=Wk,
+      Throughputk=Throughputk,      
+      Lk=Lk,
+      ROck=ROck,
+      Wck=Wck,
+      Throughputck=Throughputck,     
+      Lck=Lck
     )
 
   class(res) <- "o_MCON"
@@ -2605,40 +2715,362 @@ QueueingModel.i_MCON <- function(x, ...)
 }
 
 Inputs.o_MCON <- function(x, ...) { x$Inputs }
-L.o_MCON <- function(x, ...) { x$L }
 W.o_MCON <- function(x, ...) { x$W }
-RO.o_MCON <- function(x, ...) { x$RO }
-Li.o_MCON <- function(x, ...) { x$Li }
+L.o_MCON <- function(x, ...) { x$L }
 Throughput.o_MCON <- function(x, ...) { x$Throughput }
-Throughputi.o_MCON <- function(x, ...) { x$Throughputi }
-Wi.o_MCON <- function(x, ...) { x$Wi }
+Wc.o_MCON <- function(x, ...) { x$Wc }
+Lc.o_MCON <- function(x, ...) { x$Lc }
+Throughputc.o_MCON <- function(x, ...) { x$Throughputc }
+ROk.o_MCON <- function(x, ...) { x$ROk }
+Wk.o_MCON <- function(x, ...) { x$Wk }
+Lk.o_MCON <- function(x, ...) { x$Lk }
+Throughputk.o_MCON <- function(x, ...) { x$Throughputk }
+ROck.o_MCON <- function(x, ...) { x$ROck }
+Wck.o_MCON <- function(x, ...) { x$Wck }
+Lck.o_MCON <- function(x, ...) { x$Lck }
+Throughputck.o_MCON <- function(x, ...) { x$Throughputck }
+
 
 summary.o_MCON <- function(object, ...)
-{
-   
-  print("The inputs of the multiclass open network are:")
-  print(object$Inputs)
-  print("", quote=FALSE)
-  print("The outputs of the multiclass open network are:")
-  print("", quote=FALSE)
+{   
+  summaryMultiClass(object)
+}
 
-  print("--------- Per node ---------------------------------")
- 
+
+
+#######################################################################################
+## MultiClass Closed Network
+#######################################################################################
+
+NewInput.MCCN <- function(classes, vNumber, vThink, nodes, vType, vVisit, vMu)
+{
+  nds <- list(classes=classes, vNumber=vNumber, vThink=vThink, nodes=nodes, vType=vType, vVisit=vVisit, vMu=vMu)
+  class(nds) <- "i_MCCN"
+  nds
+}
+
+
+CheckInput.i_MCCN <- function(x, ...)
+{
+  MCCN_x_class <- "The class of x has to be i_MCCN"
+  MCCN_x_anomalous <- "Some parameter has a anomalous value"
+  
+
+  MCCN_vNumber_negatives_or_zero <- "Some class number of clients are zero or negative. The number of clientes has to be positive"
+  
+  MCCN_vMu_negatives_or_zero <- "Some mu has negative or zero. Mu has to be positive"
+  MCCN_vThink_negatives <- "Some think time is negative"
+
+  MMCN_classes_at_least_one <- "The number of clasess has to be one or greater"
+  MMCN_nodes_at_least_one <- "The number of nodes has to be one or greater"
+  MMCN_vVisit_at_least_one <- "Some visit is lesser than one. Visit has to be greater or equal to one"
+
+  MCCN_vNumber_classes <- "The length of vector vNumber doesn't coincide with classes"
+  MCCN_lenght_vType_nodes <- "The lenght of Vtype vector doesn't coincide with nodes"
+  MCCN_length_vNumber_vThink <- "The length of the vector vNumber does not coincide with lenght of vector vThink"  
+
+
+  MCCN_dimension_visit_mu <- "The matrix vVisit and the matrix vMu has to have the same dimension"
+  
+  MCCN_vVisit_class_matrix <- "vVisit has to be of class matrix"
+  MCCN_vMu_class_matrix <- "vMu has to be of class matrix"
+
+  MCCN_dim_vVisit_nodes_vNumber <- "The dimension of the vVisit matrix doesn't coincide with the dimension of vNumber and nodes"
+  MCCN_vType_wrong <- "The types for the nodes has to be \"Q\" or \"D\""
+
+
+  if (
+    is.anomalous(x$classes) || is.anomalous(x$vNumber) || is.anomalous(x$vThink) ||
+    is.anomalous(x$nodes) || is.anomalous(x$vType) || is.anomalous(x$vVisit) || is.anomalous(x$vMu)
+  )
+    stop(MCCN_x_anomalous)
+
+  if (class(x) != "i_MCCN")
+    stop(MCCN_x_class)
+
+  # Check negatives, zero or one in parameters
+  if (checkNegativeOrZero(x$vNumber))
+    stop(MCCN_vNumber_negatives_or_zero)
+
+  if (checkNegativeOrZero(x$vMu))
+    stop(MCCN_vMu_negatives_or_zero)
+
+  if (checkNegative(x$vThink))
+    stop(MCCN_vThink_negatives)
+
+  if (checkAtLeastOne(x$classes))
+    stop(MMCN_classes_at_least_one)
+
+  if (checkAtLeastOne(x$nodes))
+    stop(MMCN_nodes_at_least_one)
+
+  if (checkAtLeastOne(x$vVisit))
+    stop(MMCN_vVisit_at_least_one) 
+
+  # dimension and lengths
+  if (length(x$vType) != x$nodes)
+    stop(MCCN_lenght_vType_nodes)
+
+  if (length(x$vNumber) != x$classes)
+    stop(MCCN_vNumber_classes)
+
+  if (length(x$vNumber) != length(x$vThink))
+    stop(MCCN_length_vNumber_vThink)
+
+  if (sum(dim(x$vVisit) == dim(x$vMu)) != 2)
+    stop(MCCN_dimension_visit_mu)
+
+  # classes
+  if (class(x$vVisit) != "matrix")
+    stop(MCCN_vVisit_class_matrix)
+
+  if (class(x$vMu) != "matrix")
+    stop(MCCN_vMu_class_matrix)
+
+  if (sum(dim(x$vVisit) == c(length(x$vNumber), x$nodes)) != 2)
+    stop(MCCN_dim_vVisit_nodes_vNumber)
+
+  # vType has the correct types
   i <- 1
-  while (i <= length(object$RO))
+  while (i <= x$nodes)
   {
-    print(paste("The use of node ", i, " is: ", object$RO[i]))
-    print(paste("The mean number of clients in node ", i, " is: ", object$Li[i]))
-    print(paste("The mean time spend in node ", i, " is: ", object$Wi[i]))
-    print(paste("The throughput of node ", i, " is: ", object$Throughputi[i]))
+    if (x$vType[i] != "Q" && x$vType[i] != "D")
+      stop(MCCN_vType_wrong)
+
     i <- i + 1
   }
+  
+}
+
+QueueingModel.i_MCCN <- function(x, ...)
+{
+  #print("Comienza la rutina")  
+
+  CheckInput(x)
+
+  Throughputc <- rep(0, x$classes)
+  Throughputck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  ROck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Wck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Lck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)  
+  
+  ROk <- rep(0, x$nodes)
+  Lk <- rep(0, x$nodes)
+  Throughputk <- rep(0, x$nodes)
+  Wk <- rep(0, x$nodes)
+
+  #print("Despues de inicialización")
+
+  LkAux <- list()
+
+  # from the last to the first of x$vNumber
+  i <- x$classes
+  while (i > 0)
+  {
+    #print("Dentro del while")
+    LkAux <- c(LkAux, list(seq(1, x$vNumber[i] + 1)))  
+    i <- i - 1
+  }
+
+  #print("La estructura dinámica ha sido creada")
+  #print(paste("LkAux: ", LkAux))
+
+  # Generate the matrix of elements to iterate
+  # the elements has to be reversed when iterate over it
+  iter <- as.matrix(expand.grid(LkAux))
+  numInter <- dim(iter)[1]
+  #print(paste("numInter: ", numInter))
+
+  LkV <- array(0, dim=c(x$vNumber + 1, x$nodes))
+  
+  #print("LkV: ")
+  #print(LkV)
+
+  for (n in (2:numInter))
+  {
+    elem <- as.vector(rev(iter[n, ]))
+    #print("elem: ")
+    #print(elem)
+
+    for (cla in (1:x$classes))
+    {
+      vaux <- elem
+      vaux[cla] <- max(elem[cla]-1, 1)
+      #print("vaux: ")
+      #print(vaux)
+   
+      for (server in (1:x$nodes))
+      {
+        demand <- x$vVisit[cla, server] * (1/(x$vMu[cla, server]))
+        #print(paste("demand: ", demand))        
+        #print("LkV: ")
+        #print(LkV[array(data=c(vaux, server), dim=c(1, x$classes+1))])
+
+        if (x$vType[server] == "D")
+          Wck[cla, server] <- demand
+        else        
+          Wck[cla, server] <- demand * (1 + LkV[array(data=c(vaux, server), dim=c(1, x$classes+1))])
+        
+        #print(paste("Wck[" , cla, ", ", server, "]: ", Wck[cla, server]))
+
+      }
+    }
+
+    for (cla in (1:x$classes))
+    {
+      #print("Throughputc -- calculation")
+      #print(paste("nclass ", cla, " :", elem[cla]-1))
+      #print(paste("denominator: ", x$vThink[cla] + sum(Wck[cla, ])))
+      Throughputc[cla] <- (elem[cla]-1) / (x$vThink[cla] + sum(Wck[cla, ]))
+      #print(paste("Throughputc[", cla, "]: "))
+      #print(Throughputc[cla])
+    }    
+ 
+    for (server in (1:x$nodes))
+    {
+      LkV[array(data=c(elem, server), dim=c(1, x$classes+1))] <- sum(Throughputc * Wck[, server])
+      #print("Actualizacion Qk(n)")
+      #print(Throughputc * Wck[, server])
+      #print(sum(Throughputc * Wck[, server]))
+      #print(c(elem, server))
+      #print(array(data=c(elem, server), dim=c(1, x$classes+1)))
+      #print(LkV[array(data=c(elem, server), dim=c(1, x$classes+1))])
+    }
+  }
+
+  Wc <- (x$vNumber/Throughputc) - x$vThink
+  Lc <- x$vNumber - (Throughputc * x$vThink)
+
+  for (i in (1:x$nodes))
+  {
+    ThAux <- Throughputc * x$vVisit[, i]
+    Throughputck[ , i] <- ThAux
+    ROck[, i] <- ThAux * x$vMu[, i]
+    Lck[, i] <- Throughputc * Wck[, i]
+  }
+
+  Throughput <- 0
+  L <- 0
+  W <- 0
+
+  for (i in (1:x$nodes))
+  {
+    ROk[i] <- sum(ROck[, i])
+    Lk[i] <- sum(Lck[, i])
+    L <- L + Lk[i]
+    Throughputk[i] <- sum(Throughputck[, i])
+    Throughput <- Throughput + Throughputk[i]
+    Wk[i] <- Wck[, i] * Throughputc
+  }
+  
+  Wk <- Wk / Throughput 
+
+  L <- (sum(Wc * Throughputc)) / Throughput
+
+  res <-
+    list(
+      Inputs=x,
+      W=W,
+      Throughput=Throughput,
+      L=L,
+      Wc=Wc,
+      Throughputc=Throughputc,      
+      Lc=Lc,
+      ROk=ROk,
+      Wk=Wk,
+      Throughputk=Throughputk,      
+      Lk=Lk,
+      ROck=ROck,
+      Wck=Wck,
+      Throughputck=Throughputck,     
+      Lck=Lck
+    )
+
+  class(res) <- "o_MCCN"
+  res    
+
+}
+
+
+Inputs.o_MCCN <- function(x, ...) { x$Inputs }
+L.o_MCCN <- function(x, ...) { x$L }
+W.o_MCCN <- function(x, ...) { x$W }
+Throughput.o_MCCN <- function(x, ...) { x$Throughput }
+Lc.o_MCCN <- function(x, ...) { x$Lc }
+Wc.o_MCCN <- function(x, ...) { x$Wc }
+Throughputc.o_MCCN <- function(x, ...) { x$Throughputc }
+ROk.o_MCCN <- function(x, ...) { x$ROk }
+Lk.o_MCCN <- function(x, ...) { x$Lk }
+Wk.o_MCCN <- function(x, ...) { x$Wk }
+Throughputk.o_MCCN <- function(x, ...) { x$Throughputk }
+ROck.o_MCCN <- function(x, ...) { x$ROck }
+Lck.o_MCCN <- function(x, ...) { x$Lck }
+Wck.o_MCCN <- function(x, ...) { x$Wck }
+Throughputck.o_MCCN <- function(x, ...) { x$Throughputck }
+
+
+summary.o_MCCN <- function(object, ...)
+{   
+  summaryMultiClass(object)  
+}
+
+
+summaryMultiClass <- function(object)
+{
+  if (class(object) != "o_MCON" && class(object) != "o_MCCN")
+    stop("Incorrect class")
+
+  if (class(object) == "o_MCON")
+    netType <- "open"
+  else
+    netType <- "closed"
+
+  print(paste("The inputs of the multiclass ", netType, " network are:", sep=""))
+  print(object$Inputs)
+  print("", quote=FALSE)
+  print(paste("The outputs of the multiclass ", netType, " network are:", sep=""))
+  print("", quote=FALSE)
 
   print("---------- Complete network -------------------------")
   print(paste("The mean number of clients in the network is: ", object$L))
   print(paste("The mean time spend in the network is: ", object$W))
   print(paste("The throughput of the network is: ", object$Throughput))
   print("", quote=FALSE)
+  
+  print("---------- Per Class -------------------------")
+
+  for (i in (1:object$Inputs$classes))
+  {
+    print(paste("The mean number of class ", i, " clients in the network is: ", object$Lc[i], sep=""))
+    print(paste("The mean time spend in the network per class ", i ," is: ", object$Wc[i], sep=""))
+    print(paste("The throughput of class " , i ," of the network is: ", object$Throughputc[i], sep=""))
+    print("", quote=FALSE)    
+  }
+  
+  print("--------- Per node ---------------------------------")
+  
+  for (i in (1:object$Inputs$nodes))
+  {
+    print(paste("The use of node ", i, " is: ", object$ROk[i], sep=""))
+    print(paste("The mean number of clients in node ", i, " is: ", object$Lk[i], sep=""))
+    print(paste("The mean time spend in node ", i, " is: ", object$Wk[i], sep=""))
+    print(paste("The throughput of node ", i, " is: ", object$Throughputk[i], sep=""))
+    print("", quote=FALSE)
+  }
+
+  print("--------- Per class and node -----------------------")
+
+  for (i in (1:object$Inputs$classes))
+  {
+    for (j in (1:object$Inputs$nodes))
+    {
+      print(paste("The class ", i, " use of node ", j, " is: ", object$ROck[i, j], sep=""))
+      print(paste("The mean number of class ", i, " clients in node ", j, " is: ", object$Lck[i, j], sep=""))
+      print(paste("The mean time spend by class ", i, " in node ", j, " is: ", object$Wck[i, j], sep=""))
+      print(paste("The throughput of class " , i, " in node ", j, " is: ", object$Throughputck[i, j], sep=""))
+      print("", quote=FALSE)
+    }
+  }  
 }
 
 
