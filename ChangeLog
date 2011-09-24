@@ -1,8 +1,39 @@
+2011-11-23 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Removed the floor conditions to check that the number of servers c has to be an integer number. Used is.wholenumber
+as recommended in the doc.
+    * Added the comprobation of the c valueto be integer in the M/M/c, M/M/c/K/M, M/M/c/K/K, M/M/c/K, M/M/c/c models.
+    * Added the CheckInput to every node in an Open JackSon Network.
+    * Implemented the Bard-Schweitzer aprroximation algorithm in the Closed Jackson Network.
+
+
+2011-11-22 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * The WWq value of the M/M/1 model has been fixed to the correct value (W). Thanks to Juan Antonio Fernandez
+(jafernandez at fi.upm.es) fo detect it. 
+
+2011-11-02 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * The B_erlang function has been modified to be faster. High order functional functions like Reduce has been tried but finally a simplified -for- winned the system.time simple benchmark.
+    
+
+2011-10-30 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * The RO funtion in the M/M/Infinite model has been established to the L value, because that has been seen in more than one literature.
+    * In consecuence, the Open Jackson Network inherits this change and also the Closed Jackson Network has been updated.
+    
+2011-10-18 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed the summary function of the Open Jakson Network, Closed Jakson Network, Multi Class Open Network and
+Multi Class Closed Network. The print function has been replaced by the cat function.
+    * Fixed the bug with the RO and W values of the Multi Class Closed Network.
+    * The Multi Class Closed Network QueueingModel returns a vector Throughputcn with the Throughput of each class and of
+each n population passed as Input parameter. The reason is performance to compute multi class load dependent models.
+    
+2011-09-24 Pedro Canadilla <pedro.canadilla@gmail.com>
+
+    * The Closed Jackson Network QueueingModel returns a vector Throughputn with the Throughput of each n population
+passed as Input parameter. The reason is performance to compute load dependent models.  
+
 2011-09-23 Pedro Canadilla <pedro.canadilla@gmail.com>
 
     * Introduced the Closed Multi Classes model.
-    * Nomenclature more consistent. Wi, Li, Throughputi has been substituted by Wk, Lk, Throughputk
-respectively.
+    * Nomenclature more consistent. Wi, Li, Throughputi has been substituted by Wk, Lk, Throughputk respectively.
     * Several minor errors in the documentation has been fixed.
     * Included a parameter operational in the closed jackson network model to be able to use visit ratio with a stacionary
 probability meaning or with an operational point of view.

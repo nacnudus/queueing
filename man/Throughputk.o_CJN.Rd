@@ -45,7 +45,7 @@ operational <- FALSE
 prob <- matrix(data=c(0.5, 0.5, 0.5, 0.5), nrow=2, ncol=2, byrow=TRUE)
 
 # Define a new input
-cjn1 <- NewInput.CJN(prob, n, z, operational, n1, n2)
+cjn1 <- NewInput.CJN(prob, n, z, operational, 0, 0.001, n1, n2)
 
 # Check the inputs and build the model
 m_cjn1 <- QueueingModel(cjn1)

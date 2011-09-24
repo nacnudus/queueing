@@ -162,6 +162,7 @@ ROk.o_CJN,
 Throughputk.o_CJN,
 Lk.o_CJN,
 Wk.o_CJN,
+Throughputn.o_CJN,
 NewInput.MCON,
 CheckInput.i_MCON,
 QueueingModel.i_MCON,
@@ -198,6 +199,7 @@ ROck.o_MCCN,
 Wck.o_MCCN,
 Lck.o_MCCN,
 Throughputck.o_MCCN,
+Throughputcn.o_MCCN,
 CheckInput,
 QueueingModel,
 Inputs,
@@ -222,7 +224,9 @@ Throughputk,
 ROck,
 Lck,
 Wck,
-Throughputck
+Throughputck,
+Throughputn,
+Throughputcn
 )
 
 ############################################################
@@ -412,6 +416,10 @@ S3method(ROk, o_MCCN)
 
 S3method(Throughputck, o_MCON)
 S3method(Throughputck, o_MCCN)
+
+S3method(Throughputn, o_CJN)
+
+S3method(Throughputcn, o_MCCN)
 
 S3method(Wck, o_MCON)
 S3method(Wck, o_MCCN)

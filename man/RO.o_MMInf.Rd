@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports the server use of a M/M/Infinite queueing model}
+\details{Reports the server use of a M/M/Infinite queueing model. It should be noted that in this model, the RO parameter has a different meaning, its the traffic intensity and it coincides exactly with the average number of clients in the system (L)}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -22,7 +22,8 @@ Editorial Centro de Estudios Ramon Areces.
 }
 
 \seealso{
-  \code{\link{QueueingModel.i_MMInf}}.
+  \code{\link{QueueingModel.i_MMInf}}\cr
+  \code{\link{L.o_MMInf}}
 }
 
 

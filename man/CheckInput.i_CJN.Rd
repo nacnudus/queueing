@@ -42,7 +42,7 @@ operational <- FALSE
 # definition of the transition probabilities
 prob <- matrix(data=c(0.5, 0.5, 0.5, 0.5), nrow=2, ncol=2, byrow=TRUE)
 
-cjn1 <- NewInput.CJN(prob, n, z, operational, n1, n2)
+cjn1 <- NewInput.CJN(prob, n, z, operational, 0, 0.001, n1, n2)
 
 CheckInput(cjn1)
 

@@ -1,19 +1,21 @@
-% File man/L.o_CJN.Rd
-\name{L.o_CJN}
-\alias{L.o_CJN}
-\title{Returns the mean number of clients of a Closed Jackson Network}
+% File man/Throughputn.o_CJN.Rd
+\name{Throughputn.o_CJN}
+\alias{Throughputn.o_CJN}
+\title{Returns a vector with the each Throughput from 1 to the parameter n (population passed as input) of a Closed Jackson Network}
 \description{
-  Returns the mean number of clients of a Closed Jackson Network
+  Returns a vector with the each Throughput from 1 to the parameter n (population passed as input) of a Closed Jackson Network
 }
 \usage{
-  \method{L}{o_CJN}(x, \dots)
+  \method{Throughputn}{o_CJN}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_CJN}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a Closed Jackson Network}
+\details{
+Returns a vector with the each Throughput from 1 to the parameter n (population passed as input) of a Closed Jackson Network
+}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -22,7 +24,7 @@ Editorial Centro de Estudios Ramon Areces.
 }
 
 \seealso{
-  \code{\link{QueueingModel.i_CJN}}.
+  \code{\link{NewInput.CJN}}, \code{\link{CheckInput.i_CJN}}, \code{\link{QueueingModel.i_CJN}}
 }
 
 
@@ -48,8 +50,8 @@ cjn1 <- NewInput.CJN(prob, n, z, operational, 0, 0.001, n1, n2)
 # Check the inputs and build the model
 m_cjn1 <- QueueingModel(cjn1)
 
-L(m_cjn1)
+Throughputn(m_cjn1)
 
 }
-
 \keyword{Closed Jackson Network}
+
