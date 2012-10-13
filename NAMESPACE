@@ -5,6 +5,7 @@
 export(
 C_erlang,
 B_erlang,
+Engset,
 NewInput.MM1,
 CheckInput.i_MM1,
 QueueingModel.i_MM1,

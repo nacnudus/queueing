@@ -1,21 +1,36 @@
+2012-10-13 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * New version 0.1.5. Added the aproximation method for the MCCN.
+    * Checked for anomalous for the tol and method parameters in Checkparams method of the CJN model.
+
+
+2012-10-10 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed doc of the MCCN functions. The descriptions were wrong.
+    * Changed the vMu parameters to be vService, more natural in the models MCCN and MCON.
+    * Fixed a fatal error that makes the function not work for vNumber with elements greater than one.
+    * Changed some checks with no sense in CheckParams for the MCCN model.
+
+
+2012-08-04 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed doc of the NewInput functions. The usage section was wrong and included a S3 method section not needed and confusing.
+    * Included the Engset calculator
+
 2011-11-23 Pedro Canadilla <pedro.canadilla@gmail.com>
-    * Removed the floor conditions to check that the number of servers c has to be an integer number. Used is.wholenumber
-as recommended in the doc.
-    * Added the comprobation of the c valueto be integer in the M/M/c, M/M/c/K/M, M/M/c/K/K, M/M/c/K, M/M/c/c models.
+    * Removed the floor conditions used to check that the number of servers c has to be an integer number. Now used is.wholenumber as recommended in the doc.
+    * Added the check that the the c value has to be an integer in the M/M/c, M/M/c/K/M, M/M/c/K/K, M/M/c/K, M/M/c/c models.
     * Added the CheckInput to every node in an Open JackSon Network.
-    * Implemented the Bard-Schweitzer aprroximation algorithm in the Closed Jackson Network.
+    * Implemented the Bard-Schweitzer approximation algorithm in the Closed Jackson Network.
 
 
 2011-11-22 Pedro Canadilla <pedro.canadilla@gmail.com>
     * The WWq value of the M/M/1 model has been fixed to the correct value (W). Thanks to Juan Antonio Fernandez
-(jafernandez at fi.upm.es) fo detect it. 
+(jafernandez at fi.upm.es) for detect it.
 
 2011-11-02 Pedro Canadilla <pedro.canadilla@gmail.com>
     * The B_erlang function has been modified to be faster. High order functional functions like Reduce has been tried but finally a simplified -for- winned the system.time simple benchmark.
     
 
 2011-10-30 Pedro Canadilla <pedro.canadilla@gmail.com>
-    * The RO funtion in the M/M/Infinite model has been established to the L value, because that has been seen in more than one literature.
+    * The RO funtion in the M/M/Infinite model has been established to the L value, because that has been seen in more than one book of the literature.
     * In consecuence, the Open Jackson Network inherits this change and also the Closed Jackson Network has been updated.
     
 2011-10-18 Pedro Canadilla <pedro.canadilla@gmail.com>
@@ -65,7 +80,7 @@ which no syncronization happens.
 used in models M/M/1/K/K, M/M/C/K/K, M/M/C/K/M, M/M/C. The aprox method are useful to get the model work with higher 
 parameter values.
 
-    * Fixed also the parameter n in models M/M/1, M/M/C and M/M/Inf. With n=-1, no probabilities are calculated. 
+    * Fixed also the parameter n in models M/M/1, M/M/C and M/M/Inf. With n=-1, no probabilities were calculated. 
 
     * Documented the resolution of a Open Jackson Network with visit ratios instead of probabilities.
 

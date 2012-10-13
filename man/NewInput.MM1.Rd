@@ -7,7 +7,7 @@
 }
 
 \usage{
-  \method{NewInput}{MM1}(lambda=0, mu=0, n=0)
+  NewInput.MM1(lambda=0, mu=0, n=0)
 }
 \arguments{
   \item{lambda}{arrival rate}

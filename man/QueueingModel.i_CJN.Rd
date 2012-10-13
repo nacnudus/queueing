@@ -1,9 +1,9 @@
 % File man/QueueingModel.i_CJN.Rd
 \name{QueueingModel.i_CJN}
 \alias{QueueingModel.i_CJN}
-\title{Builds one class Closed Jackson Network}
+\title{Builds one Closed Jackson Network}
 \description{
-  Builds one class Closed Jackson Network
+  Builds one Closed Jackson Network
 }
 \usage{
   \method{QueueingModel}{i_CJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Build one class Closed Jackson Network. It also checks the input params calling the \link{CheckInput.i_CJN}}
+\details{Build one Closed Jackson Network. It also checks the input params calling the \link{CheckInput.i_CJN}}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

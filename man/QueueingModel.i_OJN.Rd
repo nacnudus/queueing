@@ -1,9 +1,9 @@
 % File man/QueueingModel.i_OJN.Rd
 \name{QueueingModel.i_OJN}
 \alias{QueueingModel.i_OJN}
-\title{Builds one class Open Jackson Network}
+\title{Builds one Open Jackson Network}
 \description{
-  Builds one class Open Jackson Network
+  Builds one Open Jackson Network
 }
 \usage{
   \method{QueueingModel}{i_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Build one class Open Jackson Network. It also checks the input params calling the \link{CheckInput.i_OJN}}
+\details{Build one Open Jackson Network. It also checks the input params calling the \link{CheckInput.i_OJN}}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

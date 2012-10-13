@@ -1,20 +1,20 @@
 % File man/NewInput.OJN.Rd
 \name{NewInput.OJN}
 \alias{NewInput.OJN}
-\title{Define the inputs of a new one class Open Jackson Network}
+\title{Define the inputs of a Open Jackson Network}
 \description{
-  Define the inputs of a new one class Open Jackson Network
+  Define the inputs of a Open Jackson Network
 }
 
 \usage{
-  \method{NewInput}{OJN}(prob=NULL, ...)
+  NewInput.OJN(prob=NULL, ...)
 }
 \arguments{
   \item{prob}{It is probability transition matrix or visit ratio vector. That is, the prob[i, j] is the transition probability of node i to node j, or prob[i] is the visit ratio to node i (the visit ratio values doesn't need to be probabilities, that is, a value greater than 1 can be used here. See the examples)}
   \item{\dots}{a separated by comma list of nodes of i_MM1, i_MMC or i_MMInf class}
 }
 
-\details{Define the inputs of a new one class Open Jackson Network}
+\details{Define the inputs of a Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

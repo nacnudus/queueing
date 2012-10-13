@@ -7,7 +7,7 @@
 }
 
 \usage{
-  \method{NewInput}{MMCKM}(lambda=0, mu=0, c=1, k=1, m=1, method=0)
+  NewInput.MMCKM(lambda=0, mu=0, c=1, k=1, m=1, method=0)
 }
 \arguments{
   \item{lambda}{arrival rate}

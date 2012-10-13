@@ -32,6 +32,19 @@ ROck           <- function(x, ...) UseMethod("ROck")
 
 
 ############################################################
+## Error Messages
+############################################################
+ALL_mu_positive <- "mu must be greater than zero"
+ALL_lambda_zpositive <- "lambda must be equal or greater than zero"
+ALL_n_integer <- "the number of clients must be an integer number"
+ALL_c_integer <- "the number of servers (c) must be an integer number"
+ALL_k_integer <- "k must be a integer number"
+ALL_c_warning <- "c has to be at least one"
+ALL_k_warning <- "k has to be at least one"
+ALL_k_c <- "k must be equal or greater than the number of servers c"
+
+
+############################################################
 ## Auxiliary functions
 ############################################################
 is.anomalous <- function(x)
@@ -110,14 +123,14 @@ C_erlang <- function(c=1, r=0)
     stop("The parameter r is anomalous. Check it!")
 
   if (c<1)
-    stop("The number of servers can not be less than one!")
+    stop(ALL_c_warning)
+
+  if (!is.wholenumber(c))
+    stop(ALL_c_integer)
 
   b_result <- B_erlang(c-1, r)
-  num <- r * b_result
-  den <- c - (r * (1 - b_result))
-  num / den    
+  ( r * b_result ) / ( c - (r * (1 - b_result)) )   
 }
-
 
 
 # recursive version, in R has problems of stack overflow when c is large
@@ -234,6 +247,64 @@ B_erlang <- function(c=1, u=0)
 }
 
 
+Engset <- function(k=1, c=0, r=0)
+{
+  if (is.anomalous(c)) 
+    stop("The parameter c is anomalous. Check it!")
+  if (is.anomalous(r)) 
+    stop("The parameter r is anomalous. Check it!")
+  if (is.anomalous(k))
+    stop("The parameter k is anomalous. Check it!")
+  if (c < 0) 
+    stop("The number of servers can not be less than zero!")
+  if (r < 0) 
+    stop("The r parameter can not be negative!")
+  if (!is.wholenumber(c)) 
+    stop("The parameter c has to be an integer number")
+  if (!is.wholenumber(k)) 
+    stop("The parameter k has to be an integer number")
+
+  if (c > k)
+    stop("c can not be greater than k")
+
+  if (c == k)
+    return(0)
+  if (c == 0) 
+    return(1)
+  if (r == 0) 
+    return(0)
+
+
+  acum <- 1 
+  for (i in (1:c)) acum <- ( (i * acum) / ((k - c + 1) * r) ) + 1
+  return(1/acum)
+}
+
+
+Engset_def <- function(k=1, c=0, r=0)
+{
+  num <- choose(k-1, c) * (r^c)
+  
+  acum <- 0
+  
+  for (i in (0:c))
+    acum <- acum + (choose(k-1, i) * (r^i))
+  
+  den <- acum
+  num/den
+}
+
+engset_bin <- function(x, k=1, c=1, r=0)
+{
+  a <- r / (1 + r)
+  num <- dbinom(x, k, a)
+  den <- pbinom(c, k, a)
+  num/den
+}
+
+
+
+
 ProbFactCalculus <- function(lambda, mu, c, k, m, limit, fAuxC, fAuxK, fAuxM)
 {
   pn <- c(0:limit)
@@ -286,12 +357,9 @@ NewInput.MM1 <- function(lambda=0, mu=0, n=0)
 
 CheckInput.i_MM1 <- function(x, ...)
 {
- MM1_ro_warning <- "ro is greater or equal to one!!"
- MM1_mu_positive <- "mu must be greater than zero"
- MM1_lambda_zpositive <- "lambda must be equal or greater than zero"
- MM1_n_integer <- "the number of clients must be a integer number"
- MM1_class <- "the class of the object x has to be M/M/1 (i_MM1)"
- MM1_anomalous <- "Some value of lambda, mu or n is anomalous. Check the values." 
+  MM1_ro_warning <- "ro is greater or equal to one!!"
+  MM1_class <- "the class of the object x has to be M/M/1 (i_MM1)"
+  MM1_anomalous <- "Some value of lambda, mu or n is anomalous. Check the values." 
 
  if (class(x) != "i_MM1")
   stop(MM1_class)
@@ -300,20 +368,20 @@ CheckInput.i_MM1 <- function(x, ...)
     stop(MM1_anomalous)
 
  if (x$mu <= 0)
- 	stop(MM1_mu_positive)
+ 	stop(ALL_mu_positive)
 
  if (x$lambda < 0)
-	stop(MM1_lambda_zpositive)
+	stop(ALL_lambda_zpositive)
 
  if (!is.wholenumber(x$n))
-  stop(MM1_n_integer)
+  stop(ALL_n_integer)
 
  ro <- x$lambda / x$mu
  if (ro >= 1)
  {
-	cat(paste("Throughput is ", x$mu, "\n", sep=""))
-	cat(paste("Utilization is ", ro * 100, "%\n", sep=""))
-	stop(MM1_ro_warning)
+	 cat(paste("Throughput is ", x$mu, "\n", sep=""))
+	 cat(paste("Utilization is ", ro * 100, "%\n", sep=""))
+	 stop(MM1_ro_warning)
  }
 }
 
@@ -403,15 +471,9 @@ NewInput.MMC <- function(lambda=0, mu=0, c=1, n=0, method=0)
 CheckInput.i_MMC <- function(x, ...)
 {
 	MMC_r_c_warning <- "( lambda/(mu*c) ) has to be less than one!!"
-  MMC_c_warning <- "c has to be at least one!!"
-  MMC_mu_positive <- "mu must be greater than zero"
-  MMC_lambda_zpositive <- "lambda must be equal or greater than zero"
-  MMC_class <- "the class of the object x has to be M/M/C (i_MMC)" 
-  MMC_n_integer <- "the number of clients must be a integer number"
+  MMC_class <- "the class of the object x has to be M/M/C (i_MMC)"
   MMC_anomalous <- "Some value of lambda, mu, c or n is anomalous. Check the values."
   MMC_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
-  MMC_c_integer <- "the number of servers (c) must be a integer number"
-
 
   if (class(x) != "i_MMC")
    	stop(MMC_class)
@@ -424,13 +486,13 @@ CheckInput.i_MMC <- function(x, ...)
   r <- x$lambda / x$mu  
 
 	if (x$c < 1)
-    stop(MMC_c_warning)
+    stop(ALL_c_warning)
 
 	if (x$lambda < 0)
-		stop(MMC_lambda_zpositive)
+		stop(ALL_lambda_zpositive)
 
 	if (x$mu <= 0)
-		stop(MMC_mu_positive)
+		stop(ALL_mu_positive)
   
   if (r >= x$c)
   {
@@ -441,15 +503,16 @@ CheckInput.i_MMC <- function(x, ...)
   }
 
   if (!is.wholenumber(x$c))
-		stop(MMC_c_integer)
+		stop(ALL_c_integer)
 
   if (!is.wholenumber(x$n))
-		stop(MMC_n_integer)
+		stop(ALL_n_integer)
 
   if (x$method != 0 && x$method != 1)
     stop(MMC_method)
 
 }
+
 
 MMC_InitPn_Exact <- function(x)
 {
@@ -458,13 +521,17 @@ MMC_InitPn_Exact <- function(x)
   one_minus_ro <- 1 - ro
     
   prod <- 1
-  acum <- prod  	
-  pn <- numeric()
+  acum <- prod
 
-	i <- 1
-  pn[i] <- prod
+  if (x$n > x$c)
+    pn <- rep(0, x$n)
+  else
+    pn <- rep(0, x$c)
 
-	while ( i <= (x$c - 1) )
+  i <- 1
+	pn[i] <- prod
+
+  while ( i <= (x$c - 1) )
   {
    	prod <- prod * r/i
    	acum <- acum + prod
@@ -589,6 +656,7 @@ WWq.o_MMC <- function(x, ...){ x$WWq }
 Pn.o_MMC <- function(x, ...){ x$Pn }
 Throughput.o_MMC <- function(x, ...) { x$Throughput }
 
+
 summary.o_MMC <- function(object, ...)
 { 
   method <- if (object$Inputs$method == 0) "Exact" else "Aprox"
@@ -632,9 +700,6 @@ NewInput.MM1KK <- function(lambda=0, mu=0, k=1, method=0)
 CheckInput.i_MM1KK <- function(x, ...)
 {
 
-  MM1KK_lambda_zpositive <- "lambda must be equal or greater than zero"
-  MM1KK_mu_positive <- "mu must be greater than zero"
-  MM1KK_k_positive <- "k must be at least one"
   MM1KK_class <- "The class of the object x has to be M/M/1/K/K (i_MM1KK)"
   MM1KK_anomalous <- "Some value of lambda, mu or k is anomalous. Check the values."
   MM1KK_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
@@ -647,13 +712,16 @@ CheckInput.i_MM1KK <- function(x, ...)
    stop(MM1KK_anomalous)
 
  if (x$lambda < 0)
-   stop(MM1KK_lambda_zpositive)
+   stop(ALL_lambda_zpositive)
 
  if (x$mu <= 0)
- 	 stop(MM1KK_mu_positive)
+ 	 stop(ALL_mu_positive)
 
  if (x$k < 1)
-   stop(MM1KK_k_positive)
+   stop(ALL_k_warning)
+
+ if (!is.wholenumber(x$k))
+		stop(ALL_k_integer)
 
  if (x$method != 0 && x$method != 1)
    stop(MM1KK_method)
@@ -675,7 +743,6 @@ MM1KK_InitPn_Aprox <- function(x)
 
 MM1KK_InitPn_Exact <- function(x)
 {
-  #pn <- numeric()
   pn <- c(0:x$k)
 
   z <- x$mu / x$lambda
@@ -810,18 +877,13 @@ NewInput.MMCKK <- function(lambda=0, mu=0, c=1, k=1, method=0)
 
 CheckInput.i_MMCKK <- function(x, ...)
 {
- MMCKK_lambda_zpositive <- "lambda must be equal or greater than zero"
- MMCKK_mu_positive <- "mu must be greater than zero"
- MMCKK_k_one <- "k must be greater or equal than one"
- MMCKK_c_one <- "c must be greater or equal than one"
- MMCKK_k_c <- "k must be equal or greater than the number of servers c"
  MMCKK_class <- "The class of the object x has to be M/M/c/K/K (i_MMCKK)"
  MMCKK_anomalous <- "Some value of lambda, mu, c or k is anomalous. Check the values."
  MMCKK_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
- MMCKK_c_integer <- "c must be integer"
+
 
  if (class(x) != "i_MMCKK")
-  stop(MMCKK_class)
+   stop(MMCKK_class)
 
  if (is.anomalous(x$lambda) || is.anomalous(x$mu) ||
       is.anomalous(x$c) || is.anomalous(x$k)
@@ -829,22 +891,25 @@ CheckInput.i_MMCKK <- function(x, ...)
     stop(MMCKK_anomalous)
 
  if (x$lambda < 0)
-	stop(MMCKK_lambda_zpositive)
+	stop(ALL_lambda_zpositive)
 
  if (x$mu <= 0)
- 	stop(MMCKK_mu_positive)
+ 	stop(ALL_mu_positive)
 
  if (x$c < 1)
- 	stop(MMCKK_c_one)
+ 	stop(ALL_c_warning)
 
  if (!is.wholenumber(x$c))
-   stop(MMCKK_c_integer)
+   stop(ALL_c_integer)
 
  if (x$k < 1)
- 	stop(MMCKK_k_one)
+ 	stop(ALL_k_warning)
+
+ if (!is.wholenumber(x$k))
+   stop(ALL_k_integer)
 
  if (x$k < x$c)
-	stop(MMCKK_k_c)
+	stop(ALL_k_c)
 
  if (x$method != 0 && x$method != 1)
    stop(MMCKK_method)
@@ -926,118 +991,23 @@ MMCKK_InitPn_Exact <- function(x)
 }
 
 
-# to try to control the overflow. Interestings problems... to check some day ...
-# don't use anyway. It's only to remind me that the steady conditions can not be mantained when k -> Infinite and RO = 1
-control_overflow_MMCKK_InitPn <- function(x)
-{
-		pn <- rep(0, x$k+1)
-		fn <- rep(0, x$k+1)
-
-		u <- x$lambda / x$mu
-		totu <- 1
-		totfact <- 1
-		factn <- 1
-		factc <- 0
-		totaux <- 1
-		potc <- 1
-    sumpn <- 0
-
-    #variables to control the overflow
-    qt_over <- 1e100
-		
-		pn[1] <- totu * totfact
-    fn[1] <- totfact
-    sumpn <- sumpn + pn[1]
-
-		i <- 1
-		while (i <= x$k)
-		{
-
-      # overflow control
-      if (totu * u >= Inf)
-      {
-        totu <- (totu / qt_over) * u
-        print(paste("totu: ", totu))
-        pn <- pn / qt_over
-        sumpn <- sumpn / qt_over
-      }
-      else
-     	  totu <- totu * u
-
-      # overflow control
-      if (factn * i >= Inf)
-      {
-        factn <- (factn / qt_over) * i
-        pn <- pn / qt_over
-        sumpn <- sumpn / qt_over
-      }
-      else
-        factn <- factn * i
-
-			# Factorial calculus
-		  if (i <= x$k/2)
-			{
-        # overflow control
-        if (totfact * ((x$k - i + 1) / i) >= Inf)
-        {
-          totfact <- (totfact / qt_over) * ((x$k - i + 1) / i)
-          print(paste("totfact: ", totfact))
-          fn <- fn / qt_over
-          pn <- pn / qt_over
-          sumpn <- sumpn / qt_over
-        }
-        else
-        {
-				  totfact <- totfact * ((x$k - i + 1) / i)
-        }
-        fn[i+1] <- totfact
-      }
-			else
-				totfact <- fn[x$k - i + 1]
-				
-			if (i == x$c) factc <- factn
-
-			if (i > x$c)
-			{
-        if (potc * x$c >= Inf)
-        {
-          potc <- (potc / qt_over) * x$c
-          pn <- pn * qt_over
-          sumpn <- sumpn * qt_over
-          print(paste("potc: ", potc))
-        }
-        else
-				  potc <- potc * x$c
-
-				totaux <- factn / (factc * potc)
-        print(paste("totaux: ", totaux))
-		    pn[i+1] <- totfact * totu * totaux
-        if (pn[i+1] >= Inf | is.na(pn[i+1]))
-          print(paste("Error en el paso a, : ", i))
-        sumpn <- sumpn + pn[i+1]
-        print(paste("sumpn: ", sumpn))
-			}
-			else
-      {
-        pn[i+1] <- totfact * totu
-        if (pn[i+1] >= Inf | is.na(pn[i+1]))
-          print(paste("Error en el paso a, : ", i))
-        sumpn <- sumpn + pn[i+1]
-        print(paste("sumpn: ", sumpn))
-      }
-			i <- i + 1
-		}
-    pn/sumpn
-}
-
-
 MMCKK_InitPn <- function(x)
 {
-  if (x$method == 0)
-    pn <- MMCKK_InitPn_Exact(x)
+  # check if c=k so the distribution is a binomial
+  if (x$c == x$k)
+  {
+    u <- x$lambda / x$mu
+    prob <- u / (u + 1)
+    pn <- sapply(seq(0, x$k, 1), function(i){dbinom(i, x$k, prob)})
+  }
   else
-    pn <- MMCKK_InitPn_Aprox(x)
-
+  {
+    if (x$method == 0)
+      pn <- MMCKK_InitPn_Exact(x)
+    else
+      pn <- MMCKK_InitPn_Aprox(x)
+  }
+  
   pn
 }
 
@@ -1165,17 +1135,12 @@ NewInput.MMCKM <- function(lambda=0, mu=0, c=1, k=1, m=1, method=0)
 CheckInput.i_MMCKM <- function(x, ...)
 {
 
- MMCKM_lambda_zpositive <- "lambda must be equal or greater than zero"
- MMCKM_mu_positive <- "mu must be greater than zero"
- MMCKM_k_one <- "k must be greater than one"
- MMCKM_m_one <- "m must be greater than one"
- MMCKM_c_one <- "c must be greater than one"
- MMCKM_k_c <- "k must be equal or greater than the number of servers c"
- MMCKM_m_k <- "k must be equal or lesser than the poblation"
- MMCKM_class <- "The class of the object x has to be M/M/c/K/m (i_MMCKM)"
- MMCKM_anomalous <- "Some value of lambda, mu, c, k or m is anomalous. Check the values."
- MMCKM_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
- MMCKM_c_integer <- "c must be integer"
+  MMCKM_m_warning <- "m has to be at least one"
+  MMCKM_m_k <- "k must be equal or lesser than the poblation m"
+  MMCKM_class <- "The class of the object x has to be M/M/c/K/m (i_MMCKM)"
+  MMCKM_anomalous <- "Some value of lambda, mu, c, k or m is anomalous. Check the values."
+  MMCKM_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
+  MMCKM_m_integer <- "the poblation (m) must be an integer number"
 
  if (class(x) != "i_MMCKM")
   stop(MMCKM_class)
@@ -1186,25 +1151,31 @@ CheckInput.i_MMCKM <- function(x, ...)
     stop(MMCKM_anomalous)
 
  if (x$lambda < 0)
-	 stop(MMCKM_lambda_zpositive)
+	 stop(ALL_lambda_zpositive)
 
  if (x$mu <= 0)
- 	 stop(MMCKM_mu_positive)
+ 	 stop(ALL_mu_positive)
 
  if (x$c < 1)
- 	 stop(MMCKM_c_one)
+ 	 stop(ALL_c_warning)
 
  if (!is.wholenumber(x$c))
-   stop(MMCKM_c_integer)
+   stop(ALL_c_integer)
 
  if (x$k < 1)
- 	 stop(MMCKM_k_one)
+ 	 stop(ALL_k_warning)
+
+ if (!is.wholenumber(x$k))
+   stop(ALL_k_integer)
 
  if (x$m < 1)
- 	 stop(MMCKM_m_one)
+ 	 stop(MMCKM_m_warning)
+
+ if (!is.wholenumber(x$m))
+   stop(MMCKM_m_integer)
 
  if (x$k < x$c)
-	 stop(MMCKM_k_c)
+	 stop(ALL_k_c)
  
  if (x$m < x$k)
 	 stop(MMCKM_m_k)
@@ -1399,10 +1370,7 @@ NewInput.MMInfKK <- function(lambda=0, mu=0, k=1)
 
 CheckInput.i_MMInfKK <- function(x, ...)
 {
-  MMInfKK_mu_positive <- "mu must be greater than zero"
-  MMInfKK_lambda_zpositive <- "lambda must be equal or greater than zero"
   MMInfKK_class <- "The class of the object x has to be M/M/Inf/K/K (i_MMInfKK)"
-  MMInfKK_k_one <- "k must be greater than one"
   MMInfKK_anomalous <- "Some value of lambda, mu, or n is anomalous. Check the values."
 
   if (class(x) != "i_MMInfKK")
@@ -1412,13 +1380,16 @@ CheckInput.i_MMInfKK <- function(x, ...)
     stop(MMInfKK_anomalous)
 
   if (x$mu <= 0)
- 		stop(MMInfKK_mu_positive)
+ 		stop(ALL_mu_positive)
 
  	if (x$lambda < 0)
-		stop(MMInfKK_lambda_zpositive)
+		stop(ALL_lambda_zpositive)
 
   if (x$k < 0)
-		stop(MMInfKK_k_one)
+		stop(ALL_k_warning)
+
+  if (!is.wholenumber(x$k))
+   stop(ALL_k_integer)
 }
 
 
@@ -1474,6 +1445,7 @@ LLq.o_MMInfKK <- function(x, ...) { x$LLq }
 Pn.o_MMInfKK <- function(x, ...) { x$Pn }
 Throughput.o_MMInfKK <- function(x, ...) { x$Throughput }
 
+
 summary.o_MMInfKK <- function(object, ...)
 { 
   Ls <- object$L - object$Lq
@@ -1516,10 +1488,7 @@ NewInput.MMInf <- function(lambda=0, mu=0, n=0)
 
 CheckInput.i_MMInf <- function(x, ...)
 {
-  MMInf_mu_positive <- "mu must be greater than zero"
-  MMInf_lambda_zpositive <- "lambda must be equal or greater than zero"
   MMInf_class <- "The class of the object x has to be M/M/Inf (i_MMInf)"
-  MMInf_n_integer <- "the number of clients must be a integer number"
   MMInf_anomalous <- "Some value of lambda, mu, or n is anomalous. Check the values."
 
   if (class(x) != "i_MMInf")
@@ -1529,14 +1498,15 @@ CheckInput.i_MMInf <- function(x, ...)
     stop(MMInf_anomalous)
 
   if (x$mu <= 0)
- 		stop(MMInf_mu_positive)
+ 		stop(ALL_mu_positive)
 
  	if (x$lambda < 0)
-		stop(MMInf_lambda_zpositive)
+		stop(ALL_lambda_zpositive)
 
   if (!is.wholenumber(x$n))
-    stop(MMInf_n_integer)
+    stop(ALL_n_integer)
 }
+
 
 QueueingModel.i_MMInf <- function(x, ...)
 {
@@ -1580,6 +1550,7 @@ LLq.o_MMInf <- function(x, ...) { x$LLq }
 Pn.o_MMInf <- function(x, ...) { x$Pn }
 Throughput.o_MMInf <- function(x, ...) { x$Throughput }
 
+
 summary.o_MMInf <- function(object, ...)
 { 
   Ls <- object$L - object$Lq
@@ -1619,8 +1590,6 @@ NewInput.MM1K <- function(lambda=0, mu=0, k=1)
 
 CheckInput.i_MM1K <- function(x, ...)
 {
-  MM1K_mu_positive <- "mu must be greater than zero"
-  MM1K_lambda_zpositive <- "lambda must be equal or greater than zero"
   MM1K_k_one <- "k must be equal or greater than one"
   MM1K_class <- "the class of the object x has to be M/M/1/K (i_MM1K)"
   MM1K_anomalous <- "Some value of lambda, mu, or k is anomalous. Check the values."
@@ -1632,13 +1601,17 @@ CheckInput.i_MM1K <- function(x, ...)
     stop(MM1K_anomalous)
 
   if (x$mu <= 0)
- 	  stop(MM1K_mu_positive)
+ 	  stop(ALL_mu_positive)
 
   if (x$lambda < 0)
-	  stop(MM1K_lambda_zpositive)
+	  stop(ALL_lambda_zpositive)
 
   if (x$k < 1)
-	  stop(MM1K_k_one) 
+	  stop(ALL_k_warning)
+
+  if (!is.wholenumber(x$k))
+    stop(ALL_k_integer)
+ 
 }
 
 
@@ -1726,6 +1699,7 @@ WWq.o_MM1K <- function(x, ...) { x$WWq }
 Pn.o_MM1K <- function(x, ...) { x$Pn }
 Throughput.o_MM1K <- function(x, ...) { x$Throughput }
 
+
 summary.o_MM1K <- function(object, ...)
 { 
   Ls <- object$L - object$Lq
@@ -1765,14 +1739,8 @@ NewInput.MMCK <- function(lambda=0, mu=0, c=1, k=1)
 
 CheckInput.i_MMCK <- function(x, ...)
 {
- MMCK_c_one <- "c has to be at least one!!"
- MMCK_c_integer <- "c has to be integer!!"
- MMCK_lambda_zpositive <- "lambda must be equal or greater than zero"
- MMCK_k_one <- "k has to be at least one!!"
- MMCK_k_c <- "k must be equal or greater than the number of servers c"
- MMCK_mu_positive <- "mu must be greater than zero"
- MMCK_class <- "the class of the object x has to be M/M/C/K (i_MMCK)"
- MMCK_anomalous <- "Some value of lambda, mu, c or k is anomalous. Check the values."
+  MMCK_class <- "the class of the object x has to be M/M/C/K (i_MMCK)"
+  MMCK_anomalous <- "Some value of lambda, mu, c or k is anomalous. Check the values."
 
  if (class(x) != "i_MMCK")
    	stop(MMCK_class)
@@ -1783,24 +1751,26 @@ CheckInput.i_MMCK <- function(x, ...)
     stop(MMCK_anomalous)
 
  if (x$lambda < 0)
-	stop(MMCK_lambda_zpositive)
+	stop(ALL_lambda_zpositive)
 
  if (x$mu <= 0)
- 	stop(MMCK_mu_positive)
+ 	stop(ALL_mu_positive)
 
  if (x$c < 1)
-	stop(MMCK_c_one)
+	stop(ALL_c_warning)
 
  if (!is.wholenumber(x$c))
-   stop(MMCK_c_integer)
+   stop(ALL_c_integer)
 
  if (x$k < 1)
-	stop(MMCK_k_one)
+	stop(ALL_k_warning)
+
+ if (!is.wholenumber(x$k))
+   stop(ALL_k_integer)
 
  if (x$k < x$c)
-	stop(MMCK_k_c)
+	stop(ALL_k_c)
 }
-
 
 
 MMCK_InitPn <- function(x)
@@ -1919,6 +1889,7 @@ WWq.o_MMCK <- function(x, ...) { x$WWq }
 Pn.o_MMCK <- function(x, ...) { x$Pn }
 Throughput.o_MMCK <- function(x, ...) { x$Throughput }
 
+
 summary.o_MMCK <- function(object, ...)
 { 
   Ls <- object$L - object$Lq
@@ -1959,30 +1930,26 @@ NewInput.MMCC <- function(lambda=0, mu=0, c=1)
 
 CheckInput.i_MMCC <- function(x, ...)
 {
- MMCC_c_one <- "c has to be at least one!!"
- MMCC_lambda_zpositive <- "lambda must be equal or greater than zero"
- MMCC_mu_positive <- "mu must be greater than zero"
- MMCC_class <- "the class of the object x has to be M/M/C/C (i_MMCC)"
- MMCC_anomalous <- "Some value of lambda, mu or c is anomalous. Check the values."
- MMCC_c_integer <- "c has to be integer!!"
+  MMCC_class <- "the class of the object x has to be M/M/C/C (i_MMCC)"
+  MMCC_anomalous <- "Some value of lambda, mu or c is anomalous. Check the values."
 
- if (class(x) != "i_MMCC")
-   stop(MMCC_class)
+  if (class(x) != "i_MMCC")
+    stop(MMCC_class)
 
- if (is.anomalous(x$lambda) || is.anomalous(x$mu) || is.anomalous(x$c))
-    stop(MMCC_anomalous)
+  if (is.anomalous(x$lambda) || is.anomalous(x$mu) || is.anomalous(x$c))
+     stop(MMCC_anomalous)
 
- if (x$lambda < 0)
-	stop(MMCC_lambda_zpositive)
+  if (x$lambda < 0)
+	 stop(ALL_lambda_zpositive)
 
- if (x$mu <= 0)
- 	stop(MMCC_mu_positive)
+  if (x$mu <= 0)
+ 	 stop(ALL_mu_positive)
 
- if (x$c < 1)
-	stop(MMCC_c_one)
+  if (x$c < 1)
+	 stop(ALL_c_warning)
 
- if (!is.wholenumber(x$c))
-   stop(MMCC_c_integer)
+  if (!is.wholenumber(x$c))
+    stop(ALL_c_integer)
 }
 
 
@@ -2335,7 +2302,8 @@ CheckInput.i_CJN <- function(x, ...)
 
  if (
    is.anomalous(x$prob) || is.anomalous(x$nodes) || is.anomalous(x$n) ||
-   is.anomalous(x$z) || is.anomalous(x$operational)
+   is.anomalous(x$z) || is.anomalous(x$operational) || is.anomalous(x$method) ||
+   is.anomalous(x$tol)
  )
     stop(x_anomalous)
 
@@ -2759,9 +2727,9 @@ summary.o_CJN <- function(object, ...)
 ## MultiClass Open Network
 #######################################################################################
 
-NewInput.MCON <- function(classes, vLambda, nodes, vType, vVisit, vMu)
+NewInput.MCON <- function(classes, vLambda, nodes, vType, vVisit, vService)
 {
-  nds <- list(classes=classes, vLambda=vLambda, nodes=nodes, vType=vType, vVisit=vVisit, vMu=vMu)
+  nds <- list(classes=classes, vLambda=vLambda, nodes=nodes, vType=vType, vVisit=vVisit, vService=vService)
   class(nds) <- "i_MCON"
   nds
 }
@@ -2771,14 +2739,14 @@ CheckInput.i_MCON <- function(x, ...)
 {
 
   MCON_vLambda_negatives <- "Some lambda has a negative value. Lambda has to be zero or positive"
-  MCON_vMu_negatives_or_zero <- "Some mu has negative or zero. Mu has to be positive"
+  MCON_vService_negatives <- "Some service time is negative. Service time has to be zero or negative"
   MCON_lenght_vType_nodes <- "The lenght of Vtype vector doesn't coincide with nodes"
   x_class_MCON <- "The class of x has to be i_MCON"
   x_anomalous <- "Some parameter has a anomalous value" 
-  MCON_dimension_visit_mu <- "The matrix vVisit and the matrix vMu has to have the same dimension"
+  MCON_dimension_visit_service <- "The matrix vVisit and the matrix vService has to have the same dimension"
   MCON_vVisit_negatives <- "Some visit has a negative value. Visits has to be zero or positive"
   MCON_vVisit_class_matrix <- "vVisit has to be of class matrix"
-  MCON_vMu_class_matrix <- "vMu has to be of class matrix"
+  MCON_vService_class_matrix <- "vService has to be of class matrix"
   MCON_dim_vVisit_nodes_vLambda <- "The dimension of the vVisit matrix doesn't coincide with the dimension of vLambda and nodes"
   MCON_vType_wrong <- "The types for the nodes has to be \"Q\" or \"D\""
   MCON_vlambda_classes_wrong <- "The number of elements of the vector vLambda has to be equal to classes"
@@ -2786,7 +2754,7 @@ CheckInput.i_MCON <- function(x, ...)
 
   if (
     is.anomalous(x$vLambda) || is.anomalous(x$nodes) || is.anomalous(x$vType) ||
-    is.anomalous(x$vVisit) || is.anomalous(x$vMu)
+    is.anomalous(x$vVisit) || is.anomalous(x$vService)
   )
     stop(x_anomalous)
 
@@ -2800,8 +2768,8 @@ CheckInput.i_MCON <- function(x, ...)
   if (checkNegative(x$vVisit))
     stop(MCON_vVisit_negatives)
 
-  if (checkNegativeOrZero(x$vMu))
-    stop(MCON_vMu_negatives_or_zero)
+  if (checkNegative(x$vService))
+    stop(MCON_vService_negatives)
 
   if (x$classes != length(x$vLambda)) 
     stop(MCON_vlambda_classes_wrong)
@@ -2812,17 +2780,37 @@ CheckInput.i_MCON <- function(x, ...)
   dimVisit <- dim(x$vVisit)
 
 
-  if (sum(dimVisit == dim(x$vMu)) != 2)
-    stop(MCON_dimension_visit_mu)
+  if (sum(dimVisit == dim(x$vService)) != 2)
+    stop(MCON_dimension_visit_service)
 
   if (class(x$vVisit) != "matrix")
     stop(MCON_vVisit_class_matrix)
 
-  if (class(x$vMu) != "matrix")
-    stop(MCON_vMu_class_matrix)
+  if (class(x$vService) != "matrix")
+    stop(MCON_vService_class_matrix)
 
   if (sum(dimVisit == c(x$classes, x$nodes)) != 2)
     stop(MCON_dim_vVisit_nodes_vLambda)
+
+  #vService has to has at least one element positive
+  i <- 1
+  while (i <= x$nodes)
+  {
+    if (sum(x$vService[i, ]) <= 0)
+      stop("At least some service time has to be greater than zero at each node")
+
+    i <- i + 1
+  }
+
+  #vVisit has to has at least one element positive
+  i <- 1
+  while (i <= x$nodes)
+  {
+    if (sum(x$vVisit[i, ]) <= 0)
+      stop("At least some visit has to be greater than zero at each node")
+
+    i <- i + 1
+  }
 
   i <- 1
   while (i <= x$nodes)
@@ -2830,13 +2818,14 @@ CheckInput.i_MCON <- function(x, ...)
     if (x$vType[i] != "Q" && x$vType[i] != "D")
       stop(MCON_vType_wrong)
      
-    ro_aux <- sum(x$vLambda * x$vVisit[, i] * (1/x$vMu[, i])) 
+    ro_aux <- sum(x$vLambda * x$vVisit[, i] * (x$vService[, i])) 
 
     if ( ro_aux >= 1 )
       stop(paste("The processing capacity of node ", i, " is saturated. The utilization is: ", ro_aux * 100, "%", sep=""))
 
     i <- i + 1
   }
+
   
 }
 
@@ -2860,7 +2849,7 @@ QueueingModel.i_MCON <- function(x, ...)
 
   for (nd in (1:x$nodes))
   {
-    Sk <- 1/x$vMu[, nd]
+    Sk <- x$vService[, nd]
     Throughputck[, nd] <- x$vLambda * x$vVisit[, nd]
     ROck[, nd] <- Throughputck[, nd] * Sk
     inf_i <- 1 - sum(ROck[, nd])
@@ -2952,9 +2941,10 @@ summary.o_MCON <- function(object, ...)
 ## MultiClass Closed Network
 #######################################################################################
 
-NewInput.MCCN <- function(classes, vNumber, vThink, nodes, vType, vVisit, vMu)
+NewInput.MCCN <- function(classes, vNumber, vThink, nodes, vType, vVisit, vService, method=1, tol=0.01)
 {
-  nds <- list(classes=classes, vNumber=vNumber, vThink=vThink, nodes=nodes, vType=vType, vVisit=vVisit, vMu=vMu)
+  nds <- list(classes=classes, vNumber=vNumber, vThink=vThink, nodes=nodes, vType=vType, vVisit=vVisit, vService=vService, method=method, tol=tol)
+
   class(nds) <- "i_MCCN"
   nds
 }
@@ -2968,30 +2958,32 @@ CheckInput.i_MCCN <- function(x, ...)
 
   MCCN_vNumber_negatives_or_zero <- "Some class number of clients are zero or negative. The number of clientes has to be positive"
   
-  MCCN_vMu_negatives_or_zero <- "Some mu has negative or zero. Mu has to be positive"
+  MCCN_vService_negatives <- "Some service time is negative"
   MCCN_vThink_negatives <- "Some think time is negative"
 
   MMCN_classes_at_least_one <- "The number of clasess has to be one or greater"
   MMCN_nodes_at_least_one <- "The number of nodes has to be one or greater"
-  MMCN_vVisit_at_least_one <- "Some visit is lesser than one. Visit has to be greater or equal to one"
+  MMCN_vVisit_negatives <- "Some visit is negative"
 
   MCCN_vNumber_classes <- "The length of vector vNumber doesn't coincide with classes"
   MCCN_lenght_vType_nodes <- "The lenght of Vtype vector doesn't coincide with nodes"
   MCCN_length_vNumber_vThink <- "The length of the vector vNumber does not coincide with lenght of vector vThink"  
 
 
-  MCCN_dimension_visit_mu <- "The matrix vVisit and the matrix vMu has to have the same dimension"
+  MCCN_dimension_visit_service <- "The matrix vVisit and the matrix vService has to have the same dimension"
   
   MCCN_vVisit_class_matrix <- "vVisit has to be of class matrix"
-  MCCN_vMu_class_matrix <- "vMu has to be of class matrix"
+  MCCN_vService_class_matrix <- "vService has to be of class matrix"
 
   MCCN_dim_vVisit_nodes_vNumber <- "The dimension of the vVisit matrix doesn't coincide with the dimension of vNumber and nodes"
   MCCN_vType_wrong <- "The types for the nodes has to be \"Q\" or \"D\""
-
+  MCCN_method_values <- "The x$method has to be 0 (exact) or 1 (aprox)"
+  MCCN_tol_value <- "The x$tol has to be positive"
 
   if (
     is.anomalous(x$classes) || is.anomalous(x$vNumber) || is.anomalous(x$vThink) ||
-    is.anomalous(x$nodes) || is.anomalous(x$vType) || is.anomalous(x$vVisit) || is.anomalous(x$vMu)
+    is.anomalous(x$nodes) || is.anomalous(x$vType) || is.anomalous(x$vVisit) || is.anomalous(x$vService) ||
+    is.anomalous(x$method) || is.anomalous(x$tol)
   )
     stop(MCCN_x_anomalous)
 
@@ -3002,8 +2994,8 @@ CheckInput.i_MCCN <- function(x, ...)
   if (checkNegativeOrZero(x$vNumber))
     stop(MCCN_vNumber_negatives_or_zero)
 
-  if (checkNegativeOrZero(x$vMu))
-    stop(MCCN_vMu_negatives_or_zero)
+  if (checkNegative(x$vService))
+    stop(MCCN_vService_negatives)
 
   if (checkNegative(x$vThink))
     stop(MCCN_vThink_negatives)
@@ -3014,8 +3006,14 @@ CheckInput.i_MCCN <- function(x, ...)
   if (checkAtLeastOne(x$nodes))
     stop(MMCN_nodes_at_least_one)
 
-  if (checkAtLeastOne(x$vVisit))
-    stop(MMCN_vVisit_at_least_one) 
+  if (checkNegative(x$vVisit))
+    stop(MMCN_vVisit_negatives) 
+
+  if (x$method != 0 && x$method != 1)
+    stop(MCCN_method_values)
+
+  if (!(x$tol > 0))
+    stop(MCCN_tol_value)
 
   # dimension and lengths
   if (length(x$vType) != x$nodes)
@@ -3027,15 +3025,15 @@ CheckInput.i_MCCN <- function(x, ...)
   if (length(x$vNumber) != length(x$vThink))
     stop(MCCN_length_vNumber_vThink)
 
-  if (sum(dim(x$vVisit) == dim(x$vMu)) != 2)
-    stop(MCCN_dimension_visit_mu)
+  if (sum(dim(x$vVisit) == dim(x$vService)) != 2)
+    stop(MCCN_dimension_visit_service)
 
   # classes
   if (class(x$vVisit) != "matrix")
     stop(MCCN_vVisit_class_matrix)
 
-  if (class(x$vMu) != "matrix")
-    stop(MCCN_vMu_class_matrix)
+  if (class(x$vService) != "matrix")
+    stop(MCCN_vService_class_matrix)
 
   if (sum(dim(x$vVisit) == c(length(x$vNumber), x$nodes)) != 2)
     stop(MCCN_dim_vVisit_nodes_vNumber)
@@ -3050,13 +3048,43 @@ CheckInput.i_MCCN <- function(x, ...)
     i <- i + 1
   }
   
+  #vService has to has at least one element positive
+  i <- 1
+  while (i <= x$nodes)
+  {
+    if (sum(x$vService[i, ]) <= 0)
+      stop("At least some service time has to be greater than zero at each node")
+
+    i <- i + 1
+  }
+
+  #vVisit has to has at least one element positive
+  i <- 1
+  while (i <= x$nodes)
+  {
+    if (sum(x$vVisit[i, ]) <= 0)
+      stop("At least some visit has to be greater than zero at each node")
+
+    i <- i + 1
+  }
+
 }
 
+
 QueueingModel.i_MCCN <- function(x, ...)
-#check <- function(x, ...)
 {
   CheckInput(x)
 
+  if (x$method == 0)
+    QueueingModelMCCNExact(x, ...)
+  else
+    QueueingModelMCCNApprox(x, ...)  
+}
+
+
+QueueingModelMCCNExact <- function(x, ...)
+#check <- function(x, ...)
+{
   Throughputc <- rep(0, x$classes)
   Throughputck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
   ROck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
@@ -3121,8 +3149,9 @@ QueueingModel.i_MCCN <- function(x, ...)
         elem <- as.vector(population[subpopulation, ])
    
       ## Fixed elem to remove the order value
-      elem <- elem[-length(elem)]
-      
+      elem <- rev(elem[-length(elem)])
+      #revElem <- rev(elem)   
+   
       for (cla in (1:x$classes))
       {
         vaux <- elem
@@ -3130,7 +3159,7 @@ QueueingModel.i_MCCN <- function(x, ...)
    
         for (server in (1:x$nodes))
         {
-          demand <- x$vVisit[cla, server] * (1/(x$vMu[cla, server]))
+          demand <- x$vVisit[cla, server] * (x$vService[cla, server])
 
           if (x$vType[server] == "D")
             Wck[cla, server] <- demand
@@ -3157,7 +3186,7 @@ QueueingModel.i_MCCN <- function(x, ...)
   {
     ThAux <- Throughputc * x$vVisit[, i]
     Throughputck[ , i] <- ThAux
-    ROck[, i] <- ThAux * (1/x$vMu[, i])
+    ROck[, i] <- ThAux * (x$vService[, i])
     Lck[, i] <- Throughputc * Wck[, i]
   }
 
@@ -3202,6 +3231,110 @@ QueueingModel.i_MCCN <- function(x, ...)
   res    
 
 }
+
+
+#############################################################################
+#############################################################################
+QueueingModelMCCNApprox <- function(x, ...)
+{
+  Throughputc <- rep(0, x$classes)
+  Throughputck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  ROck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Wck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+  Lck <- matrix(data=0, nrow=x$classes, ncol=x$nodes)  
+  Ack <- matrix(data=0, nrow=x$classes, ncol=x$nodes)
+
+  ROk <- rep(0, x$nodes)
+  Lk <- rep(0, x$nodes)
+  Throughputk <- rep(0, x$nodes)
+  Wk <- rep(0, x$nodes)
+
+  Throughputcn <- array(0, dim=c(x$vNumber + 1, x$classes))
+
+  for (i in (1:x$classes))
+    Lck[i, ] <- x$vNumber[i]/x$nodes
+
+  # To ensure that at least one iteration is done, other option is to use repeat and break
+  AuxLck <- Lck + 2*x$tol
+
+  while (sum( (AuxLck - Lck >= x$tol) > 0))
+  {
+
+    for (i in (1:x$classes))
+      Ack[i, ] <- ((x$vNumber[i] - 1)/x$vNumber[i]) * Lck[i, ] + colSums(rbind(Lck[-i, ], 0))
+
+    for (i in (1:x$classes))
+    {
+      if (x$vType[i] == "D")
+        Wck[i, ] <- x$vVisit[i, ] * x$vService[i, ]
+      else
+        Wck[i, ] <- (x$vVisit[i, ] * x$vService[i, ]) * (1 + Ack[i, ])
+    }
+
+    AuxLck <- Lck
+
+    for (i in (1:x$classes))
+    {
+      Throughputc[i] <- x$vNumber[i] / (x$vThink[i] + sum(Wck[i, ]))
+      Lck[i, ] <- Throughputc[i] * Wck[i, ]
+    }
+    
+    #print("LckF")
+    #print(Lck)
+
+  }
+  
+  Wc <- (x$vNumber/Throughputc) - x$vThink  
+  Lc <- Wc * Throughputc
+
+  for (i in (1:x$nodes))
+  {
+    Throughputck[, i] <- Throughputc * x$vVisit[, i]
+    ROck[, i] <- Throughputck[, i] * x$vService[, i]    
+  }
+
+  Throughput <- 0
+  L <- 0
+
+  for (i in (1:x$nodes))
+  {
+    ROk[i] <- sum(ROck[, i])
+    Lk[i] <- sum(Lck[, i])
+    L <- L + Lk[i]
+    Throughputk[i] <- sum(Throughputck[, i])
+    Throughput <- Throughput + Throughputk[i]
+    Wk[i] <- sum(Wck[, i] * Throughputc)
+  }
+
+  Wk <- Wk / Throughput 
+
+  W <- (sum(Wc * Throughputc)) / Throughput
+
+  res <-
+    list(
+      Inputs=x,
+      W=W,
+      Throughput=Throughput,
+      L=L,
+      Wc=Wc,
+      Throughputc=Throughputc,      
+      Lc=Lc,
+      ROk=ROk,
+      Wk=Wk,
+      Throughputk=Throughputk,      
+      Lk=Lk,
+      ROck=ROck,
+      Wck=Wck,
+      Throughputck=Throughputck,     
+      Lck=Lck,
+      Throughputcn=Throughputcn
+    )
+
+  class(res) <- "o_MCCN"
+  res    
+
+}
+
 
 Inputs.o_MCCN <- function(x, ...) { x$Inputs }
 L.o_MCCN <- function(x, ...) { x$L }

@@ -1,9 +1,9 @@
 % File man/C_erlang.Rd
 \name{C_erlang}
 \alias{C_erlang}
-\title{Returns the probability to wait in queue bacause all servers are busy}
+\title{Returns the probability to wait in queue because all servers are busy}
 \description{
-  Returns the probability to wait in queue bacause all servers are busy
+  Returns the probability to wait in queue because all servers are busy
 }
 \usage{
   C_erlang(c=1, r=0)
@@ -13,7 +13,7 @@
   \item{r}{lambda/mu, that is, ratio of rate of arrivals and rate of service}
 }
 
-\details{Returns the probability to wait in queue bacause all servers are busy}
+\details{Returns the probability to wait in queue because all servers are busy}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

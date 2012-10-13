@@ -6,7 +6,7 @@
   Define the inputs of a new M/M/Infinite queueing model
 }
 \usage{
-  \method{NewInput}{MMInf}(lambda=0, mu=0, n=0)
+  NewInput.MMInf(lambda=0, mu=0, n=0)
 }
 
 \arguments{

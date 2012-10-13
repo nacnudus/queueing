@@ -1,9 +1,9 @@
 % File man/W.Rd
 \name{W}
 \alias{W}
-\title{Returns the mean time spend in a queueing model (or network)>}
+\title{Returns the mean time spend in a queueing model (or network)}
 \description{
-  Returns the mean time spend in a queueing model (or network)>
+  Returns the mean time spend in a queueing model (or network)
 }
 \usage{
   W(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean time spend in a queueing model (or network)>}
+\details{Returns the mean time spend in a queueing model (or network)}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
