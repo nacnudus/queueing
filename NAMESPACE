@@ -201,6 +201,24 @@ Wck.o_MCCN,
 Lck.o_MCCN,
 Throughputck.o_MCCN,
 Throughputcn.o_MCCN,
+NewInput.MCMN,
+CheckInput.i_MCMN,
+QueueingModel.i_MCMN,
+Inputs.o_MCMN,
+L.o_MCMN,
+W.o_MCMN,
+Throughput.o_MCMN,
+Lc.o_MCMN,
+Wc.o_MCMN,
+Throughputc.o_MCMN,
+ROk.o_MCMN,
+Lk.o_MCMN,
+Wk.o_MCMN,
+Throughputk.o_MCMN,
+ROck.o_MCMN,
+Lck.o_MCMN,
+Wck.o_MCMN,
+Throughputck.o_MCMN,
 CheckInput,
 QueueingModel,
 Inputs,
@@ -247,6 +265,7 @@ S3method(CheckInput, i_OJN)
 S3method(CheckInput, i_CJN)
 S3method(CheckInput, i_MCON)
 S3method(CheckInput, i_MCCN)
+S3method(CheckInput, i_MCMN)
 
 S3method(QueueingModel, i_MM1)
 S3method(QueueingModel, i_MM1K)
@@ -262,6 +281,7 @@ S3method(QueueingModel, i_OJN)
 S3method(QueueingModel, i_CJN)
 S3method(QueueingModel, i_MCON)
 S3method(QueueingModel, i_MCCN)
+S3method(QueueingModel, i_MCMN)
 
 S3method(Inputs, o_MM1)
 S3method(Inputs, o_MM1K)
@@ -277,6 +297,7 @@ S3method(Inputs, o_OJN)
 S3method(Inputs, o_CJN)
 S3method(Inputs, o_MCON)
 S3method(Inputs, o_MCCN)
+S3method(Inputs, o_MCMN)
 
 S3method(RO, o_MM1)
 S3method(RO, o_MM1K)
@@ -325,6 +346,7 @@ S3method(L, o_OJN)
 S3method(L, o_CJN)
 S3method(L, o_MCON)
 S3method(L, o_MCCN)
+S3method(L, o_MCMN)
 
 S3method(W, o_MM1)
 S3method(W, o_MM1K)
@@ -340,6 +362,7 @@ S3method(W, o_OJN)
 S3method(W, o_CJN)
 S3method(W, o_MCON)
 S3method(W, o_MCCN)
+S3method(W, o_MCMN)
 
 S3method(WWq, o_MM1)
 S3method(WWq, o_MM1K)
@@ -382,41 +405,50 @@ S3method(Throughput, o_OJN)
 S3method(Throughput, o_CJN)
 S3method(Throughput, o_MCON)
 S3method(Throughput, o_MCCN)
+S3method(Throughput, o_MCMN)
 
 S3method(WWs, o_MM1KK)
 S3method(SP, o_MM1KK)
 
 S3method(Throughputc, o_MCON)
 S3method(Throughputc, o_MCCN)
+S3method(Throughputc, o_MCMN)
 
 S3method(Wc, o_MCON)
 S3method(Wc, o_MCCN)
+S3method(Wc, o_MCMN)
 
 S3method(Lc, o_MCON)
 S3method(Lc, o_MCCN)
+S3method(Lc, o_MCMN)
 
 S3method(Throughputk, o_OJN)
 S3method(Throughputk, o_CJN)
 S3method(Throughputk, o_MCON)
 S3method(Throughputk, o_MCCN)
+S3method(Throughputk, o_MCMN)
 
 S3method(Wk, o_OJN)
 S3method(Wk, o_CJN)
 S3method(Wk, o_MCON)
 S3method(Wk, o_MCCN)
+S3method(Wk, o_MCMN)
 
 S3method(Lk, o_OJN)
 S3method(Lk, o_CJN)
 S3method(Lk, o_MCON)
 S3method(Lk, o_MCCN)
+S3method(Lk, o_MCMN)
 
 S3method(ROk, o_OJN)
 S3method(ROk, o_CJN)
 S3method(ROk, o_MCON)
 S3method(ROk, o_MCCN)
+S3method(ROk, o_MCMN)
 
 S3method(Throughputck, o_MCON)
 S3method(Throughputck, o_MCCN)
+S3method(Throughputck, o_MCMN)
 
 S3method(Throughputn, o_CJN)
 
@@ -424,12 +456,15 @@ S3method(Throughputcn, o_MCCN)
 
 S3method(Wck, o_MCON)
 S3method(Wck, o_MCCN)
+S3method(Wck, o_MCMN)
 
 S3method(Lck, o_MCON)
 S3method(Lck, o_MCCN)
+S3method(Lck, o_MCMN)
 
 S3method(ROck, o_MCON)
 S3method(ROck, o_MCCN)
+S3method(ROck, o_MCMN)
 
 S3method(summary, o_MM1)
 S3method(summary, o_MM1K)
@@ -445,4 +480,5 @@ S3method(summary, o_OJN)
 S3method(summary, o_CJN)
 S3method(summary, o_MCON)
 S3method(summary, o_MCCN)
+S3method(summary, o_MCMN)
 

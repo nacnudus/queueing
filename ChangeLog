@@ -1,3 +1,7 @@
+2012-10-21 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * New version 0.1.6. Added the Mixed queueing network model.
+
+
 2012-10-13 Pedro Canadilla <pedro.canadilla@gmail.com>
     * New version 0.1.5. Added the aproximation method for the MCCN.
     * Checked for anomalous for the tol and method parameters in Checkparams method of the CJN model.
