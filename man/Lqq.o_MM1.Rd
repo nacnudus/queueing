@@ -1,12 +1,12 @@
-% File man/LLq.o_MM1.Rd
-\name{LLq.o_MM1}
-\alias{LLq.o_MM1}
+% File man/Lqq.o_MM1.Rd
+\name{Lqq.o_MM1}
+\alias{Lqq.o_MM1}
 \title{Returns the mean number of clients in queue when there is queue in the M/M/1 queueing model}
 \description{
   Returns the mean number of clients in queue when there is queue in the M/M/1 queueing model
 }
 \usage{
-  \method{LLq}{o_MM1}(x, \dots)
+  \method{Lqq}{o_MM1}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MM1}
@@ -34,8 +34,8 @@ i_mm1 <- NewInput.MM1(lambda=1/4, mu=1/3, n=0)
 ## Build the model
 o_mm1 <- QueueingModel(i_mm1)
 
-## Returns the LLq
-LLq(o_mm1)
+## Returns the Lqq
+Lqq(o_mm1)
 }
 
 \keyword{M/M/1}

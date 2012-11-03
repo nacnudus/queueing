@@ -10,9 +10,9 @@ Lq             <- function(x, ...) UseMethod("Lq")
 Wq             <- function(x, ...) UseMethod("Wq")
 L              <- function(x, ...) UseMethod("L")
 W              <- function(x, ...) UseMethod("W")
-WWq            <- function(x, ...) UseMethod("WWq")
+Wqq            <- function(x, ...) UseMethod("Wqq")
 Pn             <- function(x, ...) UseMethod("Pn")
-LLq            <- function(x, ...) UseMethod("LLq")
+Lqq            <- function(x, ...) UseMethod("Lqq")
 Throughput     <- function(x, ...) UseMethod("Throughput")
 WWs            <- function(x, ...) UseMethod("WWs")
 SP             <- function(x, ...) UseMethod("SP")
@@ -34,14 +34,14 @@ ROck           <- function(x, ...) UseMethod("ROck")
 ############################################################
 ## Error Messages
 ############################################################
-ALL_mu_positive <- "mu must be greater than zero"
+ALL_mu_positive      <- "mu must be greater than zero"
 ALL_lambda_zpositive <- "lambda must be equal or greater than zero"
-ALL_n_integer <- "the number of clients must be an integer number"
-ALL_c_integer <- "the number of servers (c) must be an integer number"
-ALL_k_integer <- "k must be a integer number"
-ALL_c_warning <- "c has to be at least one"
-ALL_k_warning <- "k has to be at least one"
-ALL_k_c <- "k must be equal or greater than the number of servers c"
+ALL_n_integer        <- "the number of clients must be an integer number"
+ALL_c_integer        <- "the number of servers (c) must be an integer number"
+ALL_k_integer        <- "k must be a integer number"
+ALL_c_warning        <- "c has to be at least one"
+ALL_k_warning        <- "k has to be at least one"
+ALL_k_c              <- "k must be equal or greater than the number of servers c"
 
 
 ############################################################
@@ -54,8 +54,8 @@ is.anomalous <- function(x)
   is.null(x) || is.na(x)
 }
 
-
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
+
 
 C_erlang2 <- function(c, r)
 {
@@ -103,6 +103,13 @@ checkAtLeastOne <- function(v)
 {
   return(sum(v < 1) > 0)
 }
+
+
+checkAllZero <- function(v)
+{
+  return(sum(v <= 0) == length(v))
+}
+
 
 C_erlang3 <- function(c, r)
 {
@@ -342,6 +349,110 @@ ProbFactCalculus <- function(lambda, mu, c, k, m, limit, fAuxC, fAuxK, fAuxM)
 }
 
 
+############################################################
+############################################################
+## FUNTION TO TABULATE DIFFERENT MODELS 
+############################################################
+############################################################
+
+CompareQueueingModels2 <- function(models)
+{
+  num_elems <- length(models)
+
+  # Check that every object has the correct class
+  for (i in 1:num_elems)
+  {
+    classm <- class(models[[i]])
+    if (!(classm == "o_MM1" || classm == "o_MMC" || classm == "o_MM1K" || classm == "o_MMCK" ||
+      classm == "o_MMCC" || classm == "o_MMInf" || classm == "o_MMInfKK" || classm == "o_MM1KK" ||
+      classm == "o_MMCKK" || classm == "o_MMCKM"))
+    stop("Function called with incorrect class")
+  }
+
+  #build the table
+  lambda      <- c()
+  mu          <- c()
+  c           <- c()
+  k           <- c()
+  m           <- c()  
+  RO          <- c()
+  Lq          <- c()
+  Wq          <- c()
+  Throughput  <- c()
+  L           <- c()
+  W           <- c()
+  Wqq         <- c()
+  Lqq         <- c()
+
+  for (i in (1:num_elems))
+  {
+    mod <- models[[i]]
+    classm <- class(mod)   
+
+    lambda <- c(lambda, mod$Inputs$lambda)
+    mu <- c(mu, mod$Inputs$mu)
+
+    if (classm == "o_MMInf" || classm == "o_MMInfKK")
+      c <- c(c, NA)
+    else if (classm == "o_MM1" || classm == "o_MM1K" || classm == "o_MM1KK")
+      c <- c(c, 1)
+    else
+      c <- c(c, mod$Inputs$c)
+
+    if (classm == "o_MMInf" || classm == "o_MM1" || classm == "o_MMC")
+      k <- c(k, NA)
+    else if (classm == "o_MMCC")
+      k <- c(k, mod$Inputs$c)
+    else
+      k <- c(k, mod$Inputs$k)
+
+    if (classm != "o_MMCKM")
+      m <- c(m, NA)
+    else
+      m <- c(m, mod$Inputs$m)
+
+    RO          <- c(RO, mod$RO)
+    Lq          <- c(Lq, mod$Lq)
+    Wq          <- c(Wq, mod$Wq)
+    Throughput  <- c(Throughput, mod$Throughput)
+    L           <- c(L, mod$L)
+    W           <- c(W, mod$W)
+    Wqq         <- c(Wqq, mod$Wqq)
+
+    if (classm == "o_MM1" || classm == "o_MMInf" || classm == "o_MMInfKK")
+      Lqq <- c(Lqq, mod$Lqq)
+    else
+      Lqq <- c(Lqq, NA)
+  }
+  
+  #print(lambda)
+  #print(mu)
+  #print(c)
+  #print(k)
+  #print(m)
+  #print(RO)
+  #print(Lq)
+  #print(Wq)
+  #print(Throughput)
+  #print(L)
+  #print(W)
+  #print(Wqq)
+  #print(Lqq)
+  
+  data.frame(
+    lambda=lambda, mu=mu, c=c, k=k, m=m, RO=RO, Lq=Lq, Wq=Wq, Throughput=Throughput,
+    L=L, W=W, Wqq=Wqq, Lqq=Lqq
+  )
+}
+
+
+CompareQueueingModels <- function(model, ...)
+{
+  models <- c(list(model), list(...))
+  CompareQueueingModels2(models)    
+}
+
+
 
 ############################################################
 ############################################################
@@ -401,7 +512,7 @@ QueueingModel.i_MM1 <- function(x, ...)
   Wq <- x$lambda / aux1
   L <- x$lambda / aux
   W <- 1 / aux
-  LLq <- x$mu / aux
+  Lqq <- x$mu / aux
   Throughput <- x$lambda
 
   if (x$n < 0)
@@ -415,7 +526,7 @@ QueueingModel.i_MM1 <- function(x, ...)
 
 
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = W, LLq = LLq,
+    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = W, Lqq = Lqq,
     Pn = Pn, FW = FW, FWq = FWq 
   )
 
@@ -429,8 +540,8 @@ Lq.o_MM1 <- function(x, ...){ x$Lq }
 Wq.o_MM1 <- function(x, ...){ x$Wq }
 L.o_MM1 <- function(x, ...){ x$L }
 W.o_MM1 <- function(x, ...){ x$W }
-WWq.o_MM1 <- function(x, ...){ x$WWq }
-LLq.o_MM1 <- function(x, ...){ x$LLq }
+Wqq.o_MM1 <- function(x, ...){ x$Wqq }
+Lqq.o_MM1 <- function(x, ...){ x$Lqq }
 Inputs.o_MM1 <- function(x, ...){ x$Inputs }
 Throughput.o_MM1 <- function(x, ...) { x$Throughput }
 
@@ -452,10 +563,11 @@ summary.o_MM1 <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n"))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean number of clients in queue when there is queue is: ", object$LLq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean number of clients in queue when there is queue is: ", object$Lqq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
+
 
 
 ############################################################
@@ -613,7 +725,7 @@ QueueingModel.i_MMC <- function(x, ...)
   Wq <- Lq * inverse_lambda
   L <- Lq + r  
   W <- L * inverse_lambda
-  WWq <- 1 / (x$c * one_minus_ro * x$mu)  
+  Wqq <- 1 / (x$c * one_minus_ro * x$mu)  
 
   FW <- function(t)
   {
@@ -638,7 +750,7 @@ QueueingModel.i_MMC <- function(x, ...)
   }
 
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq,
+    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
     Pn = Pn, FW = FW, FWq = FWq
   )
 
@@ -652,7 +764,7 @@ Lq.o_MMC <- function(x, ...){ x$Lq }
 Wq.o_MMC <- function(x, ...){ x$Wq }
 L.o_MMC <- function(x, ...){ x$L }
 W.o_MMC <- function(x, ...){ x$W }
-WWq.o_MMC <- function(x, ...){ x$WWq } 
+Wqq.o_MMC <- function(x, ...){ x$Wqq } 
 Pn.o_MMC <- function(x, ...){ x$Pn }
 Throughput.o_MMC <- function(x, ...) { x$Throughput }
 
@@ -679,7 +791,7 @@ summary.o_MMC <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -792,7 +904,7 @@ QueueingModel.i_MM1KK <- function(x, ...)
   W <- (x$k / Throughput) - ( 1 / x$lambda)
   Wq <- W - (1 / x$mu)
   Lq <- Throughput * Wq
-  WWq <- Wq / RO
+  Wqq <- Wq / RO
   WWs <- (x$k / RO) - z
   SP <- 1 + z
 
@@ -813,7 +925,7 @@ QueueingModel.i_MM1KK <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq, WWs = WWs, SP = SP,
+    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq, WWs = WWs, SP = SP,
     Pn = Pn, FW = FW, FWq = FWq
   )
   
@@ -828,7 +940,7 @@ Lq.o_MM1KK <- function(x, ...) { x$Lq }
 Wq.o_MM1KK <- function(x, ...) { x$Wq }
 L.o_MM1KK <- function(x, ...) { x$L }
 W.o_MM1KK <- function(x, ...) { x$W }
-WWq.o_MM1KK <- function(x, ...) { x$WWq }
+Wqq.o_MM1KK <- function(x, ...) { x$Wqq }
 WWs.o_MM1KK <- function(x, ...) { x$WWs }
 SP.o_MM1KK <- function(x, ...) { x$SP }
 Pn.o_MM1KK <- function(x, ...) { x$Pn }
@@ -855,7 +967,7 @@ summary.o_MM1KK <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
   cat(paste("The normalized average response time is: ", object$WWs, "\n", sep=""))
   cat(paste("The saturation point is: ", object$SP, "\n", sep=""))  
@@ -1033,14 +1145,14 @@ QueueingModel.i_MMCKK <- function(x, ...)
       L <- NaN    
       Lq <- NaN
       Wq <- NaN
-      WWq <- NaN
+      Wqq <- NaN
     }
     else
     {
       W <- L/Throughput
       Wq <- W - (1/x$mu)
       Lq <- Throughput * Wq
-      WWq <- NaN
+      Wqq <- NaN
     }  
   }
   else
@@ -1053,7 +1165,7 @@ QueueingModel.i_MMCKK <- function(x, ...)
     W <- L / Throughput
     RO <-  Throughput / (x$c * x$mu)
     Wq <- Lq / Throughput
-    WWq <- Wq / (1-sum_pn_0_c_minus_1) 
+    Wqq <- Wq / (1-sum_pn_0_c_minus_1) 
   }    
   
   FW <- function(t){
@@ -1072,7 +1184,7 @@ QueueingModel.i_MMCKK <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq,
+    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
     Pn = Pn, FW = FW, FWq = FWq
   )
   
@@ -1088,7 +1200,7 @@ Throughput.o_MMCKK <- function(x, ...) { x$Throughput }
 W.o_MMCKK <- function(x, ...) { x$W }
 RO.o_MMCKK <- function(x, ...) { x$RO }
 Wq.o_MMCKK <- function(x, ...) { x$Wq }
-WWq.o_MMCKK <- function(x, ...) { x$WWq }
+Wqq.o_MMCKK <- function(x, ...) { x$Wqq }
 Pn.o_MMCKK <- function(x, ...) { x$Pn }
 
 
@@ -1113,7 +1225,7 @@ summary.o_MMCKK <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1289,14 +1401,14 @@ QueueingModel.i_MMCKM <- function(x, ...)
       L <- NaN    
       Lq <- NaN
       Wq <- NaN
-      WWq <- NaN
+      Wqq <- NaN
     }
     else
     {
       W <- L/Throughput
       Wq <- W - (1/x$mu)
       Lq <- Throughput * Wq
-      WWq <- NaN
+      Wqq <- NaN
     }
  }
  else
@@ -1305,16 +1417,20 @@ QueueingModel.i_MMCKM <- function(x, ...)
    sum_pn_0_c_minus_1 <- sum(Pn[1:x$c])
 
    L <- sum(i_per_pn_i)
-   Throughput <- x$lambda * (x$m - L)
+   if (x$k < x$m)
+     Throughput <- x$lambda * (x$m - L) * (1 - Pn[x$k+1])
+   else #x$k == x$m
+     Throughput <- x$lambda * (x$m - L)
+
    Lq <- L - x$c - sum(i_per_pn_i[1:x$c]) + (x$c * sum_pn_0_c_minus_1)
    W <- L / Throughput
    Wq <- Lq / Throughput 
    RO <- Throughput / (x$c * x$mu)
-   WWq <- Wq / (1-sum_pn_0_c_minus_1) 
+   Wqq <- Wq / (1-sum_pn_0_c_minus_1) 
  }
 
   # The result
-  res <- list(Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq, Pn = Pn)
+  res <- list(Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq, Pn = Pn)
 
   class(res) <- "o_MMCKM"
   res
@@ -1327,7 +1443,7 @@ Throughput.o_MMCKM <- function(x, ...) { x$Throughput }
 W.o_MMCKM <- function(x, ...) { x$W }
 RO.o_MMCKM <- function(x, ...) { x$RO }
 Wq.o_MMCKM <- function(x, ...) { x$Wq }
-WWq.o_MMCKM <- function(x, ...) { x$WWq }
+Wqq.o_MMCKM <- function(x, ...) { x$Wqq }
 Pn.o_MMCKM <- function(x, ...) { x$Pn }
 summary.o_MMCKM <- function(object, ...)
 { 
@@ -1350,7 +1466,7 @@ summary.o_MMCKM <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1425,7 +1541,7 @@ QueueingModel.i_MMInfKK <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs=x, RO = 0, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, LLq = 0, WWq = 0,
+    Inputs=x, RO = 0, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, Lqq = 0, Wqq = 0,
     Pn = Pn
   )
 
@@ -1440,8 +1556,8 @@ W.o_MMInfKK <- function(x, ...) { x$W }
 RO.o_MMInfKK <- function(x, ...) { x$RO }
 Lq.o_MMInfKK <- function(x, ...) { x$Lq }
 Wq.o_MMInfKK <- function(x, ...) { x$Wq }
-WWq.o_MMInfKK <- function(x, ...) { x$WWq }
-LLq.o_MMInfKK <- function(x, ...) { x$LLq }
+Wqq.o_MMInfKK <- function(x, ...) { x$Wqq }
+Lqq.o_MMInfKK <- function(x, ...) { x$Lqq }
 Pn.o_MMInfKK <- function(x, ...) { x$Pn }
 Throughput.o_MMInfKK <- function(x, ...) { x$Throughput }
 
@@ -1467,7 +1583,7 @@ summary.o_MMInfKK <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1530,7 +1646,7 @@ QueueingModel.i_MMInf <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs=x, RO = L, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, LLq = 0, WWq = 0,
+    Inputs=x, RO = L, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, Lqq = 0, Wqq = 0,
     Pn = Pn, FW = FW, FWq = FWq
   )
 
@@ -1545,8 +1661,8 @@ W.o_MMInf <- function(x, ...) { x$W }
 RO.o_MMInf <- function(x, ...) { x$RO }
 Lq.o_MMInf <- function(x, ...) { x$Lq }
 Wq.o_MMInf <- function(x, ...) { x$Wq }
-WWq.o_MMInf <- function(x, ...) { x$WWq }
-LLq.o_MMInf <- function(x, ...) { x$LLq }
+Wqq.o_MMInf <- function(x, ...) { x$Wqq }
+Lqq.o_MMInf <- function(x, ...) { x$Lqq }
 Pn.o_MMInf <- function(x, ...) { x$Pn }
 Throughput.o_MMInf <- function(x, ...) { x$Throughput }
 
@@ -1571,7 +1687,7 @@ summary.o_MMInf <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1663,7 +1779,7 @@ QueueingModel.i_MM1K <- function(x, ...)
   Throughput <- x$lambda * (1 - Pn[x$k+1])
   W <- L / Throughput
   Wq <- Lq / Throughput
-  WWq <- Wq / RO
+  Wqq <- Wq / RO
   
   FW <- function(t){
     qn <- Pn[seq(1, x$k, 1)] / (1 - Pn[x$k+1])
@@ -1682,7 +1798,7 @@ QueueingModel.i_MM1K <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq,
+    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
     Pn = Pn, FW = FW, FWq = FWq)
 
   class(res) <- "o_MM1K"
@@ -1695,7 +1811,7 @@ W.o_MM1K <- function(x, ...) { x$W }
 RO.o_MM1K <- function(x, ...) { x$RO }
 Lq.o_MM1K <- function(x, ...) { x$Lq }
 Wq.o_MM1K <- function(x, ...) { x$Wq }
-WWq.o_MM1K <- function(x, ...) { x$WWq }
+Wqq.o_MM1K <- function(x, ...) { x$Wqq }
 Pn.o_MM1K <- function(x, ...) { x$Pn }
 Throughput.o_MM1K <- function(x, ...) { x$Throughput }
 
@@ -1720,7 +1836,7 @@ summary.o_MM1K <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1851,7 +1967,7 @@ QueueingModel.i_MMCK <- function(x, ...)
   RO <- Throughput / (x$mu * x$c)
   W <- L / Throughput
   Wq <- W - (1/x$mu)
-  WWq <- Wq / (1 - sum(Pn[1:x$c]))
+  Wqq <- Wq / (1 - sum(Pn[1:x$c]))
 
   FW <- function(t){
     qn <- Pn[seq(1, x$k, 1)] / (1 - Pn[x$k+1])
@@ -1870,7 +1986,7 @@ QueueingModel.i_MMCK <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, WWq = WWq,
+    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
     Pn = Pn, FW = FW, FWq = FWq
   )
 
@@ -1885,7 +2001,7 @@ W.o_MMCK <- function(x, ...) { x$W }
 RO.o_MMCK <- function(x, ...) { x$RO }
 Lq.o_MMCK <- function(x, ...) { x$Lq }
 Wq.o_MMCK <- function(x, ...) { x$Wq }
-WWq.o_MMCK <- function(x, ...) { x$WWq }
+Wqq.o_MMCK <- function(x, ...) { x$Wqq }
 Pn.o_MMCK <- function(x, ...) { x$Pn }
 Throughput.o_MMCK <- function(x, ...) { x$Throughput }
 
@@ -1910,7 +2026,7 @@ summary.o_MMCK <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -1992,8 +2108,8 @@ QueueingModel.i_MMCC <- function(x, ...)
   
   Lq <- 0
   Wq <- 0
-  WWq <- 0
-  LLq <- 0
+  Wqq <- 0
+  Lqq <- 0
 
   aux <- x$lambda / x$mu
   one_minus_b_erlang <- 1 - B_erlang(x$c, aux)
@@ -2010,7 +2126,7 @@ QueueingModel.i_MMCC <- function(x, ...)
 
   # The result
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, LLq = LLq, WWq = WWq,
+    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
     Pn = Pn, FW = FW, FWq = FWq
   )
   
@@ -2025,7 +2141,7 @@ W.o_MMCC <- function(x, ...) { x$W }
 RO.o_MMCC <- function(x, ...) { x$RO }
 Lq.o_MMCC <- function(x, ...) { x$Lq }
 Wq.o_MMCC <- function(x, ...) { x$Wq }
-WWq.o_MMCC <- function(x, ...) { x$WWq }
+Wqq.o_MMCC <- function(x, ...) { x$Wqq }
 Pn.o_MMCC <- function(x, ...) { x$Pn }
 Throughput.o_MMCC <- function(x, ...) { x$Throughput }
 
@@ -2049,7 +2165,7 @@ summary.o_MMCC <- function(object, ...)
   cat(paste("The mean time spend in the system is: ", object$W, "\n", sep=""))
   cat(paste("The mean time spend in the queue is: ", object$Wq, "\n", sep=""))
   cat(paste("The mean time spend in the server is: ", object$W - object$Wq, "\n", sep=""))
-  cat(paste("The mean time spend in the queue when there is queue is: ", object$WWq, "\n", sep=""))
+  cat(paste("The mean time spend in the queue when there is queue is: ", object$Wqq, "\n", sep=""))
   cat(paste("The throughput is: ", object$Throughput, "\n", sep=""))
 }
 
@@ -3558,6 +3674,4 @@ summaryMultiClass <- function(object)
     }
   }  
 }
-
-
 

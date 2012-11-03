@@ -6,6 +6,8 @@ export(
 C_erlang,
 B_erlang,
 Engset,
+CompareQueueingModels2,
+CompareQueueingModels,
 NewInput.MM1,
 CheckInput.i_MM1,
 QueueingModel.i_MM1,
@@ -16,8 +18,8 @@ Lq.o_MM1,
 Wq.o_MM1,
 L.o_MM1,
 W.o_MM1,
-WWq.o_MM1,
-LLq.o_MM1,
+Wqq.o_MM1,
+Lqq.o_MM1,
 Inputs.o_MM1,
 NewInput.MMC,
 CheckInput.i_MMC,
@@ -29,7 +31,7 @@ Lq.o_MMC,
 Wq.o_MMC,
 L.o_MMC,
 W.o_MMC,
-WWq.o_MMC, 
+Wqq.o_MMC, 
 Pn.o_MMC,
 NewInput.MM1KK,
 CheckInput.i_MM1KK,
@@ -42,7 +44,7 @@ Wq.o_MM1KK,
 Throughput.o_MM1KK,
 L.o_MM1KK,
 W.o_MM1KK,
-WWq.o_MM1KK,
+Wqq.o_MM1KK,
 WWs.o_MM1KK,
 SP.o_MM1KK,
 Pn.o_MM1KK,
@@ -57,7 +59,7 @@ Throughput.o_MMCKK,
 W.o_MMCKK,
 RO.o_MMCKK,
 Wq.o_MMCKK,
-WWq.o_MMCKK,
+Wqq.o_MMCKK,
 Pn.o_MMCKK,
 NewInput.MMCKM,
 CheckInput.i_MMCKM,
@@ -70,7 +72,7 @@ Throughput.o_MMCKM,
 W.o_MMCKM,
 RO.o_MMCKM,
 Wq.o_MMCKM,
-WWq.o_MMCKM,
+Wqq.o_MMCKM,
 Pn.o_MMCKM,
 NewInput.MMInfKK,
 CheckInput.i_MMInfKK,
@@ -79,12 +81,12 @@ summary.o_MMInfKK,
 Inputs.o_MMInfKK,
 L.o_MMInfKK,
 Lq.o_MMInfKK,
-LLq.o_MMInfKK,
+Lqq.o_MMInfKK,
 Throughput.o_MMInfKK,
 W.o_MMInfKK,
 RO.o_MMInfKK,
 Wq.o_MMInfKK,
-WWq.o_MMInfKK,
+Wqq.o_MMInfKK,
 Pn.o_MMInfKK,
 NewInput.MMInf,
 CheckInput.i_MMInf,
@@ -96,8 +98,8 @@ W.o_MMInf,
 RO.o_MMInf,
 Lq.o_MMInf,
 Wq.o_MMInf,
-WWq.o_MMInf,
-LLq.o_MMInf,
+Wqq.o_MMInf,
+Lqq.o_MMInf,
 Pn.o_MMInf,
 NewInput.MM1K,
 CheckInput.i_MM1K,
@@ -109,7 +111,7 @@ W.o_MM1K,
 RO.o_MM1K,
 Lq.o_MM1K,
 Wq.o_MM1K,
-WWq.o_MM1K,
+Wqq.o_MM1K,
 W.o_MM1K,
 Pn.o_MM1K,
 Throughput.o_MM1K,
@@ -123,7 +125,7 @@ W.o_MMCK,
 RO.o_MMCK,
 Lq.o_MMCK,
 Wq.o_MMCK,
-WWq.o_MMCK,
+Wqq.o_MMCK,
 W.o_MMCK,
 Pn.o_MMCK,
 Throughput.o_MMCK,
@@ -137,7 +139,7 @@ W.o_MMCC,
 RO.o_MMCC,
 Lq.o_MMCC,
 Wq.o_MMCC,
-WWq.o_MMCC,
+Wqq.o_MMCC,
 W.o_MMCC,
 Pn.o_MMCC,
 Throughput.o_MMCC,
@@ -227,9 +229,9 @@ Lq,
 Wq,
 L,
 W,
-WWq,
+Wqq,
 Pn,
-LLq,
+Lqq,
 Throughput,
 WWs,
 SP,
@@ -364,16 +366,16 @@ S3method(W, o_MCON)
 S3method(W, o_MCCN)
 S3method(W, o_MCMN)
 
-S3method(WWq, o_MM1)
-S3method(WWq, o_MM1K)
-S3method(WWq, o_MMC)
-S3method(WWq, o_MMInf)
-S3method(WWq, o_MMCK)
-S3method(WWq, o_MMCC)
-S3method(WWq, o_MM1KK)
-S3method(WWq, o_MMCKK)
-S3method(WWq, o_MMCKM)
-S3method(WWq, o_MMInfKK)
+S3method(Wqq, o_MM1)
+S3method(Wqq, o_MM1K)
+S3method(Wqq, o_MMC)
+S3method(Wqq, o_MMInf)
+S3method(Wqq, o_MMCK)
+S3method(Wqq, o_MMCC)
+S3method(Wqq, o_MM1KK)
+S3method(Wqq, o_MMCKK)
+S3method(Wqq, o_MMCKM)
+S3method(Wqq, o_MMInfKK)
 
 S3method(Pn, o_MM1)
 S3method(Pn, o_MM1K)
@@ -387,9 +389,9 @@ S3method(Pn, o_MMCKM)
 S3method(Pn, o_MMInfKK)
 S3method(Pn, o_OJN)
 
-S3method(LLq, o_MM1)
-S3method(LLq, o_MMInf)
-S3method(LLq, o_MMInfKK)
+S3method(Lqq, o_MM1)
+S3method(Lqq, o_MMInf)
+S3method(Lqq, o_MMInfKK)
 
 S3method(Throughput, o_MM1)
 S3method(Throughput, o_MM1K)

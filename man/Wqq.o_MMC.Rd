@@ -1,12 +1,12 @@
-% File man/WWq.o_MMC.Rd
-\name{WWq.o_MMC}
-\alias{WWq.o_MMC}
+% File man/Wqq.o_MMC.Rd
+\name{Wqq.o_MMC}
+\alias{Wqq.o_MMC}
 \title{Returns the mean time spend in queue when there is queue in the M/M/c queueing model}
 \description{
   Returns the mean time spend in queue when there is queue in the M/M/c queueing model
 }
 \usage{
-  \method{WWq}{o_MMC}(x, \dots)
+  \method{Wqq}{o_MMC}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMC}
@@ -34,8 +34,8 @@ i_mmc <- NewInput.MMC(lambda=5, mu=10, c=2, n=0, method=0)
 ## Build the model
 o_mmc <- QueueingModel(i_mmc)
 
-## Returns the WWq
-WWq(o_mmc)
+## Returns the Wqq
+Wqq(o_mmc)
 }
 
 \keyword{M/M/c}

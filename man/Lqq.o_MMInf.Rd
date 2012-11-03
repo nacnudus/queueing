@@ -1,12 +1,12 @@
-% File man/LLq.o_MMInf.Rd
-\name{LLq.o_MMInf}
-\alias{LLq.o_MMInf}
+% File man/Lqq.o_MMInf.Rd
+\name{Lqq.o_MMInf}
+\alias{Lqq.o_MMInf}
 \title{Returns the mean number of clients in queue when there is queue in the M/M/Infinite queueing model}
 \description{
   Returns the mean number of clients in queue when there is queue in the M/M/Infinite queueing model
 }
 \usage{
-  \method{LLq}{o_MMInf}(x, \dots)
+  \method{Lqq}{o_MMInf}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMInf}
@@ -33,8 +33,8 @@ i_mminf <- NewInput.MMInf(lambda=0.25, mu=4, n=0)
 ## Build the model
 o_mminf <- QueueingModel(i_mminf)
 
-## Returns the LLq
-LLq(o_mminf)
+## Returns the Lqq
+Lqq(o_mminf)
 }
 
 \keyword{M/M/Infinite}

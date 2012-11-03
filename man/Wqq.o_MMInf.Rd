@@ -1,12 +1,12 @@
-% File man/WWq.o_MMInf.Rd
-\name{WWq.o_MMInf}
-\alias{WWq.o_MMInf}
+% File man/Wqq.o_MMInf.Rd
+\name{Wqq.o_MMInf}
+\alias{Wqq.o_MMInf}
 \title{Returns the mean time spend in queue when there is queue in the M/M/Infinite queueing model}
 \description{
   Returns the mean time spend in queue when there is queue in the M/M/Infinite queueing model
 }
 \usage{
-  \method{WWq}{o_MMInf}(x, \dots)
+  \method{Wqq}{o_MMInf}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMInf}
@@ -33,8 +33,8 @@ i_mminf <- NewInput.MMInf(lambda=0.25, mu=4, n=0)
 ## Build the model
 o_mminf <- QueueingModel(i_mminf)
 
-## Returns the WWq
-WWq(o_mminf)
+## Returns the Wqq
+Wqq(o_mminf)
 }
 
 \keyword{M/M/Infinite}

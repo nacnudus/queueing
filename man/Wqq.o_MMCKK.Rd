@@ -1,12 +1,12 @@
-% File man/WWq.o_MMCKK.Rd
-\name{WWq.o_MMCKK}
-\alias{WWq.o_MMCKK}
+% File man/Wqq.o_MMCKK.Rd
+\name{Wqq.o_MMCKK}
+\alias{Wqq.o_MMCKK}
 \title{Returns the mean time spend in queue when there is queue in the M/M/c/K/K queueing model}
 \description{
   Returns the mean time spend in queue when there is queue in the M/M/c/K/K queueing model
 }
 \usage{
-  \method{WWq}{o_MMCKK}(x, \dots)
+  \method{Wqq}{o_MMCKK}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMCKK}
@@ -33,8 +33,8 @@ i_mmckk <- NewInput.MMCKK(lambda=8, mu=2, c=5, k=12, method=0)
 ## Build the model
 o_mmckk <- QueueingModel(i_mmckk)
 
-## Returns the WWq
-WWq(o_mmckk)
+## Returns the Wqq
+Wqq(o_mmckk)
 }
 
 \keyword{M/M/c/K/K}
