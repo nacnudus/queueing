@@ -1417,12 +1417,13 @@ QueueingModel.i_MMCKM <- function(x, ...)
    sum_pn_0_c_minus_1 <- sum(Pn[1:x$c])
 
    L <- sum(i_per_pn_i)
+   Lq <- L - x$c - sum(i_per_pn_i[1:x$c]) + (x$c * sum_pn_0_c_minus_1)
+   
    if (x$k < x$m)
-     Throughput <- x$lambda * (x$m - L) * (1 - Pn[x$k+1])
+     Throughput <- x$mu * (L - Lq)
    else #x$k == x$m
      Throughput <- x$lambda * (x$m - L)
 
-   Lq <- L - x$c - sum(i_per_pn_i[1:x$c]) + (x$c * sum_pn_0_c_minus_1)
    W <- L / Throughput
    Wq <- Lq / Throughput 
    RO <- Throughput / (x$c * x$mu)

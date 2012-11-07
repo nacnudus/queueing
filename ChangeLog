@@ -1,3 +1,7 @@
+2012-11-07 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed another bug in the MMCKM model. The summary function was returnin a wrong value for Ws. Thanks to See Chuen-Teck (see_chuenteck at yahoo.com.sg) for detect it.
+    
+
 2012-11-04 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Fixed a bug in the MMCKM model. The RO functions were returning values greather than zero. Thanks to See Chuen-Teck (see_chuenteck at yahoo.com.sg) for detect it.
     * Changed the names of the WWq and LLq functions to Wqq and Lqq as suggested for See Chuen-Teck, because there are more natural the new names than previous.
