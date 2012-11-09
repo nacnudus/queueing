@@ -1,3 +1,19 @@
+2012-11-18 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed a bug in the models M/M/1/K, MMC, M/M/c/K, M/M/1/K/K, M/M/c/K/K and M/M/c/K/m. FWq and FW were calculating the wrong values.
+    * Added Qn probabilities to the o_MM1K object to get the probabilities that an arrival that enters the systems see n clients in it. Also it has been added for the rest of infinite capacity objects to homogeneization of all the objects.
+    * Review of the doc. Minor changes to maintain consistency.
+    * Calculated the Wqq values for all models except networks. Some values corrected due a bug. Thanks to Alfonso Mateos for help me.
+    * Calculated the Lqq for all models except networks. Thanks to See Chuen-Teck for giving me valuable suggestions to get it, including a formulae and with the corresponding Litle Law's version.
+    * Reorganization of the code in general. Summary function for the markovian models is now centralized and the code not repeated again and again.
+    * Fixed the function for comparing models to include Lqq and P0.
+    * Removed the file news, I hope that no more link in CRAN to a empty NEWS.
+    * Fixed RO value for the model M/M/Infinite/K/K.
+
+
+2012-11-09 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed a bug in model M/M/C. The names of FWq and FW components of the output was interchanged respectively.
+
+
 2012-11-07 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Fixed another bug in the MMCKM model. The summary function was returnin a wrong value for Ws. Thanks to See Chuen-Teck (see_chuenteck at yahoo.com.sg) for detect it.
     

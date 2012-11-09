@@ -1,19 +1,23 @@
 % File man/Pn.o_MMInfKK.Rd
 \name{Pn.o_MMInfKK}
 \alias{Pn.o_MMInfKK}
-\title{Returns the probabilities of a M/M/Inf/K/K queueing model}
+\alias{Qn.o_MMInfKK}
+\title{Returns the probabilities of a M/M/Infinite/K/K queueing model}
 \description{
-  Returns the probabilities of a M/M/Inf/K/K queueing model
+  Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n clients.\cr
+  Qn returns the probabilities that an arrival that enter the system see n clients in it.
 }
 \usage{
   \method{Pn}{o_MMInfKK}(x, \dots)
+  \method{Qn}{o_MMInfKK}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMInfKK}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the probabilities of a M/M/Inf/K/K queueing model}
+\details{Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n clients.\cr
+Qn returns the probabilities that an arrival that enter the system see n clients.}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -34,6 +38,7 @@ o_MMInfKK <- QueueingModel(i_MMInfKK)
 
 ## Returns the probabilities
 Pn(o_MMInfKK)
+Qn(o_MMInfKK)
 
 }
-\keyword{M/M/Inf/K/K}
+\keyword{M/M/Infinite/K/K}

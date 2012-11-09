@@ -10,7 +10,7 @@
   Lck(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MCON or o_MCCN}
+  \item{x}{a object of class o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -29,7 +29,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 
 \seealso{
   \code{\link{Lck.o_MCON}}\cr
-  \code{\link{Lck.o_MCCN}}
+  \code{\link{Lck.o_MCCN}}\cr
+  \code{\link{Lck.o_MCMN}}
 }
 
 

@@ -9,7 +9,7 @@
   Wk(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_OJN, o_CJN, o_MCON, o_MCCN}
+  \item{x}{a object of class o_OJN, o_CJN, o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -28,7 +28,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
   \code{\link{Wk.o_OJN}}\cr
   \code{\link{Wk.o_CJN}}\cr
   \code{\link{Wk.o_MCON}}\cr
-  \code{\link{Wk.o_MCCN}}
+  \code{\link{Wk.o_MCCN}}\cr
+  \code{\link{Wk.o_MCMN}}
 }
 
 

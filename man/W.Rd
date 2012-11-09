@@ -9,7 +9,7 @@
   W(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf, o_OJN, o_MCON, o_MCCN}
+  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf, o_OJN, o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -33,7 +33,9 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{W.o_MMInfKK}}\cr
   \code{\link{W.o_MMInf}}\cr
   \code{\link{W.o_OJN}}\cr
-  \code{\link{W.o_MCON}}
+  \code{\link{W.o_MCON}}\cr
+  \code{\link{W.o_MCCN}}\cr
+  \code{\link{W.o_MCMN}}
 }
 
 

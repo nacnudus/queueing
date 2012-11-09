@@ -9,7 +9,7 @@
   Lc(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MCON}
+  \item{x}{a object of class o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -28,7 +28,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 
 \seealso{
   \code{\link{Lc.o_MCON}}\cr
-  \code{\link{Lc.o_MCCN}}
+  \code{\link{Lc.o_MCCN}}\cr
+  \code{\link{Lc.o_MCMN}}
 }
 
 

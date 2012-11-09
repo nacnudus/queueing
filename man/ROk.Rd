@@ -9,7 +9,7 @@
  ROk(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MCON, o_MCCN}
+  \item{x}{a object of class o_OJN, o_CJN, o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -29,7 +29,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
   \code{\link{ROk.o_OJN}}\cr
   \code{\link{ROk.o_CJN}}\cr
   \code{\link{ROk.o_MCON}}\cr
-  \code{\link{ROk.o_MCCN}}
+  \code{\link{ROk.o_MCCN}}\cr
+  \code{\link{ROk.o_MCMN}}
 }
 
 

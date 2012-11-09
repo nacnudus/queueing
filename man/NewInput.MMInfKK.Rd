@@ -1,9 +1,9 @@
 % File man/NewInput.MMInfKK.Rd
 \name{NewInput.MMInfKK}
 \alias{NewInput.MMInfKK}
-\title{Define the inputs of a new M/M/Inf/K/K queueing model}
+\title{Define the inputs of a new M/M/Infinite/K/K queueing model}
 \description{
-  Define the inputs of a new M/M/Inf/K/K queueing model
+  Define the inputs of a new M/M/Infinite/K/K queueing model
 }
 
 \usage{
@@ -15,7 +15,7 @@
   \item{k}{system capacity}
 }
 
-\details{Define the inputs of a new M/M/Inf/K/K queueing model}
+\details{Define the inputs of a new M/M/Infinite/K/K queueing model}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -33,4 +33,4 @@ John Wiley & Sons.
 i_MMInfKK <- NewInput.MMInfKK(lambda=0.25, mu=4, k=4)
 
 }
-\keyword{M/M/Inf/K/K}
+\keyword{M/M/Infinite/K/K}

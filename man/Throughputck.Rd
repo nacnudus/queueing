@@ -28,7 +28,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 
 \seealso{
   \code{\link{Throughputck.o_MCON}}\cr
-  \code{\link{Throughputck.o_MCCN}}
+  \code{\link{Throughputck.o_MCCN}}\cr
+  \code{\link{Throughputck.o_MCMN}}
 }
 
 

@@ -10,7 +10,7 @@
   Wck(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MCON, o_MCCN}
+  \item{x}{a object of class o_MCON, o_MCCN, o_MCMN}
   \item{\dots}{aditional arguments}
 }
 
@@ -27,7 +27,8 @@ Prentice-Hall, Inc., Englewood Cliffs, New Jersey
 
 \seealso{
   \code{\link{Wck.o_MCON}}\cr
-  \code{\link{Wck.o_MCCN}}
+  \code{\link{Wck.o_MCCN}}\cr
+  \code{\link{Wck.o_MCMN}}
 }
 
 

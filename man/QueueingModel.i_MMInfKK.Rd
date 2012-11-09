@@ -1,9 +1,9 @@
 % File man/QueueingModel.i_MMInfKK.Rd
 \name{QueueingModel.i_MMInfKK}
 \alias{QueueingModel.i_MMInfKK}
-\title{Builds a M/M/Inf/K/K queueing model}
+\title{Builds a M/M/Infinite/K/K queueing model}
 \description{
-  Builds a M/M/Inf/K/K queueing model
+  Builds a M/M/Infinite/K/K queueing model
 }
 \usage{
   \method{QueueingModel}{i_MMInfKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Build a M/M/Inf/K/K queueing model. It also checks the input params calling the \link{CheckInput.i_MMInfKK}}
+\details{Build a M/M/Infinite/K/K queueing model. It also checks the input params calling the \link{CheckInput.i_MMInfKK}}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -34,4 +34,4 @@ i_MMInfKK <- NewInput.MMInfKK(lambda=0.25, mu=4, k=4)
 QueueingModel(i_MMInfKK)
 
 }
-\keyword{M/M/Inf/K/K}
+\keyword{M/M/Infinite/K/K}

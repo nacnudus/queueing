@@ -9,7 +9,7 @@
   Lqq(x, \dots)
 }
 \arguments{
-  \item{x}{a object of class o_MM1, o_MMInfKK, o_MMInf}
+  \item{x}{a object of class o_MM1, o_MMC, o_MM1K, o_MMCK, o_MM1KK, o_MMCKK, o_MMCC, o_MMCKM, o_MMInfKK, o_MMInf}
   \item{\dots}{aditional arguments}
 }
 
@@ -23,6 +23,13 @@ Editorial Centro de Estudios Ramon Areces.
 
 \seealso{
   \code{\link{Lqq.o_MM1}}\cr
+  \code{\link{Lqq.o_MMC}}\cr
+  \code{\link{Lqq.o_MM1K}}\cr
+  \code{\link{Lqq.o_MMCK}}\cr
+  \code{\link{Lqq.o_MM1KK}}\cr
+  \code{\link{Lqq.o_MMCKK}}\cr
+  \code{\link{Lqq.o_MMCC}}\cr
+  \code{\link{Lqq.o_MMCKM}}\cr
   \code{\link{Lqq.o_MMInfKK}}\cr
   \code{\link{Lqq.o_MMInf}}
 }

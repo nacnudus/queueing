@@ -1,23 +1,19 @@
-% File man/Pn.o_MMCK.Rd
-\name{Pn.o_MMCK}
-\alias{Pn.o_MMCK}
-\alias{Qn.o_MMCK}
-\title{Returns the probabilities of a M/M/c/K queueing model}
+% File man/Lqq.o_MMCK.Rd
+\name{Lqq.o_MMCK}
+\alias{Lqq.o_MMCK}
+\title{Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model}
 \description{
-  Pn returns the probabilities that a M/M/c/K queueing model has n clients.\cr
-  Qn returns the probabilities that an arrival that enter the system see n clients in it.
+  Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model
 }
 \usage{
-  \method{Pn}{o_MMCK}(x, \dots)
-  \method{Qn}{o_MMCK}(x, \dots)
+  \method{Lqq}{o_MMCK}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMCK}
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the probabilities that a M/M/c/K queueing model has n clients.\cr
-Qn returns the probabilities that an arrival that enter the system see n clients.}
+\details{Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -29,6 +25,7 @@ Editorial Centro de Estudios Ramon Areces.
   \code{\link{QueueingModel.i_MMCK}}.
 }
 
+
 \examples{
 ## See example 10.11 in reference [Sixto2004] for more details.
 ## create input parameters
@@ -37,9 +34,8 @@ i_mmck <- NewInput.MMCK(lambda=8, mu=4, c=5, k=12)
 ## Build the model
 o_mmck <- QueueingModel(i_mmck)
 
-## Returns the probabilities
-Pn(o_mmck)
-Qn(o_mmck)
+## Returns the Lqq
+Lqq(o_mmck)
 }
-\keyword{M/M/c/K}
 
+\keyword{M/M/c/K}

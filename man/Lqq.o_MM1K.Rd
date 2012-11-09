@@ -1,23 +1,19 @@
-% File man/Pn.o_MM1K.Rd
-\name{Pn.o_MM1K}
-\alias{Pn.o_MM1K}
-\alias{Qn.o_MM1K}
-\title{Returns the probabilities of a M/M/1/K queueing model}
+% File man/Lqq.o_MM1K.Rd
+\name{Lqq.o_MM1K}
+\alias{Lqq.o_MM1K}
+\title{Returns the mean number of clients in queue when there is queue in the M/M/1/K queueing model}
 \description{
-  Pn returns the probabilities that a M/M/1/K queueing model has n clients.\cr
-  Qn returns the probabilities that an arrival that enter the system see n clients in it.
+  Returns the mean number of clients in queue when there is queue in the M/M/1/K queueing model
 }
 \usage{
-  \method{Pn}{o_MM1K}(x, \dots)
-  \method{Qn}{o_MM1K}(x, \dots)
+  \method{Lqq}{o_MM1K}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MM1K}
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the probabilities that a M/M/1/K queueing model has n clients.\cr
-Qn returns the probabilities that an arrival that enter the system see n clients.}
+\details{Returns the mean number of clients in queue when there is queue in the M/M/1/K queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -38,10 +34,8 @@ i_mm1k <- NewInput.MM1K(lambda=5, mu=5.714, k=15)
 ## Build the model
 o_mm1k <- QueueingModel(i_mm1k)
 
-## Returns the probabilities
-Pn(o_mm1k)
-Qn(o_mm1k)
-
-
+## Returns the Lq
+Lqq(o_mm1k)
 }
+
 \keyword{M/M/1/K}

@@ -1,19 +1,19 @@
-% File man/Lq.o_MMCKK.Rd
-\name{Lq.o_MMCKK}
-\alias{Lq.o_MMCKK}
-\title{Returns the mean number of clients in the queue in the M/M/c/K/K queueing model}
+% File man/Lqq.o_MMCKK.Rd
+\name{Lqq.o_MMCKK}
+\alias{Lqq.o_MMCKK}
+\title{Returns the mean number of clients in queue when there is queue in the M/M/c/K/K queueing model}
 \description{
-  Returns the mean number of clients in the queue in the M/M/c/K/K queueing model
+  Returns the mean number of clients in queue when there is queue in the M/M/c/K/K queueing model
 }
 \usage{
-  \method{Lq}{o_MMCKK}(x, \dots)
+  \method{Lqq}{o_MMCKK}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MMCKK}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the queue in the M/M/c/K/K queueing model}
+\details{Returns the mean number of clients in queue when there is queue in the M/M/c/K/K queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -33,8 +33,8 @@ i_mmckk <- NewInput.MMCKK(lambda=8, mu=2, c=5, k=12, method=0)
 ## Build the model
 o_mmckk <- QueueingModel(i_mmckk)
 
-## Returns the Lq
-Lq(o_mmckk)
+## Returns the Lqq
+Lqq(o_mmckk)
 }
 
 \keyword{M/M/c/K/K}

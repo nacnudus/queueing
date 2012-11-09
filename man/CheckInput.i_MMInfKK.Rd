@@ -1,9 +1,9 @@
 % File man/CheckInput.i_MMInfKK.Rd
 \name{CheckInput.i_MMInfKK}
 \alias{CheckInput.i_MMInfKK}
-\title{Checks the input params of a M/M/Inf/K/K queueing model}
+\title{Checks the input params of a M/M/Infinite/K/K queueing model}
 \description{
-  Checks the input params of a M/M/Inf/K/K queueing model
+  Checks the input params of a M/M/Infinite/K/K queueing model
 }
 \usage{
   \method{CheckInput}{i_MMInfKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Checks the input params of a M/M/Inf/K/K queueing model. The inputs params are created calling previously the \link{NewInput.MMInfKK}}
+\details{Checks the input params of a M/M/Infinite/K/K queueing model. The inputs params are created calling previously the \link{NewInput.MMInfKK}}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -34,4 +34,4 @@ i_MMInfKK <- NewInput.MMInfKK(lambda=0.25, mu=4, k=4)
 CheckInput(i_MMInfKK)
 
 }
-\keyword{M/M/Inf/K/K}
+\keyword{M/M/Infinite/K/K}

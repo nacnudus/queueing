@@ -1,19 +1,23 @@
 % File man/Pn.o_MM1.Rd
 \name{Pn.o_MM1}
 \alias{Pn.o_MM1}
+\alias{Qn.o_MM1}
 \title{Returns the probabilities of a M/M/1 queueing model}
 \description{
-  Returns the probabilities of a M/M/1 queueing model
+  Pn returns the probabilities that a M/M/1 queueing model has n clients.\cr
+  Qn returns the probabilities that an arrival that enter the system see n clients in it.
 }
 \usage{
   \method{Pn}{o_MM1}(x, \dots)
+  \method{Qn}{o_MM1}(x, \dots)
 }
 \arguments{
   \item{x}{a object of class o_MM1}
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the probabilities of a M/M/1 queueing model}
+\details{Pn returns the probabilities that a M/M/1/K queueing model has n clients.\cr
+Qn returns the probabilities that an arrival that enter the system see n clients. By the PASTA property, both probabilities has to be the same.}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -36,6 +40,7 @@ o_mm1 <- QueueingModel(i_mm1)
 
 ## Returns the probabilities
 Pn(o_mm1)
+Qn(o_mm1)
 
 }
 \keyword{M/M/1}

@@ -1,9 +1,9 @@
 % File man/Wq.o_MMInfKK.Rd
 \name{Wq.o_MMInfKK}
 \alias{Wq.o_MMInfKK}
-\title{Returns the mean time spend in queue in the M/M/Inf/K/K queueing model}
+\title{Returns the mean time spend in queue in the M/M/Infinite/K/K queueing model}
 \description{
-  Returns the mean time spend in queue in the M/M/Inf/K/K queueing model
+  Returns the mean time spend in queue in the M/M/Infinite/K/K queueing model
 }
 \usage{
   \method{Wq}{o_MMInfKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean time spend in queue in the M/M/Inf/K/K queueing model}
+\details{Returns the mean time spend in queue in the M/M/Infinite/K/K queueing model}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -37,4 +37,4 @@ o_MMInfKK <- QueueingModel(i_MMInfKK)
 Wq(o_MMInfKK)
 }
 
-\keyword{M/M/Inf/K/K}
+\keyword{M/M/Infinite/K/K}
