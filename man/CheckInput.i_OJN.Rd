@@ -1,9 +1,9 @@
 % File man/CheckInput.i_OJN.Rd
 \name{CheckInput.i_OJN}
 \alias{CheckInput.i_OJN}
-\title{Check the input params of a Open Jackson Network}
+\title{Check the input params of an Open Jackson Network}
 \description{
-  Check the input params of a Open Jackson Network
+  Check the input params of an Open Jackson Network
 }
 \usage{
   \method{CheckInput}{i_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Check the input params of a Open Jackson Network. The inputs params are created calling previously the \link{NewInput.OJN}}
+\details{Check the input params of an Open Jackson Network. The inputs params are created calling previously the \link{NewInput.OJN}}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

@@ -1,9 +1,9 @@
 % File man/Throughputk.o_OJN.Rd
 \name{Throughputk.o_OJN}
 \alias{Throughputk.o_OJN}
-\title{Reports a vector with each node (server) throughput of a Open Jackson Network}
+\title{Reports a vector with each node (server) throughput of an Open Jackson Network}
 \description{
-  Reports a vector with each node (server) throughput of a Open Jackson Network
+  Reports a vector with each node (server) throughput of an Open Jackson Network
 }
 \usage{
   \method{Throughputk}{o_OJN}(x, \dots)
@@ -14,7 +14,7 @@
 }
 
 \details{
-Reports a vector with each node (server) throughput of a Open Jackson Network
+Reports a vector with each node (server) throughput of an Open Jackson Network
 }
 
 \references{

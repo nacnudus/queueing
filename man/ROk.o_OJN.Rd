@@ -1,9 +1,9 @@
 % File man/ROk.o_OJN.Rd
 \name{ROk.o_OJN}
 \alias{ROk.o_OJN}
-\title{Reports a vector with each node (server) use of a Open Jackson Network}
+\title{Reports a vector with each node (server) use of an Open Jackson Network}
 \description{
-  Reports a vector with each node (server) use of a Open Jackson Network
+  Reports a vector with each node (server) use of an Open Jackson Network
 }
 \usage{
   \method{ROk}{o_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports a vector with each node (server) use of a Open Jackson Network}
+\details{Reports a vector with each node (server) use of an Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

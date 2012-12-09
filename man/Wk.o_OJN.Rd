@@ -1,9 +1,9 @@
 % File man/Wk.o_OJN.Rd
 \name{Wk.o_OJN}
 \alias{Wk.o_OJN}
-\title{Returns the vector with the mean time spend in each node (server) of a Open Jackson Network}
+\title{Returns the vector with the mean time spend in each node (server) of an Open Jackson Network}
 \description{
-  Returns the vector with the mean time spend in each node (server) of a Open Jackson Network
+  Returns the vector with the mean time spend in each node (server) of an Open Jackson Network
 }
 
 \usage{
@@ -14,7 +14,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean time spend in each node (server) of a Open Jackson Network}
+\details{Returns the vector with the mean time spend in each node (server) of an Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

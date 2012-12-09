@@ -1,3 +1,10 @@
+2012-12-09 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed the Wqq and Lqq functions in M/M/c/K/m model.
+    * Fixed doc typos.
+    * Consolidation of the summary function for Open and Closed Jackson networks, to get inconsistencies solved.
+    * Added new ways to define the inputs of the Open and Closed Jackson Networks, more convenient from an operational point of view. Also, included a new way to pass a list of nodes builded before instead of use the dots parameter. More convenient for automatization or scripting.
+
+
 2012-11-18 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Fixed a bug in the models M/M/1/K, MMC, M/M/c/K, M/M/1/K/K, M/M/c/K/K and M/M/c/K/m. FWq and FW were calculating the wrong values.
     * Added Qn probabilities to the o_MM1K object to get the probabilities that an arrival that enters the systems see n clients in it. Also it has been added for the rest of infinite capacity objects to homogeneization of all the objects.

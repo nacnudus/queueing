@@ -1,9 +1,9 @@
 % File man/Throughput.o_OJN.Rd
 \name{Throughput.o_OJN}
 \alias{Throughput.o_OJN}
-\title{Reports the throughput of a Open Jackson Network}
+\title{Reports the throughput of an Open Jackson Network}
 \description{
-  Reports the throughput of a Open Jackson Network
+  Reports the throughput of an Open Jackson Network
 }
 \usage{
   \method{Throughput}{o_OJN}(x, \dots)
@@ -14,7 +14,7 @@
 }
 
 \details{
-Reports the throughput of a Open Jackson Network
+Reports the throughput of an Open Jackson Network
 }
 
 \references{

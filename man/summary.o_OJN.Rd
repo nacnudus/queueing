@@ -1,9 +1,9 @@
 % File man/summary.o_OJN.Rd
 \name{summary.o_OJN}
 \alias{summary.o_OJN}
-\title{Reports the results of a Open Jackson Network}
+\title{Reports the results of an Open Jackson Network}
 \description{
-  Reports the results of a Open Jackson Network
+  Reports the results of an Open Jackson Network
 }
 \usage{
   \method{summary}{o_OJN}(object, \dots)

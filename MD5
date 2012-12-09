@@ -1,7 +1,7 @@
-5762cab564b1bffc9519e062c845b6d5 *ChangeLog
-72ade17887d0d94753494882b4397998 *DESCRIPTION
-72e69bcc46c9b1906c2d7d4665a480fd *NAMESPACE
-79d89879829f2a4de1f6cc71877d0f0b *R/queueing.R
+7ab09bb269fcb125b3acbf56f8539627 *ChangeLog
+bccf71669445b83100f996923558697a *DESCRIPTION
+3f97367ce7aedd109bdce4bf05c8b8a0 *NAMESPACE
+e98be485e37b3b1f596b977018d709fe *R/queueing.R
 d41d8cd98f00b204e9800998ecf8427e *cleanup
 d41d8cd98f00b204e9800998ecf8427e *configure
 0e1e0c74613142b727099c39c5f77a4d *index
@@ -25,7 +25,7 @@ c2b81d6ed2e79c61e307dfe79c01b220 *man/CheckInput.i_MMCC.Rd
 662b543ff4d489f6ade3f0d0f73c5855 *man/CheckInput.i_MMCKM.Rd
 7c744e06c9a33aced22c70b8f66eaf98 *man/CheckInput.i_MMInf.Rd
 a090c417fdab3430d0c507a9502be48a *man/CheckInput.i_MMInfKK.Rd
-c18a6aa5d2d43d907c4e4275c6a2f8bd *man/CheckInput.i_OJN.Rd
+61c3d293789aff43b300be9ee94410d3 *man/CheckInput.i_OJN.Rd
 66b30091a24bd2c8fbfade49c6252161 *man/CompareQueueingModels.Rd
 9142996c01cd3587091dbc44779bc21c *man/Engset.Rd
 48299b473859b215553876c06bedc3e8 *man/Inputs.Rd
@@ -43,7 +43,7 @@ d2e828d1404883d8e6d8598b0426e257 *man/Inputs.o_MMCKK.Rd
 da025b8eca7e72fb6e077aa278c40b62 *man/Inputs.o_MMCKM.Rd
 e745a1b113c052be3679b1c95d6165cb *man/Inputs.o_MMInf.Rd
 4a47fec5ec56225f5b099f0a22c3c334 *man/Inputs.o_MMInfKK.Rd
-4943ae9227397f7e6c7b694f4b541481 *man/Inputs.o_OJN.Rd
+10bbcbe67982f0dfdb01ae4bd196da68 *man/Inputs.o_OJN.Rd
 eea587c37db45a0900079adbb09f2f4f *man/L.Rd
 18d7660f26dd01da05064bab8f602da3 *man/L.o_CJN.Rd
 ba591a22e76764b13ce84231e67c9cec *man/L.o_MCCN.Rd
@@ -59,7 +59,7 @@ cc4939f1e90a248618c058d9881eed14 *man/L.o_MMC.Rd
 bac0daa09b5ef008c31ef8927d0066fe *man/L.o_MMCKM.Rd
 2fe209cc5571d65a1af48afe97eb0eae *man/L.o_MMInf.Rd
 25b25574fab9f960b6bae143413d37c4 *man/L.o_MMInfKK.Rd
-e8628de8b87d7b179722a56d9b7cea4b *man/L.o_OJN.Rd
+67092b806c58b1e0c15924a64ed2bd5f *man/L.o_OJN.Rd
 9b515ee0b6806aec16b4e428282cddab *man/Lc.Rd
 74d6d5af06ea7bcc42099f1776b4cd3d *man/Lc.o_MCCN.Rd
 d88780bfb410aa7320217c7da24ab16d *man/Lc.o_MCMN.Rd
@@ -73,7 +73,7 @@ ea36ceeef3d4b61dc9d2cc33f901048a *man/Lk.o_CJN.Rd
 699203bcac390491c9f847bf3c8c6c47 *man/Lk.o_MCCN.Rd
 0d6ab66ec66c9375ec9c1d9409b54a4c *man/Lk.o_MCMN.Rd
 8ff801acc60348f638b291adba804b01 *man/Lk.o_MCON.Rd
-aca3274b7fefa4ecd8a9e4d64812c3eb *man/Lk.o_OJN.Rd
+620c364cf9d78d7dba54f8c05560a197 *man/Lk.o_OJN.Rd
 ce159b38a5fba3f595e6702a5bbc886b *man/Lq.Rd
 60bc5d99c71e1fab1052a28493d1222f *man/Lq.o_MM1.Rd
 279749fc6973642abb8efe4244bcd78b *man/Lq.o_MM1K.Rd
@@ -96,7 +96,7 @@ e5158f16790c08cb2add56dc6bf9b967 *man/Lqq.o_MMCKK.Rd
 d1e78aa488fba460b06e45773996db76 *man/Lqq.o_MMCKM.Rd
 cfbfcaefb465a851fce000d43def8e60 *man/Lqq.o_MMInf.Rd
 6ac893eb906c260f9247d21a7df1fbf6 *man/Lqq.o_MMInfKK.Rd
-e4b1b3662a1388c5a4d106eff0dd1241 *man/NewInput.CJN.Rd
+38d63463628412e265a5b369f50f29e8 *man/NewInput.CJN.Rd
 330352e7cbf26bb2b8a7bd535304b17f *man/NewInput.MCCN.Rd
 a9c33b8f060516c0fe20a956a1b70f3a *man/NewInput.MCMN.Rd
 6baba18b88b8b2d5e87ec1da7ea47a9d *man/NewInput.MCON.Rd
@@ -110,7 +110,7 @@ cd157da03dc0b9f0a03cbd08388d5b46 *man/NewInput.MMC.Rd
 abd86226b5cb199ce82a5ea5222be8c0 *man/NewInput.MMCKM.Rd
 5228e525e115a20d26fcb1275d493897 *man/NewInput.MMInf.Rd
 e5f54344b39b44f8cb481246392641e8 *man/NewInput.MMInfKK.Rd
-76c2d29efba5dd0d6d640e4605397962 *man/NewInput.OJN.Rd
+0fc6fcd94ffa9547b1e885c205a77234 *man/NewInput.OJN.Rd
 a023e292cf14f4e6327458b93fae634e *man/Pn.Rd
 faf33bdfb781cdf007d008344163fef1 *man/Pn.o_MM1.Rd
 4e1660f7e378e2132b8dbaf7053b4963 *man/Pn.o_MM1K.Rd
@@ -122,7 +122,7 @@ caeabaab2181e5ba8f13da4a52ff2d6f *man/Pn.o_MMC.Rd
 60aa3dc9b4e08a6b024ab018895900fd *man/Pn.o_MMCKM.Rd
 4c277eb044344985ebd87d3b200000f8 *man/Pn.o_MMInf.Rd
 3772ca88c6ba4abf80ab4345fa2aa831 *man/Pn.o_MMInfKK.Rd
-345b4b075967b2c39e8f736b2d1dd97e *man/Pn.o_OJN.Rd
+669dc1c7b08934458f4a4276c0839cac *man/Pn.o_OJN.Rd
 df189f91e42753f9574c0c5753812ce8 *man/QueueingModel.Rd
 482d35b0659990112e49d0a0401e499c *man/QueueingModel.i_CJN.Rd
 0deab2484e2559360214168f3e1def29 *man/QueueingModel.i_MCCN.Rd
@@ -159,7 +159,7 @@ c1a83d6a43ce303f88ce1234a9f477ab *man/ROk.o_CJN.Rd
 508d9b996008fcba15a73eca107c0158 *man/ROk.o_MCCN.Rd
 7da77e4924d0a5772314f73eb1e18461 *man/ROk.o_MCMN.Rd
 b7c93fdb872568ed84ab38f8062ab4a5 *man/ROk.o_MCON.Rd
-6c97838c43da55b822ca7c735d3e6c07 *man/ROk.o_OJN.Rd
+432570b2137c520783908a99dfdaaf52 *man/ROk.o_OJN.Rd
 262da0403e1fb365510598308e6eda25 *man/SP.Rd
 d22c98713ee0e4b18bfead883d233eb9 *man/SP.o_MM1KK.Rd
 4004daaaf475461a2933f5f0ff21444f *man/Throughput.Rd
@@ -177,7 +177,7 @@ c238caa6f1edb18053dca53f88f7e0d0 *man/Throughput.o_MMCC.Rd
 408498d5bb5d291bdf693b48e48e2eca *man/Throughput.o_MMCKM.Rd
 43a7f549c9474da92ffdce80ab8d0bcb *man/Throughput.o_MMInf.Rd
 104832b266d796cc40be9ba08864dd14 *man/Throughput.o_MMInfKK.Rd
-9aac0b771ba265f32e4bd1b131dec6f8 *man/Throughput.o_OJN.Rd
+942877b9e8daddfbb67583f41fd1a830 *man/Throughput.o_OJN.Rd
 c2d30672cce510f1f5cea65f8bff1803 *man/Throughputc.Rd
 11df5a78c6dfd70880d2f384667241f0 *man/Throughputc.o_MCCN.Rd
 befe77ac74fe5098a2f30eb6c20860e2 *man/Throughputc.o_MCMN.Rd
@@ -193,7 +193,7 @@ c18d55b1a3eba969c090f4dba57289fc *man/Throughputk.Rd
 c2a64df748cd93ae1c8fb327c5835053 *man/Throughputk.o_MCCN.Rd
 6d9056d1b7a5ba15ab0dd220636b3126 *man/Throughputk.o_MCMN.Rd
 18dd7fba9ef9c4a5ccfcb05f1429025e *man/Throughputk.o_MCON.Rd
-533e6a296181e56aa4dc0a46ee52ce80 *man/Throughputk.o_OJN.Rd
+5855444e8ffddafbb70bad742af92060 *man/Throughputk.o_OJN.Rd
 51b6601275dd945a256b84bdd475af9a *man/Throughputn.Rd
 4c3f6f73ca1c66c55824a80dc64a44ad *man/Throughputn.o_CJN.Rd
 a75ed364b8e0721b28e34e80e499afed *man/W.Rd
@@ -211,7 +211,7 @@ bf0395d30a569efa9d64b5612cda1130 *man/W.o_MMC.Rd
 6f1c4b44458e7b71e37c46e3feead404 *man/W.o_MMCKM.Rd
 a5a9029ea11790b2c29ceaa025ace142 *man/W.o_MMInf.Rd
 387102e9dcfa6c0bac9b5650be957601 *man/W.o_MMInfKK.Rd
-5059da9335322b0f0ed8b9312ffdff8f *man/W.o_OJN.Rd
+bdfe97078ceb9716bfa9fc61a802777d *man/W.o_OJN.Rd
 23026ea6bf99631973501ff9a61a6c48 *man/WWs.Rd
 ef5043f796ec936fe4d37da3d54d2638 *man/WWs.o_MM1KK.Rd
 ceb836f4acafea3dab2c0da576c6d55a *man/Wc.Rd
@@ -227,7 +227,7 @@ a173f475f066293c31cff0f607e1ed28 *man/Wk.o_CJN.Rd
 b48f1cabcae11d80e00c3d65899b047f *man/Wk.o_MCCN.Rd
 86c82082950d7e67e44f62da9082c93e *man/Wk.o_MCMN.Rd
 7099f95a90ccdf01126f5faf164151f0 *man/Wk.o_MCON.Rd
-bd99a9dfb6a59a7bd0fe06a8a4d13f0e *man/Wk.o_OJN.Rd
+dd63051d917fad3c9f65a12baca889f3 *man/Wk.o_OJN.Rd
 7cae435efd34fb3860927b28e22612f8 *man/Wq.Rd
 e3e96b951989bbd67bf5a677cbb56929 *man/Wq.o_MM1.Rd
 9fea7ab7cb5184cfd487b57caae3e5d0 *man/Wq.o_MM1K.Rd
@@ -264,6 +264,5 @@ c7f1460d6c717bc84648aeceb415838f *man/summary.o_MMCK.Rd
 96f3848960c3a88047c017af20ed228c *man/summary.o_MMCKM.Rd
 485164fdb407d89d37b439b011a87f8f *man/summary.o_MMInf.Rd
 ec491d07196c4e07ad97b9e8dacfb00e *man/summary.o_MMInfKK.Rd
-e16fa93e24088ae1b798399684ac9cfb *man/summary.o_OJN.Rd
-d41d8cd98f00b204e9800998ecf8427e *news
+16ae64a46a9b47929c6034102c61d552 *man/summary.o_OJN.Rd
 ac0ee4a772372ab2dee10c1a73c4dcd4 *readme

@@ -1,9 +1,9 @@
 % File man/Inputs.o_OJN.Rd
 \name{Inputs.o_OJN}
 \alias{Inputs.o_OJN}
-\title{Returns the input params of a Open Jackson Network}
+\title{Returns the input params of an Open Jackson Network}
 \description{
-  Returns the input params of a Open Jackson Network
+  Returns the input params of an Open Jackson Network
 }
 \usage{
   \method{Inputs}{o_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the input params of a Open Jackson Network. The inputs parameters are created calling previously the \link{NewInput.OJN}}
+\details{Returns the input params of an Open Jackson Network. The inputs parameters are created calling previously the \link{NewInput.OJN}}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

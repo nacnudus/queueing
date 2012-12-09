@@ -1,9 +1,9 @@
 % File man/W.o_OJN.Rd
 \name{W.o_OJN}
 \alias{W.o_OJN}
-\title{Returns the mean time spend in a Open Jackson Network}
+\title{Returns the mean time spend in an Open Jackson Network}
 \description{
-  Returns the mean time spend in a Open Jackson Network
+  Returns the mean time spend in an Open Jackson Network
 }
 \usage{
   \method{W}{o_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean time spend in a Open Jackson Network}
+\details{Returns the mean time spend in an Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

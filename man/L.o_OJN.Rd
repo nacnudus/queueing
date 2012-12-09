@@ -1,9 +1,9 @@
 % File man/L.o_OJN.Rd
 \name{L.o_OJN}
 \alias{L.o_OJN}
-\title{Returns the mean number of clients of a Open Jackson Network}
+\title{Returns the mean number of clients of an Open Jackson Network}
 \description{
-  Returns the mean number of clients of a Open Jackson Network
+  Returns the mean number of clients of an Open Jackson Network
 }
 \usage{
   \method{L}{o_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a Open Jackson Network}
+\details{Returns the mean number of clients of an Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

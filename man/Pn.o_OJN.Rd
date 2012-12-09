@@ -1,9 +1,9 @@
 % File man/Pn.o_OJN.Rd
 \name{Pn.o_OJN}
 \alias{Pn.o_OJN}
-\title{Returns vector of the probabilities of each node (server) of a Open Jackson Network}
+\title{Returns vector of the probabilities of each node (server) of an Open Jackson Network}
 \description{
-  Returns vector of the probabilities of each node (server) of a Open Jackson Network
+  Returns vector of the probabilities of each node (server) of an Open Jackson Network
 }
 \usage{
   \method{Pn}{o_OJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns vector of the probabilities of each node (server) of a Open Jackson Network}
+\details{Returns vector of the probabilities of each node (server) of an Open Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

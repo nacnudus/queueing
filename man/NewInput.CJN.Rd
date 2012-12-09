@@ -1,6 +1,8 @@
 % File man/NewInput.CJN.Rd
 \name{NewInput.CJN}
 \alias{NewInput.CJN}
+\alias{NewInput2.CJN}
+\alias{NewInput3.CJN}
 \title{Define the inputs of a Closed Jackson Network}
 \description{
   Define the inputs of a Closed Jackson Network
@@ -8,6 +10,8 @@
 
 \usage{
   NewInput.CJN(prob=NULL, n=0, z=0, operational=FALSE, method=0, tol=0.001, ...)
+  NewInput2.CJN(prob=NULL, n=0, z=0, operational=FALSE, method=0, tol=0.001, nodes)
+  NewInput3.CJN(number, think, numNodes, vType, vVisit, vService, vChannel, method=0, tol=0.001)
 }
 \arguments{
   \item{prob}{It is probability transition matrix or visit ratio vector. That is, the prob[i, j] is the transition probability of node i to node j, or prob[i] is the visit ratio (a probability, that is, a value between 0 and 1) to node i. Also, the visit ratio can express the number of times that a client visits the queueing center, in a more operational point of view. See the parameter operational}
@@ -17,9 +21,17 @@
   \item{method}{If method is 0, the exact MVA algorith is used. If method is 1, the Bard-Schweitzer approximation algorithm is used.}
   \item{tol}{If the parameter method is 1, this is the tolerance parameter of the algorithm.}
   \item{\dots}{a separated by comma list of nodes of i_MM1, i_MMC or i_MMInf class}
+  \item{nodes}{A list of nodes of i_MM1, i_MMC or i_MMInf class}
+  \item{number}{The same as the n parameter defined above}
+  \item{think}{The same as the z parameter defined above}
+  \item{numNodes}{The number of nodes of the network}
+  \item{vType}{A vector with the type of server: "Q" for a queueing node, "D" for a delay node}
+  \item{vVisit}{A vector with the visit ratios. It represent visit counts to a center as if the parameter operational were TRUE}
+  \item{vService}{A vector with the services time of each node}
+  \item{vChannel}{A vector with the number of channels of the node. The type of the server has to be "Q" to be inspected}
 }
 
-\details{Define the inputs of a Closed Jackson Network}
+\details{Define the inputs of a Closed Jackson Network. For a operational use, NewInput3.CJN is recommended. For a more academic use, NewInput.CJN or NewInput2.CJN is recommended. Please, note that the different ways to create the inputs for a Closed Jackson Network are equivalent to each other, and no validation is done at this stage. The validation is done calling CheckInput function.}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -55,6 +67,10 @@ prob <- matrix(data=c(0.5, 0.5, 0.5, 0.5), nrow=2, ncol=2, byrow=TRUE)
 
 cjn1 <- NewInput.CJN(prob, n, z, operational, 0, 0.001, n1, n2)
 
+\dontrun{
+  cjn1 <- NewInput2.CJN(prob, n, z, operational, 0, 0.001, list(n1, n2))
+}
+
 
 ## using visit ratios and service demands. See [Lazowska84] pag 117.
 ## E[S] cpu = 0.005, Visit cpu = 121, D cpu = E[S] cpu * Visit cpu = 0.605
@@ -72,6 +88,9 @@ visit <- c(121, 70, 50)
 operational <- TRUE
 
 net <- NewInput.CJN(prob=visit, n=3, z=15, operational, 0, 0.001, cpu, disk1, disk2)
+
+## Using the operational creation function
+net2 <- NewInput3.CJN(number=3, think=15, numNodes=3, vType=c("Q", "Q", "Q"), vVisit=visit, vService=c(0.005, 0.030, 0.027), vChannel=c(1, 1, 1), method=0, tol=0.001)
 
 }
 
