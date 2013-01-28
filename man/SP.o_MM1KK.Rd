@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{The value returned is the optimal number of clients of a M/M/1/K/K queueing model. It coincides with the inverse of the serialization parameter of Amdalh's Law. That is, the value which converges the speedup func(k) = k/(1 + ser * (k-1)). It makes sense, because the saturation point is the maximun value in which no syncronization happens.}
+\details{The value returned is the optimal number of clients of a M/M/1/K/K queueing model. It coincides with the inverse of the serialization parameter of Amdahl's Law. That is, the value which converges the speedup func(k) = k/(1 + ser * (k-1)). It makes sense, because the saturation point is the maximun value in which no syncronization happens.}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

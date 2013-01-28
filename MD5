@@ -1,11 +1,12 @@
-7ab09bb269fcb125b3acbf56f8539627 *ChangeLog
-bccf71669445b83100f996923558697a *DESCRIPTION
+b9aaa3a5b0d701509a53aa7366e5236a *ChangeLog
+a3ecbcdc8c3ba4ccdeeccd76e2e98d4a *DESCRIPTION
 3f97367ce7aedd109bdce4bf05c8b8a0 *NAMESPACE
 e98be485e37b3b1f596b977018d709fe *R/queueing.R
 d41d8cd98f00b204e9800998ecf8427e *cleanup
 d41d8cd98f00b204e9800998ecf8427e *configure
 0e1e0c74613142b727099c39c5f77a4d *index
 e2bd3c8c31db3f361336c1c6fad0fc96 *inst/CITATION
+154a47facdc7bb6f11bb24ce2860bea2 *inst/doc/Little_Law_When_Exists_Queue.pdf
 d41d8cd98f00b204e9800998ecf8427e *licence
 d41d8cd98f00b204e9800998ecf8427e *license
 00b23f8756df71d831e447f277184c04 *man/B_erlang.Rd
@@ -160,8 +161,8 @@ c1a83d6a43ce303f88ce1234a9f477ab *man/ROk.o_CJN.Rd
 7da77e4924d0a5772314f73eb1e18461 *man/ROk.o_MCMN.Rd
 b7c93fdb872568ed84ab38f8062ab4a5 *man/ROk.o_MCON.Rd
 432570b2137c520783908a99dfdaaf52 *man/ROk.o_OJN.Rd
-262da0403e1fb365510598308e6eda25 *man/SP.Rd
-d22c98713ee0e4b18bfead883d233eb9 *man/SP.o_MM1KK.Rd
+b49c15fb845480cf860c21fea75d7deb *man/SP.Rd
+07431710363aaa1307e9c6aae9198d19 *man/SP.o_MM1KK.Rd
 4004daaaf475461a2933f5f0ff21444f *man/Throughput.Rd
 ef4a2b4f39a630b7b02e9a37e1b0ba55 *man/Throughput.o_CJN.Rd
 a17ae2e48bfd377d608f1f2640343fe8 *man/Throughput.o_MCCN.Rd
@@ -250,6 +251,7 @@ c56cf8ebe8b553abe5f1b835b3a4a944 *man/Wqq.o_MMCC.Rd
 86cf0e3d06667a3c1882d5ca83449050 *man/Wqq.o_MMCKM.Rd
 49416c15e6c85878fd9a5cabced79429 *man/Wqq.o_MMInf.Rd
 4799220624523b65ac770877ee1b4bb6 *man/Wqq.o_MMInfKK.Rd
+410d91a0ba4ae7e612bc2f00312f2321 *man/queueing-package.Rd
 7094b76644bc48f397dbe3865e447dd4 *man/summary.o_CJN.Rd
 52db349b1c3f316b5fe2eb72c262be64 *man/summary.o_MCCN.Rd
 a401fb21b0122b4c3bdb480a159f325e *man/summary.o_MCMN.Rd

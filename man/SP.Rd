@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the saturation point of a queueing queue model}
+\details{Returns the saturation point of a queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
