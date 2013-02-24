@@ -1,3 +1,7 @@
+2013-02-24 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Included a new method to get the M/M/1/K/K and M/M/C/K/K probabilities. It has been taken from [Jain2007], pag. 26. It gets more probabilities that the exact method, but in more time than the approximate method. In my computer, for the M/M/1/K/K, the value 336 is the absolute value for the k parameter in which the new method and the approximate method gets values. Profiling the code, maybe I can give more performance to Jain's Method using other techniques.
+    * Fixed typos and suggestions given to me by See Chuen-Teck in the documentation pdf explaining the Wqq and Lqq formulae included in the package. Also I thank Alvaro Mayol and Alfonso Mateos for read the paper.
+
 2013-01-27 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Fixed typos in the SP help pages.
     * Included a documentation pdf explaining the lastest formulae included in the package.

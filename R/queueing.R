@@ -1073,7 +1073,7 @@ CheckInput.i_MM1KK <- function(x, ...)
 
   MM1KK_class <- "The class of the object x has to be M/M/1/K/K (i_MM1KK)"
   MM1KK_anomalous <- "Some value of lambda, mu or k is anomalous. Check the values."
-  MM1KK_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus"
+  MM1KK_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus and 2 to use Jain's Method"
 
 
  if (class(x) != "i_MM1KK")
@@ -1094,7 +1094,7 @@ CheckInput.i_MM1KK <- function(x, ...)
  if (!is.wholenumber(x$k))
 		stop(ALL_k_integer)
 
- if (x$method != 0 && x$method != 1)
+ if (x$method != 0 && x$method != 1 && x$method != 2)
    stop(MM1KK_method)
 }
 
@@ -1137,12 +1137,69 @@ MM1KK_InitPn_Exact <- function(x)
 }
 
 
+MM1KK_method2_Aux <- function(x, i)
+{
+  r <- x$lambda/x$mu
+
+  if (i == 0)
+  {
+    (x$k - i) * r / (i+1)
+  }
+  else
+  {
+    (x$k - i) * r
+  }
+}
+
+
+MM1KK_method2_Prod <- function(x,n)
+{
+  prod <- 1
+  
+  for (i in 0:(n-1))
+  {
+    prod <- prod * MM1KK_method2_Aux(x, i)
+  }
+
+  prod
+
+}
+
+
+MM1KK_method2_Prob <- function(x)
+{
+
+  pn <- c()
+  
+  sumAux <- 1
+
+  for (i in (1:x$k))
+  {
+    sumAux <- sumAux + MM1KK_method2_Prod(x, i)
+  }
+
+  pn[1] <- 1/sumAux
+
+  for (i in 2:(x$k+1))
+  {
+    pn[i] <- MM1KK_method2_Aux(x, i-2) * pn[i-1]
+  }
+
+  pn
+}
+
+
 MM1KK_InitPn <- function(x)
 {
   if (x$method == 0)
     pn <- MM1KK_InitPn_Exact(x)
   else
-   pn <- MM1KK_InitPn_Aprox(x)
+  {
+    if (x$method == 1)
+      pn <- MM1KK_InitPn_Aprox(x)
+    else
+      pn <- MM1KK_method2_Prob(x)
+  } 
 
   pn
 }
@@ -1276,7 +1333,7 @@ CheckInput.i_MMCKK <- function(x, ...)
   if (x$k < x$c)
 	  stop(ALL_k_c)
 
-  if (x$method != 0 && x$method != 1)
+  if (x$method != 0 && x$method != 1 && x$method != 2)
     stop(MMCKK_method)
 
 }
@@ -1302,6 +1359,59 @@ MMCKK_InitPn_Aprox <- function(x)
     x$lambda, x$mu, x$c, x$k, x$k, x$k, MMCKK_InitPn_Aprox_AuxC, MMCKK_InitPn_Aprox_AuxK, MMCKK_InitPn_Aprox_AuxK
   )
 }
+
+
+MMCKK_method2_Aux <- function(x, i)
+{
+  r <- x$lambda/x$mu
+
+  if (i <= x$c-1)
+  {
+    (x$k - i) * r / (i+1)
+  }
+  else
+  {
+    (x$k - i) * r / x$c
+  }
+}
+
+
+MMCKK_method2_Prod <- function(x,n)
+{
+  prod <- 1
+  
+  for (i in 0:(n-1))
+  {
+    prod <- prod * MMCKK_method2_Aux(x, i)
+  }
+
+  prod
+
+}
+
+
+MMCKK_method2_Prob <- function(x)
+{
+
+  pn <- c()
+  
+  sumAux <- 1
+
+  for (i in (1:x$k))
+  {
+    sumAux <- sumAux + MMCKK_method2_Prod(x, i)
+  }
+
+  pn[1] <- 1/sumAux
+
+  for (i in 2:(x$k+1))
+  {
+    pn[i] <- MMCKK_method2_Aux(x, i-2) * pn[i-1]
+  }
+
+  pn
+}
+
 
 
 MMCKK_InitPn_Exact <- function(x)
@@ -1370,7 +1480,12 @@ MMCKK_InitPn <- function(x)
     if (x$method == 0)
       pn <- MMCKK_InitPn_Exact(x)
     else
-      pn <- MMCKK_InitPn_Aprox(x)
+    {
+      if (x$method == 1)
+        pn <- MMCKK_InitPn_Aprox(x)
+      else
+        pn <- MMCKK_method2_Prob(x)
+    }
   }
   
   pn

@@ -1,6 +1,6 @@
 Package: queueing
-Version: 0.2.1
-Date: 2013-01-28
+Version: 0.2.2
+Date: 2013-02-24
 Title: Analysis of Queueing Networks and Models.
 Author: Pedro Canadilla <pedro.canadilla@gmail.com>
 Maintainer: Pedro Canadilla <pedro.canadilla@gmail.com>
@@ -19,6 +19,7 @@ Description: It provides a versatile tool for analysis of birth and
 License: GPL-2
 Copyright: Pedro Canadilla
 URL: http://www.r-project.org
-Packaged: 2013-02-01 07:16:59 UTC; pedro
+Packaged: 2013-02-24 15:40:20 UTC; pedro
+NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2013-02-01 11:44:13
+Date/Publication: 2013-02-25 10:27:44
