@@ -1,9 +1,9 @@
 % File man/L.o_MCMN.Rd
 \name{L.o_MCMN}
 \alias{L.o_MCMN}
-\title{Returns the mean number of clients of a MultiClass Mixed Network}
+\title{Returns the mean number of customers of a MultiClass Mixed Network}
 \description{
-  Returns the mean number of clients of a MultiClass Mixed Network
+  Returns the mean number of customers of a MultiClass Mixed Network
 }
 \usage{
   \method{L}{o_MCMN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a MultiClass Mixed Network}
+\details{Returns the mean number of customers of a MultiClass Mixed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

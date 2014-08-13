@@ -7,14 +7,15 @@
 }
 
 \usage{
-  NewInput.MMCKK(lambda=0, mu=0, c=1, k=1, method=0)
+NewInput.MMCKK(lambda=0, mu=0, c=1, k=1, method=0)
 }
+
 \arguments{
   \item{lambda}{arrival rate}
   \item{mu}{server service rate}
   \item{c}{number of servers}
   \item{k}{system capacity}
-  \item{method}{method of computation of the probabilities of k (system capacity) clients down. With method=0, the exact results are calculated using the formal definition. With method=1, aproximate results are calculated using Stirling aproximation of factorials and logaritms. With method=2, Jain's Method [Jain2007], pag. 26 is used}
+  \item{method}{method of computation of the probabilities of k (system capacity) customers down. With method=0, the exact results are calculated using the formal definition. With method=1, aproximate results are calculated using Stirling aproximation of factorials and logaritms. With method=2, Jain's Method [Jain2007], pag. 26 is used}
 }
 
 \details{Define the inputs of a new M/M/c/K/K queueing model}

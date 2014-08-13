@@ -4,8 +4,8 @@
 \alias{Qn}
 \title{Returns the probabilities of a queueing model (or network)}
 \description{
-  Pn returns the probabilities that a queueing model (or network) has n clients.\cr
-  Qn returns the probabilities that an arrival that enter the system see n clients in it
+  Pn returns the probabilities that a queueing model (or network) has n customers.\cr
+  Qn returns the probabilities that an arrival that enter the system see n customers in it
 }
 \usage{
   Pn(x, \dots)
@@ -16,7 +16,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the system probabilities of a queueing model (or network). Qn returns the probability that an effective arrival see n clients in the system}
+\details{Pn returns the system probabilities of a queueing model (or network). Qn returns the probability that an effective arrival see n customers in the system}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

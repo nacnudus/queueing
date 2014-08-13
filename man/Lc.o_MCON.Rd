@@ -1,9 +1,9 @@
 % File man/Lc.o_MCON.Rd
 \name{Lc.o_MCON}
 \alias{Lc.o_MCON}
-\title{Returns the vector with the mean number of clients of each class in a MultiClass Open Network}
+\title{Returns the vector with the mean number of customers of each class in a MultiClass Open Network}
 \description{
-  Returns the vector with the mean number of clients of each class in a MultiClass Open Network
+  Returns the vector with the mean number of customers of each class in a MultiClass Open Network
 }
 \usage{
   \method{Lc}{o_MCON}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients of each class in a MultiClass Open Network}
+\details{Returns the vector with the mean number of customers of each class in a MultiClass Open Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

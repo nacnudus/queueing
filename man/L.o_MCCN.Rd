@@ -1,9 +1,9 @@
 % File man/L.o_MCCN.Rd
 \name{L.o_MCCN}
 \alias{L.o_MCCN}
-\title{Returns the mean number of clients of a MultiClass Closed Network}
+\title{Returns the mean number of customers of a MultiClass Closed Network}
 \description{
-  Returns the mean number of clients of a MultiClass Closed Network
+  Returns the mean number of customers of a MultiClass Closed Network
 }
 \usage{
   \method{L}{o_MCCN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a MultiClass Closed Network}
+\details{Returns the mean number of customers of a MultiClass Closed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

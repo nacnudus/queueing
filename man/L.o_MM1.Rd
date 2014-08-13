@@ -1,9 +1,9 @@
 % File man/L.o_MM1.Rd
 \name{L.o_MM1}
 \alias{L.o_MM1}
-\title{Returns the mean number of clients in the M/M/1 queueing model}
+\title{Returns the mean number of customers in the M/M/1 queueing model}
 \description{
-  Returns the mean number of clients in the M/M/1 queueing model
+  Returns the mean number of customers in the M/M/1 queueing model
 }
 \usage{
   \method{L}{o_MM1}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the M/M/1 queueing model}
+\details{Returns the mean number of customers in the M/M/1 queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -34,7 +34,7 @@ i_mm1 <- NewInput.MM1(lambda=1/4, mu=1/3, n=0)
 ## Build the model
 o_mm1 <- QueueingModel(i_mm1)
 
-## Retunns the L
+## Returns the L
 L(o_mm1)
 }
 

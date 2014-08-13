@@ -4,8 +4,8 @@
 \alias{Qn.o_MMInf}
 \title{Returns the probabilities of a M/M/Infinite queueing model}
 \description{
-  Pn returns the probabilities that a M/M/Infinite queueing model has n clients.\cr
-  Qn returns the probabilities that an arrival that enter the system see n clients in it.
+  Pn returns the probabilities that a M/M/Infinite queueing model has n customers.\cr
+  Qn returns the probabilities that an arrival that enter the system see n customers in it.
 }
 \usage{
   \method{Pn}{o_MMInf}(x, \dots)
@@ -16,8 +16,8 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the probabilities that a M/M/Infinite queueing model has n clients.\cr
-Qn returns the probabilities that an arrival that enter the system see n clients. By the PASTA property, both probabilities has to be the same.}
+\details{Pn returns the probabilities that a M/M/Infinite queueing model has n customers.\cr
+Qn returns the probabilities that an arrival that enter the system see n customers. By the PASTA property, both probabilities has to be the same.}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

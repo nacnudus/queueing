@@ -28,7 +28,9 @@ It also solves the following types of networks:\cr
 \item Single Channel Multiple Class Mixed Networks 
 }
 
-Also it provides B-Erlang, C-Erlang and Engset calculators.
+Also it provides B-Erlang, C-Erlang and Engset calculators.\cr
+
+This work is dedicated to the memory of D. Sixto Rios Insua.
 }
 
 \details{

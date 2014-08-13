@@ -1,9 +1,9 @@
 % File man/Lqq.o_MMInfKK.Rd
 \name{Lqq.o_MMInfKK}
 \alias{Lqq.o_MMInfKK}
-\title{Returns the mean number of clients in queue when there is queue in the M/M/Infinite/K/K queueing model}
+\title{Returns the mean number of customers in queue when there is queue in the M/M/Infinite/K/K queueing model}
 \description{
-  Returns the mean number of clients in queue when there is queue in the M/M/Infinite/K/K queueing model
+  Returns the mean number of customers in queue when there is queue in the M/M/Infinite/K/K queueing model
 }
 \usage{
   \method{Lqq}{o_MMInfKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in queue when there is queue in the M/M/Infinite/K/K queueing model}
+\details{Returns the mean number of customers in queue when there is queue in the M/M/Infinite/K/K queueing model}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr

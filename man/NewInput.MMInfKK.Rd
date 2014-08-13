@@ -7,8 +7,9 @@
 }
 
 \usage{
-  NewInput.MMInfKK(lambda=0, mu=0, k=1)
+NewInput.MMInfKK(lambda=0, mu=0, k=1)
 }
+
 \arguments{
   \item{lambda}{arrival rate}
   \item{mu}{server service rate}

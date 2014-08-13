@@ -6,13 +6,13 @@
   Define the inputs of a new M/M/Infinite queueing model
 }
 \usage{
-  NewInput.MMInf(lambda=0, mu=0, n=0)
+NewInput.MMInf(lambda=0, mu=0, n=0)
 }
 
 \arguments{
   \item{lambda}{arrival rate}
   \item{mu}{server service rate}
-  \item{n}{number of clients in the system. Put n=0 for a standard model}
+  \item{n}{number of customers in the system. Put n=0 for a standard model}
 }
 
 \details{Define the inputs of a new M/M/Infinite queueing model}

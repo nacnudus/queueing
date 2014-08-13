@@ -7,8 +7,9 @@
 }
 
 \usage{
-  NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vService)
+NewInput.MCON(classes, vLambda, nodes, vType, vVisit, vService)
 }
+
 \arguments{
   \item{classes}{The number of classes}
   \item{vLambda}{It is a vector with the rate of arrivals of each class}

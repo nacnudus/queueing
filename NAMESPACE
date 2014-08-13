@@ -16,9 +16,13 @@ RO.o_MM1,
 Pn.o_MM1,
 Qn.o_MM1,
 Lq.o_MM1,
+VNq.o_MM1,
 Wq.o_MM1,
+VTq.o_MM1,
 L.o_MM1,
+VN.o_MM1,
 W.o_MM1,
+VT.o_MM1,
 Wqq.o_MM1,
 Lqq.o_MM1,
 Inputs.o_MM1,
@@ -29,9 +33,13 @@ summary.o_MMC,
 Inputs.o_MMC,
 RO.o_MMC,
 Lq.o_MMC,
+VNq.o_MMC,
 Wq.o_MMC,
+VTq.o_MMC,
 L.o_MMC,
+VN.o_MMC,
 W.o_MMC,
+VT.o_MMC,
 Wqq.o_MMC,
 Lqq.o_MMC,
 Pn.o_MMC,
@@ -43,11 +51,15 @@ summary.o_MM1KK,
 Inputs.o_MM1KK,
 RO.o_MM1KK,
 Lq.o_MM1KK,
+VNq.o_MM1KK,
 Lqq.o_MM1KK,
 Throughput.o_MM1KK,
 L.o_MM1KK,
+VN.o_MM1KK,
 W.o_MM1KK,
+VT.o_MM1KK,
 Wq.o_MM1KK,
+VTq.o_MM1KK,
 Wqq.o_MM1KK,
 WWs.o_MM1KK,
 SP.o_MM1KK,
@@ -59,12 +71,15 @@ QueueingModel.i_MMCKK,
 summary.o_MMCKK,
 Inputs.o_MMCKK,
 L.o_MMCKK,
+VN.o_MMCKK,
 Lq.o_MMCKK,
+VNq.o_MMCKK,
 Lqq.o_MMCKK,
 Throughput.o_MMCKK,
 W.o_MMCKK,
 RO.o_MMCKK,
 Wq.o_MMCKK,
+VTq.o_MMCKK,
 Wqq.o_MMCKK,
 Pn.o_MMCKK,
 Qn.o_MMCKK,
@@ -74,7 +89,9 @@ QueueingModel.i_MMCKM,
 summary.o_MMCKM,
 Inputs.o_MMCKM,
 L.o_MMCKM,
+VN.o_MMCKM,
 Lq.o_MMCKM,
+VNq.o_MMCKM,
 Lqq.o_MMCKM,
 Throughput.o_MMCKM,
 W.o_MMCKM,
@@ -89,12 +106,16 @@ QueueingModel.i_MMInfKK,
 summary.o_MMInfKK,
 Inputs.o_MMInfKK,
 L.o_MMInfKK,
+VN.o_MMInfKK,
 Lq.o_MMInfKK,
+VNq.o_MMInfKK,
 Lqq.o_MMInfKK,
 Throughput.o_MMInfKK,
 W.o_MMInfKK,
+VT.o_MMInfKK,
 RO.o_MMInfKK,
 Wq.o_MMInfKK,
+VTq.o_MMInfKK,
 Wqq.o_MMInfKK,
 Pn.o_MMInfKK,
 Qn.o_MMInfKK,
@@ -104,10 +125,14 @@ QueueingModel.i_MMInf,
 summary.o_MMInf,
 Inputs.o_MMInf,
 L.o_MMInf,
+VN.o_MMInf,
 Lq.o_MMInf,
+VNq.o_MMInf,
 Lqq.o_MMInf,
 W.o_MMInf,
+VT.o_MMInf,
 Wq.o_MMInf,
+VTq.o_MMInf,
 Wqq.o_MMInf,
 RO.o_MMInf,
 Pn.o_MMInf,
@@ -118,11 +143,15 @@ QueueingModel.i_MM1K,
 summary.o_MM1K,
 Inputs.o_MM1K,
 L.o_MM1K,
+VN.o_MM1K,
 W.o_MM1K,
+VT.o_MM1K,
 RO.o_MM1K,
 Lq.o_MM1K,
+VNq.o_MM1K,
 Lqq.o_MM1K,
 Wq.o_MM1K,
+VTq.o_MM1K,
 Wqq.o_MM1K,
 W.o_MM1K,
 Pn.o_MM1K,
@@ -135,10 +164,13 @@ summary.o_MMCK,
 Inputs.o_MMCK,
 RO.o_MMCK,
 L.o_MMCK,
+VN.o_MMCK,
 Lq.o_MMCK,
+VNq.o_MMCK,
 Lqq.o_MMCK,
 W.o_MMCK,
 Wq.o_MMCK,
+VTq.o_MMCK,
 Wqq.o_MMCK,
 Pn.o_MMCK,
 Qn.o_MMCK,
@@ -149,10 +181,14 @@ QueueingModel.i_MMCC,
 summary.o_MMCC,
 Inputs.o_MMCC,
 L.o_MMCC,
+VN.o_MMCC,
 Lq.o_MMCC,
+VNq.o_MMCC,
 Lqq.o_MMCC,
 W.o_MMCC,
+VT.o_MMCC,
 Wq.o_MMCC,
+VTq.o_MMCC,
 Wqq.o_MMCC,
 RO.o_MMCC,
 Pn.o_MMCC,
@@ -245,9 +281,13 @@ QueueingModel,
 Inputs,
 RO,
 Lq,
+VNq,
 Wq,
+VTq,
 L,
+VN,
 W,
+VT,
 Wqq,
 Pn,
 Qn,
@@ -343,6 +383,17 @@ S3method(Lq, o_MMCKK)
 S3method(Lq, o_MMCKM)
 S3method(Lq, o_MMInfKK)
 
+S3method(VNq, o_MM1)
+S3method(VNq, o_MMC)
+S3method(VNq, o_MMCC)
+S3method(VNq, o_MMInf)
+S3method(VNq, o_MMInfKK)
+S3method(VNq, o_MM1K)
+S3method(VNq, o_MMCK)
+S3method(VNq, o_MM1KK)
+S3method(VNq, o_MMCKK)
+S3method(VNq, o_MMCKM)
+
 S3method(Wq, o_MM1)
 S3method(Wq, o_MM1K)
 S3method(Wq, o_MMC)
@@ -353,6 +404,16 @@ S3method(Wq, o_MM1KK)
 S3method(Wq, o_MMCKK)
 S3method(Wq, o_MMCKM)
 S3method(Wq, o_MMInfKK)
+
+S3method(VTq, o_MM1)
+S3method(VTq, o_MMC)
+S3method(VTq, o_MMCC)
+S3method(VTq, o_MMInf)
+S3method(VTq, o_MMInfKK)
+S3method(VTq, o_MM1K)
+S3method(VTq, o_MMCK)
+S3method(VTq, o_MM1KK)
+S3method(VTq, o_MMCKK)
 
 S3method(L, o_MM1)
 S3method(L, o_MM1K)
@@ -370,6 +431,17 @@ S3method(L, o_MCON)
 S3method(L, o_MCCN)
 S3method(L, o_MCMN)
 
+S3method(VN, o_MM1)
+S3method(VN, o_MMC)
+S3method(VN, o_MMCC)
+S3method(VN, o_MMInf)
+S3method(VN, o_MMInfKK)
+S3method(VN, o_MM1K)
+S3method(VN, o_MMCK)
+S3method(VN, o_MM1KK)
+S3method(VN, o_MMCKK)
+S3method(VN, o_MMCKM)
+
 S3method(W, o_MM1)
 S3method(W, o_MM1K)
 S3method(W, o_MMC)
@@ -385,6 +457,14 @@ S3method(W, o_CJN)
 S3method(W, o_MCON)
 S3method(W, o_MCCN)
 S3method(W, o_MCMN)
+
+S3method(VT, o_MM1)
+S3method(VT, o_MMC)
+S3method(VT, o_MMCC)
+S3method(VT, o_MMInf)
+S3method(VT, o_MMInfKK)
+S3method(VT, o_MM1K)
+S3method(VT, o_MM1KK)
 
 S3method(Wqq, o_MM1)
 S3method(Wqq, o_MM1K)

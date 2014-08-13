@@ -1,9 +1,9 @@
 % File man/Lck.o_MCCN.Rd
 \name{Lck.o_MCCN}
 \alias{Lck.o_MCCN}
-\title{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Closed Network}
+\title{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Closed Network}
 \description{
-  Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Closed Network
+  Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Closed Network
 }
 \usage{
   \method{Lck}{o_MCCN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Closed Network}
+\details{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Closed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

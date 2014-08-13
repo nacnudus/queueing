@@ -1,9 +1,9 @@
 % File man/L.o_MMCC.Rd
 \name{L.o_MMCC}
 \alias{L.o_MMCC}
-\title{Returns the mean number of clients in the M/M/c/c queueing model}
+\title{Returns the mean number of customers in the M/M/c/c queueing model}
 \description{
-  Returns the mean number of clients in the M/M/c/c queueing model
+  Returns the mean number of customers in the M/M/c/c queueing model
 }
 \usage{
   \method{L}{o_MMCC}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the M/M/c/c queueing model}
+\details{Returns the mean number of customers in the M/M/c/c queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -34,7 +34,7 @@ i_mmcc <- NewInput.MMCC(lambda=3, mu=0.25, c=15)
 ## Build the model
 o_mmcc <- QueueingModel(i_mmcc)
 
-## Retunns the L
+## Returns the L
 L(o_mmcc)
 }
 

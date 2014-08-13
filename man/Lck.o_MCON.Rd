@@ -1,9 +1,9 @@
 % File man/Lck.o_MCON.Rd
 \name{Lck.o_MCON}
 \alias{Lck.o_MCON}
-\title{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Open Network}
+\title{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Open Network}
 \description{
-  Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Open Network
+  Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Open Network
 }
 \usage{
   \method{Lck}{o_MCON}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Open Network}
+\details{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Open Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

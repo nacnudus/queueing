@@ -7,9 +7,13 @@ QueueingModel  <- function(x, ...) UseMethod("QueueingModel")
 Inputs         <- function(x, ...) UseMethod("Inputs")
 RO             <- function(x, ...) UseMethod("RO")
 Lq             <- function(x, ...) UseMethod("Lq")
+VNq            <- function(x, ...) UseMethod("VNq")
 Wq             <- function(x, ...) UseMethod("Wq")
+VTq            <- function(x, ...) UseMethod("VTq")
 L              <- function(x, ...) UseMethod("L")
+VN             <- function(x, ...) UseMethod("VN")
 W              <- function(x, ...) UseMethod("W")
+VT             <- function(x, ...) UseMethod("VT")
 Wqq            <- function(x, ...) UseMethod("Wqq")
 Pn             <- function(x, ...) UseMethod("Pn")
 Qn             <- function(x, ...) UseMethod("Qn")
@@ -164,7 +168,7 @@ B_erlang3 <- function(c, u)
   i <- 1
   while (i <= c)
   {
-		n_fact <- i * n_fact
+	n_fact <- i * n_fact
     u_power <- u_power * u
     tot <- tot + (u_power / n_fact)
     i <- i + 1
@@ -347,6 +351,12 @@ ProbFactCalculus <- function(lambda, mu, c, k, m, limit, fAuxC, fAuxK, fAuxM)
 
   pn <- exp(pn + p0)
   pn
+}
+
+
+tpoisson <- function(n, maximum, lambda)
+{
+  dpois(n, lambda)/ppois(maximum, lambda)
 }
 
 
@@ -808,6 +818,12 @@ QueueingModel.i_MM1 <- function(x, ...)
   Lqq <- x$mu / aux
   Throughput <- x$lambda
 
+  # Variance
+  VNq <- (RO^2 * (1 + RO - RO^2)) / ((1 - RO)^2)
+  VTq <- (RO * (2 - RO)) / (x$mu^2 * ((1 - RO)^2))
+  VN  <- RO / ((1 - RO)^2)
+  VT  <- W^2
+
   if (x$n < 0)
     Pn <- numeric()
   else
@@ -817,10 +833,9 @@ QueueingModel.i_MM1 <- function(x, ...)
   FWq <- function(t) { 1 - (RO * exp(-t/W)) }
   FW <- function(t) { 1 - exp(-t/W) }
 
-
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = W, Lqq = Lqq,
-    Pn = Pn, Qn = Pn, FW = FW, FWq = FWq 
+    Inputs = x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput, L = L, VN = VN,
+    W = W, VT = VT, Wqq = W, Lqq = Lqq, Pn = Pn, Qn = Pn, FW = FW, FWq = FWq 
   )
 
   class(res) <- "o_MM1"
@@ -831,9 +846,13 @@ RO.o_MM1         <- function(x, ...) { x$RO }
 Pn.o_MM1         <- function(x, ...) { x$Pn }
 Qn.o_MM1         <- function(x, ...) { x$Qn }
 Lq.o_MM1         <- function(x, ...) { x$Lq }
+VNq.o_MM1        <- function(x, ...) { x$VNq }
 Wq.o_MM1         <- function(x, ...) { x$Wq }
+VTq.o_MM1        <- function(x, ...) { x$VTq }
 L.o_MM1          <- function(x, ...) { x$L }
+VN.o_MM1         <- function(x, ...) { x$VN }
 W.o_MM1          <- function(x, ...) { x$W }
+VT.o_MM1         <- function(x, ...) { x$VT }
 Wqq.o_MM1        <- function(x, ...) { x$Wqq }
 Lqq.o_MM1        <- function(x, ...) { x$Lqq }
 Inputs.o_MM1     <- function(x, ...) { x$Inputs }
@@ -1026,9 +1045,23 @@ QueueingModel.i_MMC <- function(x, ...)
     res
   }
 
-  res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
-    Lqq = Lqq, Pn = Pn, Qn = Pn, FW = FW, FWq = FWq
+  square_one_minus_ro <- one_minus_ro^2
+  square_mu <- x$mu^2
+  square_c <- x$c^2
+  square_w <- W^2
+
+  VNq <- ( RO * cErlang * (1 + RO - (RO * cErlang)) ) / square_one_minus_ro
+  VTq <- ( (2 - cErlang) * cErlang) / (square_mu * square_c * square_one_minus_ro)
+  VN  <- VNq + (r * (1 + cErlang)) 
+
+  if ( r == (x$c - 1) )
+    VT <- ((2 * (2 * cErlang + 1)) / square_mu) - square_w
+  else
+    VT <- ( ((2 * cErlang * (1 - (square_c * square_one_minus_ro))) / ((r + 1 -x$c) * square_c * square_one_minus_ro * square_mu)) + (2 / square_mu) ) - square_w
+
+ res <- list(
+    Inputs = x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, VT = VT, Wqq = Wqq, Lqq = Lqq, Pn = Pn, Qn = Pn, FW = FW, FWq = FWq
   )
 
   class(res) <- "o_MMC"
@@ -1039,9 +1072,13 @@ QueueingModel.i_MMC <- function(x, ...)
 Inputs.o_MMC     <- function(x, ...) { x$Inputs }
 RO.o_MMC         <- function(x, ...) { x$RO }
 Lq.o_MMC         <- function(x, ...) { x$Lq }
+VNq.o_MMC        <- function(x, ...) { x$VNq }
 Wq.o_MMC         <- function(x, ...) { x$Wq }
+VTq.o_MMC        <- function(x, ...) { x$VTq }
 L.o_MMC          <- function(x, ...) { x$L }
+VN.o_MMC         <- function(x, ...) { x$VN }
 W.o_MMC          <- function(x, ...) { x$W }
+VT.o_MMC         <- function(x, ...) { x$VT }
 Lqq.o_MMC        <- function(x, ...) { x$Lqq }
 Wqq.o_MMC        <- function(x, ...) { x$Wqq } 
 Pn.o_MMC         <- function(x, ...) { x$Pn }
@@ -1061,7 +1098,7 @@ summary.o_MMC <- function(object, ...)
 ## MODEL M/M/1/K/K - Finite Poblation.                       ##
 ###############################################################
 ###############################################################
-NewInput.MM1KK <- function(lambda=0, mu=0, k=1, method=0)
+NewInput.MM1KK <- function(lambda=0, mu=0, k=1, method=3)
 {
   res <- list(lambda = lambda, mu = mu, k = k, method = method)
   class(res) <- "i_MM1KK"
@@ -1071,9 +1108,9 @@ NewInput.MM1KK <- function(lambda=0, mu=0, k=1, method=0)
 CheckInput.i_MM1KK <- function(x, ...)
 {
 
-  MM1KK_class <- "The class of the object x has to be M/M/1/K/K (i_MM1KK)"
+  MM1KK_class     <- "The class of the object x has to be M/M/1/K/K (i_MM1KK)"
   MM1KK_anomalous <- "Some value of lambda, mu or k is anomalous. Check the values."
-  MM1KK_method <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus and 2 to use Jain's Method"
+  MM1KK_method    <- "method variable has to be 0 to be exact calculus, 1 to be aproximate calculus, 2 to use Jain's Method or 3 to use Poisson truncated distribution"
 
 
  if (class(x) != "i_MM1KK")
@@ -1094,7 +1131,7 @@ CheckInput.i_MM1KK <- function(x, ...)
  if (!is.wholenumber(x$k))
 		stop(ALL_k_integer)
 
- if (x$method != 0 && x$method != 1 && x$method != 2)
+ if (x$method != 0 && x$method != 1 && x$method != 2 && x$method != 3)
    stop(MM1KK_method)
 }
 
@@ -1189,17 +1226,28 @@ MM1KK_method2_Prob <- function(x)
 }
 
 
+MM1KK_method3_Prob <- function(x)
+{
+  z <- x$mu/x$lambda
+
+  funMethod3 <- function(n){ dpois(x$k-n, z)/ppois(x$k, z) }
+
+  pn <- sapply(0:x$k, funMethod3)
+  pn
+}
+
+
+
 MM1KK_InitPn <- function(x)
 {
   if (x$method == 0)
     pn <- MM1KK_InitPn_Exact(x)
+  else if (x$method == 1)
+    pn <- MM1KK_InitPn_Aprox(x)
+  else if (x$method == 2)
+    pn <- MM1KK_method2_Prob(x)
   else
-  {
-    if (x$method == 1)
-      pn <- MM1KK_InitPn_Aprox(x)
-    else
-      pn <- MM1KK_method2_Prob(x)
-  } 
+    pn <- MM1KK_method3_Prob(x)
 
   pn
 }
@@ -1239,23 +1287,54 @@ QueueingModel.i_MM1KK <- function(x, ...)
 
   #Wqq <- Wq / RO
   
-
   FW <- function(t){
-    aux <- function(i) { Qn[i] * dist(i-1, t) }
-    1 - sum(sapply(seq(1, x$k, 1), aux))
+    aux <- function(i, t) { Qn[i] * ppois(i-1, x$mu * t) }
+    1 - sum(sapply(seq(1, x$k, 1), aux, t))
   }
 
-  FWq <- function(t){
-    aux <- function(i) { Qn[i+1] * dist(i-1, t) }
-    if (x$k == 1) 0
+  if (x$k == 1)
+    FWq <- function(t){ 0 }
+  else
+  {
+    FWq <- function(t){
+      aux <- function(i, t) { Qn[i+1] * ppois(i-1, x$mu * t) }
+      1 - sum(sapply(seq(1, x$k-1, 1), aux, t))
+    }
+  }
+ 
+  # variances
+  VN  <- sum( (0:x$k)^2 * Pn ) - (L^2)  
+
+  xFWc  <- Vectorize(function(t){t * (1 - FW(t))})
+  xFWqc <- Vectorize(function(t){t * (1 - FWq(t))})
+
+  FWInt <- integrate(xFWc, 0, Inf)
+
+  if (FWInt$message == "OK")
+    VT <- (2 * FWInt$value) - (W^2) 
+  else
+    VT <- NA
+
+  if (x$k == 1)
+  {
+    VNq <- 0
+    VTq <- 0
+  }
+  else
+  {
+    VNq <- sum( c(0, 0, 1:(x$k-1))^2 * Pn ) - (Lq^2)
+    FWqInt <- integrate(xFWqc, 0, Inf)
+    
+    if (FWqInt$message == "OK")
+      VTq <- (2 * FWqInt$value) - (Wq^2) 
     else
-      1 - sum(sapply(seq(1, x$k-1, 1), aux))
+      VTq <- NA
   }
 
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    WWs = WWs, SP = SP, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
+    Inputs=x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, VT = VT, Lqq = Lqq, Wqq = Wqq, WWs = WWs, SP = SP, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
   )
   
   class(res) <- "o_MM1KK"
@@ -1266,9 +1345,13 @@ QueueingModel.i_MM1KK <- function(x, ...)
 Inputs.o_MM1KK     <- function(x, ...) { x$Inputs }
 RO.o_MM1KK         <- function(x, ...) { x$RO }
 Lq.o_MM1KK         <- function(x, ...) { x$Lq }
+VNq.o_MM1KK        <- function(x, ...) { x$VNq }
 Wq.o_MM1KK         <- function(x, ...) { x$Wq }
+VTq.o_MM1KK        <- function(x, ...) { x$VTq }
 L.o_MM1KK          <- function(x, ...) { x$L }
+VN.o_MM1KK         <- function(x, ...) { x$VN }
 W.o_MM1KK          <- function(x, ...) { x$W }
+VT.o_MM1KK         <- function(x, ...) { x$VT }
 Lqq.o_MM1KK        <- function(x, ...) { x$Lqq }
 Wqq.o_MM1KK        <- function(x, ...) { x$Wqq }
 WWs.o_MM1KK        <- function(x, ...) { x$WWs }
@@ -1500,7 +1583,7 @@ QueueingModel.i_MMCKK <- function(x, ...)
   Pn <- MMCKK_InitPn(x)
 
   # To control the cases where the probabilties doesn't make sense, that it is going to be saturation
-  if ( (x$method == 1 && sum(Pn) == 0) || (x$method == 0 && sum(is.nan(Pn)) != 0))
+  if ( (x$method == 1 && sum(Pn) == 0) || (x$method == 0 && sum(is.nan(Pn)) != 0) )
   {
     #print(paste("sum(Pn):", sum(Pn)))
     RO <- 1
@@ -1523,7 +1606,10 @@ QueueingModel.i_MMCKK <- function(x, ...)
       Lq <- Throughput * Wq
       Wqq <- NA
       Lqq <- NA
-    }  
+    }
+    VN <- NA
+    VNq <- NA
+    VTq <- NA  
   }
   else
   {
@@ -1550,30 +1636,54 @@ QueueingModel.i_MMCKK <- function(x, ...)
       Lqq <- Wqq * x$c * x$mu   
     }
 
+    if (x$c == x$k)
+      FWq <- function(t){0}
+    else
+    {
+      FWq <- function(t){
+        aux <- function(n) { Qn[n+x$c] * ppois(n-1, x$c * x$mu * t) }
+        1 - sum(sapply(seq(1, x$k-x$c, 1), aux))
+      }
+    }
+
+    # variances
+    VN  <- sum( (0:x$k)^2 * Pn ) - (L^2)
+
+    if (x$c == x$k)
+      VNq <- 0
+    else
+      VNq <- sum( ( c( rep(0, x$c+1), 1:(x$k-x$c) )^2 * Pn) - (Lq^2) )
+
+    xFWqc <- function(t){Vectorize(t * (1 - FWq(t)))}
+
+    if (x$c == x$k)
+      VTq <- 0
+    else
+    {
+      FWqInt  <- integrate(xFWqc, 0, Inf)
+    
+      if (FWqInt$message == "OK")
+        VTq <- (2 * FWqInt$value) - (Wq^2) 
+      else
+        VTq <- NA
+    }
+
     #Wqq <- Wq / (1-sum_pn_0_c_minus_1) 
   }    
   
-  dist <- function(n) { ppois(n, x$c * x$mu * t) }
-
-  FW <- function(t){    
-    aux <- function(n) { Qn[n+x$c-1] * dist(n-1) }
-    1 - sum(sapply(seq(1, x$k-x$c+1, 1), aux))
-  }
-
-  FWq <- function(t){
-    aux <- function(n) { Qn[n+x$c] * dist(n-1) }
-   
-    if (x$c == x$k)
-      0
-    else
-      1 - sum(sapply(seq(1, x$k-x$c, 1), aux))
-  }
+  # dist <- function(n) { ppois(n, x$c * x$mu * t) }
+  
+  # FW <- function(t){    
+  #   aux <- function(n) { Qn[n+x$c-1] * dist(n-1) }
+  #   1 - sum(sapply(seq(1, x$k-x$c+1, 1), aux))
+  # }
 
 
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
+    Inputs=x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, Lqq = Lqq, Wqq = Wqq,
+    Pn = Pn, Qn = Qn, FWq = FWq
   )
   
   class(res) <- "o_MMCKK"
@@ -1583,12 +1693,15 @@ QueueingModel.i_MMCKK <- function(x, ...)
 
 Inputs.o_MMCKK     <- function(x, ...) { x$Inputs }
 L.o_MMCKK          <- function(x, ...) { x$L }
+VN.o_MMCKK         <- function(x, ...) { x$VN }
 Lq.o_MMCKK         <- function(x, ...) { x$Lq }
+VNq.o_MMCKK        <- function(x, ...) { x$VNq }
 Lqq.o_MMCKK        <- function(x, ...) { x$Lqq }
 Throughput.o_MMCKK <- function(x, ...) { x$Throughput }
 W.o_MMCKK          <- function(x, ...) { x$W }
 RO.o_MMCKK         <- function(x, ...) { x$RO }
 Wq.o_MMCKK         <- function(x, ...) { x$Wq }
+VTq.o_MMCKK        <- function(x, ...) { x$VTq }
 Wqq.o_MMCKK        <- function(x, ...) { x$Wqq }
 Pn.o_MMCKK         <- function(x, ...) { x$Pn }
 Qn.o_MMCKK         <- function(x, ...) { x$Qn }
@@ -1758,7 +1871,7 @@ QueueingModel.i_MMCKM <- function(x, ...)
  Pn <- MMCKM_InitPn(x)
 
  # To control the cases where the probabilties doesn't make sense, that it is going to be saturation
- if ( (x$method == 1 && sum(Pn) == 0) || (x$method == 0 && sum(is.nan(Pn)) != 0))
+ if ( (x$method == 1 && sum(Pn) == 0) || (x$method == 0 && sum(is.nan(Pn)) != 0) )
  {
     RO <- 1
     Throughput <- (x$c * x$mu)
@@ -1781,6 +1894,9 @@ QueueingModel.i_MMCKM <- function(x, ...)
       Wqq <- NA
       Lqq <- NA
     }
+    
+    VN <- NA
+    VNq <- NA
  }
  else
  {
@@ -1798,15 +1914,9 @@ QueueingModel.i_MMCKM <- function(x, ...)
    W <- L / Throughput
    Wq <- Lq / Throughput 
    RO <- Throughput / (x$c * x$mu)
-   #Wqq <- Wq / (1-sum_pn_0_c_minus_1)
-
-   # old formulaes, wrong functional form
-   #QnAux <- function(n){ Pn[n] * (x$k - (n-1)) / (x$k - L) }
-   #Qn <- sapply(1:x$k, QnAux)
 
    QnAux <- function(n){ Pn[n] * (x$m - (n-1)) / ( (x$m - L) - ( (x$m - x$k) * Pn[x$k+1] ) ) }
    Qn <- sapply(1:x$k, QnAux)
-
 
    if (x$k == x$c)
    {
@@ -1817,28 +1927,36 @@ QueueingModel.i_MMCKM <- function(x, ...)
    {
      Wqq <- Wq / (1 - sum(Qn[1:x$c]))
      Lqq <- Wqq * x$c * x$mu
-   } 
+   }
+
+   # variances
+   VN  <- sum( (0:x$k)^2 * Pn ) - (L^2)
+
+   if (x$c == x$k)
+     VNq <- 0
+   else
+     VNq <- sum( ( c( rep(0, x$c+1), 1:(x$k-x$c) )^2 * Pn) - (Lq^2) ) 
  }
 
 
-  FW <- function(t){    
-    aux <- function(n) { Qn[n+x$c-1] * dist(n-1) }
-    1 - sum(sapply(seq(1, x$k-x$c+1, 1), aux))
-  }
+  # FW <- function(t){
+  #  aux <- function(n) { Qn[n+x$c-1] * dist(n-1) }
+  #  1 - sum(sapply(seq(1, x$k-x$c+1, 1), aux))
+  # }
 
-  FWq <- function(t){
-    aux <- function(n) { Qn[n+x$c] * dist(n-1) }
+  # FWq <- function(t){
+  #   aux <- function(n) { Qn[n+x$c] * dist(n-1) }
    
-    if (x$c == x$k)
-      0
-    else
-      1 - sum(sapply(seq(1, x$k-x$c, 1), aux))
-  }
+  #   if (x$c == x$k)
+  #     0
+  #   else
+  #     1 - sum(sapply(seq(1, x$k-x$c, 1), aux))
+  # }
 
 
   # The result
-  res <- list(Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-  Pn = Pn, Qn = Qn, FW = FW, FWq = FWq)
+  res <- list(Inputs=x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, Throughput = Throughput,
+     L = L, VN = VN, W = W, Lqq = Lqq, Wqq = Wqq, Pn = Pn, Qn = Qn)
 
   class(res) <- "o_MMCKM"
   res
@@ -1846,7 +1964,9 @@ QueueingModel.i_MMCKM <- function(x, ...)
 
 Inputs.o_MMCKM     <- function(x, ...) { x$Inputs }
 L.o_MMCKM          <- function(x, ...) { x$L }
+VN.o_MMCKM         <- function(x, ...) { x$VN }
 Lq.o_MMCKM         <- function(x, ...) { x$Lq }
+VNq.o_MMCKM        <- function(x, ...) { x$VNq }
 Lqq.o_MMCKM        <- function(x, ...) { x$Lqq }
 Throughput.o_MMCKM <- function(x, ...) { x$Throughput }
 W.o_MMCKM          <- function(x, ...) { x$W }
@@ -1931,6 +2051,10 @@ QueueingModel.i_MMInfKK <- function(x, ...)
   Throughput <- x$lambda * (x$k - L) 
   W <- L / Throughput
 
+  Lq  <- 0
+  VNq <- 0
+  Wq  <- 0
+  VTq <- 0
   Wqq <- NA
   Lqq <- NA
 
@@ -1940,10 +2064,22 @@ QueueingModel.i_MMInfKK <- function(x, ...)
   FW <- function(t){ exp(x$mu) }
   FWq <- function(t){ 0 }
 
+  # if the sum(Pn) == 0, then too big K or lambda/mu is
+  if (sum(Pn) == 0)
+  {
+    VN <- NA
+  }
+  else
+  {
+    VT <- ( ((0:x$k)^2) * Pn) - (L^2)
+  }
+
+  VN <- 1/(x$mu^2)
+
   # The result
   res <- list(
-    Inputs=x, RO = L, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    Pn = Pn, Qn = Qn, FW = FW, FWq = FWq 
+    Inputs=x, RO = L, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, W = W, Lqq = Lqq, Wqq = Wqq, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq 
   )
 
   class(res) <- "o_MMInfKK"
@@ -1953,10 +2089,14 @@ QueueingModel.i_MMInfKK <- function(x, ...)
 
 Inputs.o_MMInfKK     <- function(x, ...) { x$Inputs }
 L.o_MMInfKK          <- function(x, ...) { x$L }
+VN.o_MMInfKK         <- function(x, ...) { x$VN }
 W.o_MMInfKK          <- function(x, ...) { x$W }
+VT.o_MMInfKK         <- function(x, ...) { x$VT }
 RO.o_MMInfKK         <- function(x, ...) { x$RO }
 Lq.o_MMInfKK         <- function(x, ...) { x$Lq }
+VNq.o_MMInfKK        <- function(x, ...) { x$VNq }
 Wq.o_MMInfKK         <- function(x, ...) { x$Wq }
+VTq.o_MMInfKK        <- function(x, ...) { x$VTq }
 Wqq.o_MMInfKK        <- function(x, ...) { x$Wqq }
 Lqq.o_MMInfKK        <- function(x, ...) { x$Lqq }
 Pn.o_MMInfKK         <- function(x, ...) { x$Pn }
@@ -2026,13 +2166,20 @@ QueueingModel.i_MMInf <- function(x, ...)
   FW <- function(t){ exp(x$mu) }
   FWq <- function(t){ 0 }
 
+  Lq  <- 0
+  Wq  <- 0
   Lqq <- NA
   Wqq <- NA
 
+  VN  <- L
+  VNq <- 0
+  VT  <- 1/(x$mu^2)
+  VTq <- 0  
+
   # The result
   res <- list(
-    Inputs=x, RO = L, Lq = 0, Wq = 0, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
+    Inputs=x, RO = L, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, VT = VT, Lqq = Lqq, Wqq = Wqq, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
   )
 
   class(res) <- "o_MMInf"
@@ -2042,10 +2189,14 @@ QueueingModel.i_MMInf <- function(x, ...)
 
 Inputs.o_MMInf <- function(x, ...) { x$Inputs }
 L.o_MMInf          <- function(x, ...) { x$L }
+VN.o_MMInf         <- function(x, ...) { x$VN }
 W.o_MMInf          <- function(x, ...) { x$W }
+VT.o_MMInf         <- function(x, ...) { x$VT }
 RO.o_MMInf         <- function(x, ...) { x$RO }
 Lq.o_MMInf         <- function(x, ...) { x$Lq }
+VNq.o_MMInf        <- function(x, ...) { x$VNq }
 Wq.o_MMInf         <- function(x, ...) { x$Wq }
+VTq.o_MMInf        <- function(x, ...) { x$VTq }
 Wqq.o_MMInf        <- function(x, ...) { x$Wqq }
 Lqq.o_MMInf        <- function(x, ...) { x$Lqq }
 Pn.o_MMInf         <- function(x, ...) { x$Pn }
@@ -2100,13 +2251,19 @@ CheckInput.i_MM1K <- function(x, ...)
 MM1K_InitPn <- function(x)
 {
 
-  pn <- numeric()
+  # pn <- numeric()
   
   if (x$lambda == x$mu)
   {
-    pn[1:(x$k+1)] <- 1 / (x$k + 1)    
+    # pn[1:(x$k+1)] <- 1 / (x$k + 1)
+    pn <- rep(1 / (x$k + 1), x$k+1)
   }
-  else
+  else if (x$lambda < x$mu)
+  {
+    one_minus_u <- 1 - ( x$lambda / x$mu ) 
+    pn <- dgeom(0:x$k, one_minus_u)/pgeom(x$k, one_minus_u)
+  }
+  else # x$lambda > x$mu
   {
     pow <- function(e, b, k){k * (b^e)}
     u <- x$lambda / x$mu
@@ -2147,7 +2304,6 @@ QueueingModel.i_MM1K <- function(x, ...)
   Wq <- Lq / Throughput
   #Wqq <- Wq / RO
   Qn <- Pn[seq(1, x$k, 1)] / (1 - Pn[x$k+1])
-  dist <- function(i, t) { ppois(i, x$mu * t) }
   
   if (x$k == 1)
   {
@@ -2160,25 +2316,54 @@ QueueingModel.i_MM1K <- function(x, ...)
     Lqq <- Wqq * x$mu    
   }
      
-
   FW <- function(t){
-    aux <- function(i) { Qn[i] * dist(i-1, t) }
+    aux <- function(i) { Qn[i] * ppois(i-1, x$mu * t) }
     1 - sum(sapply(seq(1, x$k, 1), aux))
   }
 
-  FWq <- function(t){
-    aux <- function(i) { Qn[i+1] * dist(i-1, t) }
-    if (x$k-1 == 0)
-      0
-    else
-      1 - sum(sapply(seq(1, x$k-1, 1), aux))
+  if (x$k == 1)
+    FWq <- function(t){0}
+  else
+  {
+    FWq <- function(t){
+      aux <- function(i, t) { Qn[i+1] * ppois(i-1, x$mu * t) }
+      1 - sum(sapply(seq(1, x$k-1, 1), aux, t))
+    }
   }
 
+  # variances  
+  VN  <- sum( (0:x$k)^2 * Pn ) - (L^2)
+  
+  xFWc  <- Vectorize(function(t){t * (1 - FW(t))})
+  xFWqc <- Vectorize(function(t){t * (1 - FWq(t))})
 
+  FWInt  <- integrate(xFWc, 0, Inf)
+
+  if (FWInt$message == "OK")
+    VT <- (2 * FWInt$value) - (W^2) 
+  else
+    VT <- NA
+
+  if (x$k == 1)
+  {
+    VNq <- 0
+    VTq <- 0
+  }
+  else
+  {
+    VNq <- sum( c(0, 0, 1:(x$k-1))^2 * Pn ) - (Lq^2)
+    FWqInt <- integrate(xFWqc, 0, Inf)
+    
+    if (FWqInt$message == "OK")
+      VTq <- (2 * FWqInt$value) - (Wq^2) 
+    else
+      VTq <- NA
+  }
+   
   # The result
   res <- list(
-    Inputs=x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Wqq = Wqq,
-    Lqq = Lqq, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq)
+    Inputs=x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, VTq = VTq, Wqq = Wqq, Lqq = Lqq, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq)
 
   class(res) <- "o_MM1K"
   res
@@ -2186,11 +2371,15 @@ QueueingModel.i_MM1K <- function(x, ...)
 
 Inputs.o_MM1K     <- function(x, ...) { x$Inputs }
 L.o_MM1K          <- function(x, ...) { x$L }
+VN.o_MM1K         <- function(x, ...) { x$VN }
 W.o_MM1K          <- function(x, ...) { x$W }
+VT.o_MM1K         <- function(x, ...) { x$VT }
 RO.o_MM1K         <- function(x, ...) { x$RO }
 Lq.o_MM1K         <- function(x, ...) { x$Lq }
+VNq.o_MM1K        <- function(x, ...) { x$VNq }
 Lqq.o_MM1K        <- function(x, ...) { x$Lqq }
 Wq.o_MM1K         <- function(x, ...) { x$Wq }
+VTq.o_MM1K        <- function(x, ...) { x$VTq }
 Wqq.o_MM1K        <- function(x, ...) { x$Wqq }
 Pn.o_MM1K         <- function(x, ...) { x$Pn }
 Qn.o_MM1K         <- function(x, ...) { x$Qn }
@@ -2282,17 +2471,17 @@ MMCK_InitPn <- function(x)
 	else
 		p0 <- 1 / (acum + (prod * ((1 - ro^(x$k - x$c + 1)) / (1 - ro))))
 
- # from c+1 to k
- i <- x$c + 1
+  # from c+1 to k
+  i <- x$c + 1
 
- while (i <= x$k)
- {
-   prod <- prod * u/x$c
-   pn[i+1] <- prod
-   i <- i + 1
- }
+  while (i <= x$k)
+  {
+    prod <- prod * u/x$c
+    pn[i+1] <- prod
+    i <- i + 1
+  }
 
- p0 * pn
+  p0 * pn
 }
 
 
@@ -2322,8 +2511,6 @@ QueueingModel.i_MMCK <- function(x, ...)
 
   Throughput <- x$lambda * (1 - Pn[x$k+1])
 
-  #@@@
-  # To comment to teacher's book
   L <- Lq + (Throughput / x$mu)
 
   RO <- Throughput / (x$mu * x$c)
@@ -2342,27 +2529,41 @@ QueueingModel.i_MMCK <- function(x, ...)
     Lqq <- Wqq * (x$c * x$mu)
   }
 
-  dist <- function(n) { ppois(n, x$c * x$mu * t) }
+  auxFwq <- function(n, t) { Qn[n] * ppois(n-x$c-1, x$c * x$mu * t) }
 
-  FW <- function(t){    
-    aux <- function(n) { Qn[n+x$c-1] * dist(n-1) }
-    1 - sum(sapply(seq(1, x$k-x$c+1, 1), aux))
-  }
+  if (x$c == x$k)
+    FWq <- 0
+  else
+    FWq <- function(t){
+      1 - sum(sapply(seq(x$c+1, x$k, 1), auxFwq, t))
+    }
 
-  FWq <- function(t){
-    aux <- function(n) { Qn[n+x$c] * dist(n-1) }
-   
-    if (x$c == x$k)
-      0
+  # variances
+  VN  <- sum( (0:x$k)^2 * Pn ) - (L^2)
+
+  if (x$c == x$k)
+    VNq <- 0
+  else
+    VNq <- sum( ( c( rep(0, x$c+1), 1:(x$k-x$c) )^2 * Pn) - (Lq^2) )
+
+  xFWqc <- function(t){Vectorize(t * (1 - FWq(t)))}
+
+  if (x$c == x$k)
+    VTq <- 0
+  else
+  {
+    FWqInt  <- integrate(xFWqc, 0, Inf)
+    
+    if (FWqInt$message == "OK")
+      VTq <- (2 * FWqInt$value) - (Wq^2) 
     else
-      1 - sum(sapply(seq(1, x$k-x$c, 1), aux))
+      VTq <- NA
   }
-
-
+  
   # The result
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
+    Inputs = x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, Lqq = Lqq, Wqq = Wqq, Pn = Pn, Qn = Qn, FWq = FWq
   )
 
   class(res) <- "o_MMCK"
@@ -2372,11 +2573,14 @@ QueueingModel.i_MMCK <- function(x, ...)
 
 Inputs.o_MMCK     <- function(x, ...) { x$Inputs }
 L.o_MMCK          <- function(x, ...) { x$L }
+VN.o_MMCK         <- function(x, ...) { x$VN }
 W.o_MMCK          <- function(x, ...) { x$W }
 RO.o_MMCK         <- function(x, ...) { x$RO }
 Lq.o_MMCK         <- function(x, ...) { x$Lq }
+VNq.o_MMCK        <- function(x, ...) { x$VNq }
 Lqq.o_MMCK        <- function(x, ...) { x$Lqq }
 Wq.o_MMCK         <- function(x, ...) { x$Wq }
+VTq.o_MMCK        <- function(x, ...) { x$VTq }
 Wqq.o_MMCK        <- function(x, ...) { x$Wqq }
 Pn.o_MMCK         <- function(x, ...) { x$Pn }
 Qn.o_MMCK         <- function(x, ...) { x$Qn }
@@ -2385,7 +2589,7 @@ Throughput.o_MMCK <- function(x, ...) { x$Throughput }
 
 summary.o_MMCK <- function(object, ...)
 { 
-  summaryAux(object)  
+  summaryAux(object)
 }
 
 
@@ -2395,17 +2599,18 @@ summary.o_MMCK <- function(object, ...)
 ## truncated model, Erlang-B function #########################
 ###############################################################
 ###############################################################
-NewInput.MMCC <- function(lambda=0, mu=0, c=1)
+NewInput.MMCC <- function(lambda=0, mu=0, c=1, method=1)
 {
-  res <- list(lambda = lambda, mu = mu, c = c)
+  res <- list(lambda = lambda, mu = mu, c = c, method = method)
   class(res) <- "i_MMCC"
   res
 }
 
 CheckInput.i_MMCC <- function(x, ...)
 {
-  MMCC_class <- "the class of the object x has to be M/M/C/C (i_MMCC)"
+  MMCC_class     <- "the class of the object x has to be M/M/C/C (i_MMCC)"
   MMCC_anomalous <- "Some value of lambda, mu or c is anomalous. Check the values."
+  MMCC_method    <- "method variable has to be 0 to be definiton calculus, 1 to be exact calculus"
 
   if (class(x) != "i_MMCC")
     stop(MMCC_class)
@@ -2424,11 +2629,29 @@ CheckInput.i_MMCC <- function(x, ...)
 
   if (!is.wholenumber(x$c))
     stop(ALL_c_integer)
+
+  if (x$method != 0 && x$method != 1)
+   stop(MMCC_method)
 }
 
 
-
 MMCC_InitPn <- function(x)
+{
+  if (x$method == 0)
+    MMCC_InitPn_def(x)
+  else
+    MMCC_InitPn_exact(x) 
+}
+
+
+MMCC_InitPn_exact <- function(x)
+{
+  u <- x$lambda / x$mu  
+  tpoisson(0:x$c, x$c, u)  
+}
+
+
+MMCC_InitPn_def <- function(x)
 {
   pn <- numeric()
 
@@ -2484,10 +2707,17 @@ QueueingModel.i_MMCC <- function(x, ...)
 
   FWq <- function(t){0}
 
+  # variances
+  VN <- L - (aux * (1 - one_minus_b_erlang) * (x$c - L))
+  VT <- 1/(x$mu^2)
+
+  VNq <- 0
+  VTq <- 0
+ 
   # The result
   res <- list(
-    Inputs = x, RO = RO, Lq = Lq, Wq = Wq, Throughput = Throughput, L = L, W = W, Lqq = Lqq, Wqq = Wqq,
-    Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
+    Inputs = x, RO = RO, Lq = Lq, VNq = VNq, Wq = Wq, VTq = VTq, Throughput = Throughput,
+    L = L, VN = VN, W = W, VT = VT, Lqq = Lqq, Wqq = Wqq, Pn = Pn, Qn = Qn, FW = FW, FWq = FWq
   )
   
   class(res) <- "o_MMCC"
@@ -2497,10 +2727,14 @@ QueueingModel.i_MMCC <- function(x, ...)
 
 Inputs.o_MMCC     <- function(x, ...) { x$Inputs }
 L.o_MMCC          <- function(x, ...) { x$L }
+VN.o_MMCC         <- function(x, ...) { x$VN }
 W.o_MMCC          <- function(x, ...) { x$W }
+VT.o_MMCC         <- function(x, ...) { x$VT }
 RO.o_MMCC         <- function(x, ...) { x$RO }
 Lq.o_MMCC         <- function(x, ...) { x$Lq }
+VNq.o_MMCC        <- function(x, ...) { x$VNq }
 Wq.o_MMCC         <- function(x, ...) { x$Wq }
+VTq.o_MMCC        <- function(x, ...) { x$VTq }
 Lqq.o_MMCC        <- function(x, ...) { x$Lqq }
 Wqq.o_MMCC        <- function(x, ...) { x$Wqq }
 Pn.o_MMCC         <- function(x, ...) { x$Pn }
@@ -2755,10 +2989,8 @@ NewInput.CJN <- function(prob=NULL, n=0, z=0, operational=FALSE, method=0, tol=0
 }
 
 
-NewInput3.CJN <- function(number, think, numNodes, vType, vVisit, vService, vChannel, method=0, tol=0.001)
+NewInput3.CJN <- function(n, z, numNodes, vType, vVisit, vService, vChannel, method=0, tol=0.001)
 {
-  n           <- number
-  z           <- think
   prob        <- vVisit
   operational <- TRUE
   method      <- method

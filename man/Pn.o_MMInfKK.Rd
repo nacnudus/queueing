@@ -4,8 +4,8 @@
 \alias{Qn.o_MMInfKK}
 \title{Returns the probabilities of a M/M/Infinite/K/K queueing model}
 \description{
-  Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n clients.\cr
-  Qn returns the probabilities that an arrival that enter the system see n clients in it.
+  Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n customers.\cr
+  Qn returns the probabilities that an arrival that enter the system see n customers in it.
 }
 \usage{
   \method{Pn}{o_MMInfKK}(x, \dots)
@@ -16,8 +16,8 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n clients.\cr
-Qn returns the probabilities that an arrival that enter the system see n clients.}
+\details{Pn returns the probabilities that a M/M/Infinite/K/K queueing model has n customers.\cr
+Qn returns the probabilities that an arrival that enter the system see n customers.}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr

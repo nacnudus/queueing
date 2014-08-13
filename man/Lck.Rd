@@ -1,9 +1,9 @@
 % File man/Lck.Rd
 \name{Lck}
 \alias{Lck}
-\title{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Network}
+\title{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Network}
 \description{
-  Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Network
+  Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Network
 }
 
 \usage{
@@ -14,7 +14,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Network}
+\details{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Network}
 
 \references{
 

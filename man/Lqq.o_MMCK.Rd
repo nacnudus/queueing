@@ -1,9 +1,9 @@
 % File man/Lqq.o_MMCK.Rd
 \name{Lqq.o_MMCK}
 \alias{Lqq.o_MMCK}
-\title{Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model}
+\title{Returns the mean number of customers in queue when there is queue in the M/M/c/K queueing model}
 \description{
-  Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model
+  Returns the mean number of customers in queue when there is queue in the M/M/c/K queueing model
 }
 \usage{
   \method{Lqq}{o_MMCK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in queue when there is queue in the M/M/c/K queueing model}
+\details{Returns the mean number of customers in queue when there is queue in the M/M/c/K queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

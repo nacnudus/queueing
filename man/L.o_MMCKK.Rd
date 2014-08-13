@@ -1,9 +1,9 @@
 % File man/L.o_MMCKK.Rd
 \name{L.o_MMCKK}
 \alias{L.o_MMCKK}
-\title{Returns the mean number of clients in the M/M/c/K/K queueing model}
+\title{Returns the mean number of customers in the M/M/c/K/K queueing model}
 \description{
-  Returns the mean number of clients in the M/M/c/K/K queueing model
+  Returns the mean number of customers in the M/M/c/K/K queueing model
 }
 \usage{
   \method{L}{o_MMCKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the M/M/c/K/K queueing model}
+\details{Returns the mean number of customers in the M/M/c/K/K queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -33,7 +33,7 @@ i_mmckk <- NewInput.MMCKK(lambda=8, mu=2, c=5, k=12, method=0)
 ## Build the model
 o_mmckk <- QueueingModel(i_mmckk)
 
-## Retunns the L
+## Returns the L
 L(o_mmckk)
 }
 

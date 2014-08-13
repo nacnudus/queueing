@@ -1,9 +1,9 @@
 % File man/Lk.o_CJN.Rd
 \name{Lk.o_CJN}
 \alias{Lk.o_CJN}
-\title{Returns the vector with the mean number of clients in each node (server) of a Closed Jackson Network}
+\title{Returns the vector with the mean number of customers in each node (server) of a Closed Jackson Network}
 \description{
-  Returns the vector with the mean number of clients in each node (server) of a Closed Jackson Network
+  Returns the vector with the mean number of customers in each node (server) of a Closed Jackson Network
 }
 \usage{
   \method{Lk}{o_CJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients in each node (server) of a Closed Jackson Network}
+\details{Returns the vector with the mean number of customers in each node (server) of a Closed Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

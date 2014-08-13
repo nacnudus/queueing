@@ -1,9 +1,9 @@
 % File man/Lq.o_MMC.Rd
 \name{Lq.o_MMC}
 \alias{Lq.o_MMC}
-\title{Returns the mean number of clients in the queue in the M/M/c queueing model}
+\title{Returns the mean number of customers in the queue in the M/M/c queueing model}
 \description{
-  Returns the mean number of clients in the queue in the M/M/c queueing model
+  Returns the mean number of customers in the queue in the M/M/c queueing model
 }
 \usage{
   \method{Lq}{o_MMC}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the queue in the M/M/c queueing model}
+\details{Returns the mean number of customers in the queue in the M/M/c queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

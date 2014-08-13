@@ -1,9 +1,9 @@
 % File man/L.o_CJN.Rd
 \name{L.o_CJN}
 \alias{L.o_CJN}
-\title{Returns the mean number of clients of a Closed Jackson Network}
+\title{Returns the mean number of customers of a Closed Jackson Network}
 \description{
-  Returns the mean number of clients of a Closed Jackson Network
+  Returns the mean number of customers of a Closed Jackson Network
 }
 \usage{
   \method{L}{o_CJN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a Closed Jackson Network}
+\details{Returns the mean number of customers of a Closed Jackson Network}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

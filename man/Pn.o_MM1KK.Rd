@@ -5,7 +5,7 @@
 \title{Returns the probabilities of a M/M/1/K/K queueing model}
 \description{
   Pn eeturns the probabilities of a M/M/1/K/K queueing model
-  Qn returns the probabilities that an arrival that enter the system see n clients in it.
+  Qn returns the probabilities that an arrival that enter the system see n customers in it.
 }
 \usage{
   \method{Pn}{o_MM1KK}(x, \dots)
@@ -16,8 +16,8 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Pn returns the probabilities that a M/M/1/K/K queueing model has n clients.\cr
-Qn returns the probabilities that an arrival that enter the system see n clients.}
+\details{Pn returns the probabilities that a M/M/1/K/K queueing model has n customers.\cr
+Qn returns the probabilities that an arrival that enter the system see n customers.}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -33,7 +33,7 @@ Editorial Centro de Estudios Ramon Areces.
 \examples{
 ## See example 10.13 in reference [Sixto2004] for more details.
 ## create input parameters
-i_mm1kk <- NewInput.MM1KK(lambda=0.25, mu=4, k=2, method=0)
+i_mm1kk <- NewInput.MM1KK(lambda=0.25, mu=4, k=2, method=3)
 
 ## Build the model
 o_mm1kk <- QueueingModel(i_mm1kk)

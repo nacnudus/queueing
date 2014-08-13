@@ -1,9 +1,9 @@
 % File man/Lqq.Rd
 \name{Lqq}
 \alias{Lqq}
-\title{Returns the mean number of clients in queue when there is queue in a queueing model}
+\title{Returns the mean number of customers in queue when there is queue in a queueing model}
 \description{
-  Returns the mean number of clients in queue when there is queue in a queueing model
+  Returns the mean number of customers in queue when there is queue in a queueing model
 }
 \usage{
   Lqq(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in queue when there is queue in a queueing model}
+\details{Returns the mean number of customers in queue when there is queue in a queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr

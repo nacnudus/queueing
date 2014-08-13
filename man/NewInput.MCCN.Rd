@@ -7,11 +7,14 @@
 }
 
 \usage{
-  NewInput.MCCN(classes, vNumber, vThink, nodes, vType, vVisit, vService, method=1, tol=0.01)
+NewInput.MCCN(
+  classes, vNumber, vThink, nodes, vType, vVisit, vService, method=1, tol=0.01
+)
 }
+
 \arguments{
   \item{classes}{The number of classes}
-  \item{vNumber}{A vector with the number of clients of each class}
+  \item{vNumber}{A vector with the number of customers of each class}
   \item{vThink}{A vector with the think time of each class}
   \item{nodes}{The number of nodes in the network}
   \item{vType}{A vector with the type of node: "Q" for queueing nodes or "D" for delay nodes}

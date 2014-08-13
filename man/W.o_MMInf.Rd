@@ -1,7 +1,7 @@
 % File man/W.o_MMInf.Rd
 \name{W.o_MMInf}
 \alias{W.o_MMInf}
-\title{Returns the time spend of clients in the M/M/Infinite queueing model}
+\title{Returns the time spend in the M/M/Infinite queueing model}
 \description{
   Returns the mean time spend in the M/M/Infinite queueing model
 }

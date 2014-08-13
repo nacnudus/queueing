@@ -1,9 +1,9 @@
 % File man/Lk.o_MCON.Rd
 \name{Lk.o_MCON}
 \alias{Lk.o_MCON}
-\title{Returns a vector with the mean number of clients in each node (server) of a MultiClass Open Network}
+\title{Returns a vector with the mean number of customers in each node (server) of a MultiClass Open Network}
 \description{
-  Returns a vector with the mean number of clients in each node (server) of a MultiClass Open Network
+  Returns a vector with the mean number of customers in each node (server) of a MultiClass Open Network
 }
 \usage{
   \method{Lk}{o_MCON}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns a vector with the mean number of clients in each node (server) of a MultiClass Open Network}
+\details{Returns a vector with the mean number of customers in each node (server) of a MultiClass Open Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

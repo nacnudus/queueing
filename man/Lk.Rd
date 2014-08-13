@@ -1,9 +1,9 @@
 % File man/Lk.Rd
 \name{Lk}
 \alias{Lk}
-\title{Returns the vector with the mean number of clients in each node (server) of a queueing network}
+\title{Returns the vector with the mean number of customers in each node (server) of a queueing network}
 \description{
-  Returns the vector with the mean number of clients in each node (server) of a queueing network
+  Returns the vector with the mean number of customers in each node (server) of a queueing network
 }
 \usage{
   Lk(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients in each node (server) of a queueing network}
+\details{Returns the vector with the mean number of customers in each node (server) of a queueing network}
 
 \references{
 

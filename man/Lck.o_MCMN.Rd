@@ -1,9 +1,9 @@
 % File man/Lck.o_MCMN.Rd
 \name{Lck.o_MCMN}
 \alias{Lck.o_MCMN}
-\title{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Mixed Network}
+\title{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Mixed Network}
 \description{
-  Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Mixed Network
+  Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Mixed Network
 }
 \usage{
   \method{Lck}{o_MCMN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Reports a matrix with the mean number of clients of class i in each node (server) j in a MultiClass Mixed Network}
+\details{Reports a matrix with the mean number of customers of class i in each node (server) j in a MultiClass Mixed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

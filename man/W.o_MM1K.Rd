@@ -1,7 +1,7 @@
 % File man/W.o_MM1K.Rd
 \name{W.o_MM1K}
 \alias{W.o_MM1K}
-\title{Returns the mean time spend of clients in the M/M/1/K queueing model}
+\title{Returns the mean time spend in the M/M/1/K queueing model}
 \description{
   Returns the mean time spend in the M/M/1/K queueing model
 }

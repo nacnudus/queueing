@@ -1,9 +1,9 @@
 % File man/L.o_MMInf.Rd
 \name{L.o_MMInf}
 \alias{L.o_MMInf}
-\title{Returns the mean number of clients in the M/M/Infinite queueing model}
+\title{Returns the mean number of customers in the M/M/Infinite queueing model}
 \description{
-  Returns the mean number of clients in the M/M/Infinite queueing model
+  Returns the mean number of customers in the M/M/Infinite queueing model
 }
 \usage{
   \method{L}{o_MMInf}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the M/M/Infinite queueing model}
+\details{Returns the mean number of customers in the M/M/Infinite queueing model}
 
 \references{
   [Sixto2004] Sixto Rios Insua, Alfonso Mateos Caballero, M Concepcion Bielza Lozoya, Antonio Jimenez Martin (2004).\cr
@@ -33,7 +33,7 @@ i_mminf <- NewInput.MMInf(lambda=0.25, mu=4, n=0)
 ## Build the model
 o_mminf <- QueueingModel(i_mminf)
 
-## Retunns the L
+## Returns the L
 L(o_mminf)
 }
 

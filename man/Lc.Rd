@@ -1,9 +1,9 @@
 % File man/Lc.Rd
 \name{Lc}
 \alias{Lc}
-\title{Returns the vector with the mean number of clients of each class in a multiclass queueing network}
+\title{Returns the vector with the mean number of customers of each class in a multiclass queueing network}
 \description{
-  Returns the vector with the mean number of clients of each class in a multiclass queueing network
+  Returns the vector with the mean number of customers of each class in a multiclass queueing network
 }
 \usage{
   Lc(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients of each class in a multiclass queueing network}
+\details{Returns the vector with the mean number of customers of each class in a multiclass queueing network}
 
 \references{
 

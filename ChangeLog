@@ -1,6 +1,18 @@
+2014-08-20 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Fixed an error on pdf explaining Wqq and Lqq.
+    * Fixed notes as cran reported it.
+    * Included a new method to get the M/M/c/c probabilities. It has been taken from [Kobayashi2012], pag. 709. It gets more probabilities that the exact method, and in lesser time than the approximate method. For large sites, it is the recomended method. All examples of M/M/c/c model has been changed to this way.
+    * Variances has been included in the basic models. For models M/M/c/K, M/M/c/K/K and M/M/c/K/m, variances respect the time in system are not inluded. Nor the variance respect the waiting time has been calculated for M/M/c/K/m model.
+    * To obtain the pn in the M/M/1/K model for high values of k and in case that lambda < mu, dgeom and pgeom has been used to speedup the process. In the case of lambda > mu, it persists the numerical overflow for high values of k.
+    * FW for models M/M/c/K, M/M/c/K/m and M/M/c/K has been removed. FWq also has been removed for M/M/c/K/m.
+
+2013-11-02 Pedro Canadilla <pedro.canadilla@gmail.com>
+    * Included a new method to get the M/M/1/K/K probabilities. It has been taken from [Kobayashi2012], pag. 709. It gets more probabilities that the exact method, and in lesser time than the approximate method. For large sites, it is the recomended method. All examples of M/M/1/K/K model has been changed to this way.
+    * Fixed typos in the documentation (including the paper). Word "client" has been replaced by "customer".
+
 2013-02-24 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Included a new method to get the M/M/1/K/K and M/M/C/K/K probabilities. It has been taken from [Jain2007], pag. 26. It gets more probabilities that the exact method, but in more time than the approximate method. In my computer, for the M/M/1/K/K, the value 336 is the absolute value for the k parameter in which the new method and the approximate method gets values. Profiling the code, maybe I can give more performance to Jain's Method using other techniques.
-    * Fixed typos and suggestions given to me by See Chuen-Teck in the documentation pdf explaining the Wqq and Lqq formulae included in the package. Also I thank Alvaro Mayol and Alfonso Mateos for read the paper.
+    * Fixed typos and suggestions given to me by See Chuen-Teck in the documentation pdf explaining the Wqq and Lqq formulae included in the package. Also I thank Alvaro Mayol and Alfonso Mateos for reading the paper.
 
 2013-01-27 Pedro Canadilla <pedro.canadilla@gmail.com>
     * Fixed typos in the SP help pages.

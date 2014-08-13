@@ -1,9 +1,9 @@
 % File man/Lk.o_MCCN.Rd
 \name{Lk.o_MCCN}
 \alias{Lk.o_MCCN}
-\title{Returns a vector with the mean number of clients in each node (server) of a MultiClass Closed Network}
+\title{Returns a vector with the mean number of customers in each node (server) of a MultiClass Closed Network}
 \description{
-  Returns a vector with the mean number of clients in each node (server) of a MultiClass Closed Network
+  Returns a vector with the mean number of customers in each node (server) of a MultiClass Closed Network
 }
 \usage{
   \method{Lk}{o_MCCN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns a vector with the mean number of clients in each node (server) of a MultiClass Closed Network}
+\details{Returns a vector with the mean number of customers in each node (server) of a MultiClass Closed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

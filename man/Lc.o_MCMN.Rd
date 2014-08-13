@@ -1,9 +1,9 @@
 % File man/Lc.o_MCMN.Rd
 \name{Lc.o_MCMN}
 \alias{Lc.o_MCMN}
-\title{Returns the vector with the mean number of clients of each class in a MultiClass Mixed Network}
+\title{Returns the vector with the mean number of customers of each class in a MultiClass Mixed Network}
 \description{
-  Returns the vector with the mean number of clients of each class in a MultiClass Mixed Network
+  Returns the vector with the mean number of customers of each class in a MultiClass Mixed Network
 }
 \usage{
   \method{Lc}{o_MCMN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the vector with the mean number of clients of each class in a MultiClass Mixed Network}
+\details{Returns the vector with the mean number of customers of each class in a MultiClass Mixed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

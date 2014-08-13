@@ -1,9 +1,9 @@
 % File man/L.o_MCON.Rd
 \name{L.o_MCON}
 \alias{L.o_MCON}
-\title{Returns the mean number of clients of a MultiClass Open Network}
+\title{Returns the mean number of customers of a MultiClass Open Network}
 \description{
-  Returns the mean number of clients of a MultiClass Open Network
+  Returns the mean number of customers of a MultiClass Open Network
 }
 \usage{
   \method{L}{o_MCON}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients of a MultiClass Open Network}
+\details{Returns the mean number of customers of a MultiClass Open Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr

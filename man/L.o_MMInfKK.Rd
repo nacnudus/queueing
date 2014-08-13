@@ -1,9 +1,9 @@
 % File man/L.o_MMInfKK.Rd
 \name{L.o_MMInfKK}
 \alias{L.o_MMInfKK}
-\title{Returns the mean number of clients in the M/M/Infinite/K/K queueing model}
+\title{Returns the mean number of customers in the M/M/Infinite/K/K queueing model}
 \description{
-  Returns the mean number of clients in the M/M/Infinite/K/K queueing model
+  Returns the mean number of customers in the M/M/Infinite/K/K queueing model
 }
 \usage{
   \method{L}{o_MMInfKK}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns the mean number of clients in the M/M/Infinite/K/K queueing model}
+\details{Returns the mean number of customers in the M/M/Infinite/K/K queueing model}
 
 \references{
   [Kleinrock1975] Leonard Kleinrock (1975).\cr
@@ -33,7 +33,7 @@ i_MMInfKK <- NewInput.MMInfKK(lambda=0.25, mu=4, k=4)
 ## Build the model
 o_MMInfKK <- QueueingModel(i_MMInfKK)
 
-## Retunns the L
+## Returns the L
 L(o_MMInfKK)
 }
 

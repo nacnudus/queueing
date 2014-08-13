@@ -1,9 +1,9 @@
 % File man/Lk.o_MCMN.Rd
 \name{Lk.o_MCMN}
 \alias{Lk.o_MCMN}
-\title{Returns a vector with the mean number of clients in each node (server) of a MultiClass Mixed Network}
+\title{Returns a vector with the mean number of customers in each node (server) of a MultiClass Mixed Network}
 \description{
-  Returns a vector with the mean number of clients in each node (server) of a MultiClass Mixed Network
+  Returns a vector with the mean number of customers in each node (server) of a MultiClass Mixed Network
 }
 \usage{
   \method{Lk}{o_MCMN}(x, \dots)
@@ -13,7 +13,7 @@
   \item{\dots}{aditional arguments}
 }
 
-\details{Returns a vector with the mean number of clients in each node (server) of a MultiClass Mixed Network}
+\details{Returns a vector with the mean number of customers in each node (server) of a MultiClass Mixed Network}
 
 \references{
   [Lazowska84] Edward D. Lazowska, John Zahorjan, G. Scott Graham, and Kenneth C. Sevcik (1984).\cr
