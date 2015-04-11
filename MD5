@@ -1,8 +1,8 @@
-e2160753b7b07c981a39f9c584fd2700 *ChangeLog
-fc4a95ec48f585f8ea7ba297fc3d3dfd *DESCRIPTION
+12ff7e0bdf142e3b934dd4b27494e533 *ChangeLog
+bd0770f053e01a41b01b1cecb43ac104 *DESCRIPTION
 93a49b37663e89e94f888a08ecb3c6a9 *NAMESPACE
 e5cd2dcf18cbc244ccfddd634d122716 *R/queueing.R
-e2bd3c8c31db3f361336c1c6fad0fc96 *inst/CITATION
+0ca99f9f554bd37f5e8894cd8a1f763b *inst/CITATION
 c82af99b92167b693a5375260146a094 *inst/doc/Little_Law_When_Queue_Exists.pdf
 27be89fe075cf66e398cea1558d62e0d *inst/doc/index.html
 00b23f8756df71d831e447f277184c04 *man/B_erlang.Rd
