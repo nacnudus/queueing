@@ -3201,7 +3201,7 @@ QueueingModelExact <- function(x, ...)
     while (k <= num_nodes)
     {
       if (class(x$nodes[[k]]) == "i_MMInf")
-        Wk[k] <-  x$nodes[[k]]$mu
+        Wk[k] <-  1/x$nodes[[k]]$mu
       else
       {
         if (class(x$nodes[[k]]) == "i_MM1" ||
